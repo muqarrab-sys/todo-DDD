@@ -28,6 +28,11 @@ class MongoAdopter extends DatabaseAdopter {
   }
 
   private setDbUrl() {
+    if (this.configs.url) {
+      this.url = this.configs.url;
+      return;
+    }
+
     const options = {
       retryWrites: true,
       w: 'majority',
