@@ -1,15 +1,14 @@
+import userModel from '@infra/models/user.model';
 import Email from '../shared/objects/Email';
 import Password from '../shared/objects/Password';
-import { IGender, IUser, UserDoc } from './types';
-import userModel from '@infra/models/user.model';
-import UserService from './user.service';
+import { GenderEnum, IUser, UserDoc } from './types';
 
 class User implements IUser {
   id: string;
   name: string;
   email: Email;
   password: Password;
-  gender: IGender;
+  gender: GenderEnum;
   dob: Date;
 
   private model: typeof userModel;

@@ -3,14 +3,18 @@ import Password from '@/domain/shared/objects/Password';
 import { Omit } from 'lodash';
 import { Document } from 'mongoose';
 
-export declare type IGender = 'MALE' | 'FEMALE' | 'OTHER';
+export declare enum GenderEnum {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+  OTHER = 'OTHER',
+}
 
 export declare interface IUser {
   id?: string;
   name: string;
   email: Email;
   password: Password;
-  gender: IGender;
+  gender: GenderEnum;
   dob: Date;
 }
 
