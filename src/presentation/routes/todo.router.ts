@@ -1,7 +1,7 @@
 import { TodoCreationDto } from '@/domain/todo/dtos/todo.dto';
 import TodoController from '../controllers/todo.controller';
 import validationMiddleware from '../middleware/validation.middleware';
-import AuthorizedRouter from './AuthorizedRouter';
+import AuthorizedRouter from './base/AuthorizedRouter';
 
 class TodoRouter extends AuthorizedRouter<TodoController> {
   constructor(path: string) {

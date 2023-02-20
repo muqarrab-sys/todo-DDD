@@ -1,4 +1,4 @@
-import BaseController from './BaseController';
+import BaseController from './base/BaseController';
 
 class UserController extends BaseController {}
 

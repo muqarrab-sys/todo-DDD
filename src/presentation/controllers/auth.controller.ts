@@ -3,7 +3,7 @@ import { UserCredentialsDto } from '@/domain/auth/dtos/auth.dtos';
 import { UserCreationDto } from '@/domain/user/dtos/user.dtos';
 import UserService from '@domain/user/user.service';
 import { IHandler } from '@presentation/interfaces/express';
-import BaseController from './BaseController';
+import BaseController from './base/BaseController';
 
 class AuthController extends BaseController {
   userService: UserService;

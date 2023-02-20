@@ -1,5 +1,5 @@
 import UserController from '@presentation/controllers/user.controller';
-import AuthorizedRouter from './AuthorizedRouter';
+import AuthorizedRouter from './base/AuthorizedRouter';
 
 class UserRouter extends AuthorizedRouter<UserController> {
   constructor(path: string) {
@@ -7,9 +7,9 @@ class UserRouter extends AuthorizedRouter<UserController> {
   }
 
   protected routes(): void {
-    this.get('', (req, res, next) => {
-      res.send('hello');
-    });
+    // this.get('', (req, res, next) => {
+    //   res.send('hello');
+    // });
   }
 }
 
