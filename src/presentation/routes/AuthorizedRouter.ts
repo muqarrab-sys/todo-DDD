@@ -2,7 +2,7 @@ import BaseController from '@presentation/controllers/BaseController';
 import BaseRouter, { Call } from './BaseRouter';
 
 abstract class AuthorizedRouter<T = BaseController> extends BaseRouter {
-  constructor(private readonly controller: T, private readonly path: string) {
+  constructor(protected readonly controller: T, protected readonly path: string) {
     super(controller, path);
   }
 

@@ -16,7 +16,7 @@ export default abstract class BaseRouter<T = BaseController> {
   private baseRoute: string;
   protected router: IRouter = express.Router();
 
-  constructor(protected readonly controller: T, private readonly path: string = '') {
+  constructor(protected readonly controller: T, protected readonly path: string = '') {
     let baseName = this.constructor.name.replace('Router', '').toLowerCase();
     baseName = baseName === 'index' ? '' : baseName;
     this.baseRoute = path + (path ? `${baseName}` : baseName);
@@ -43,7 +43,7 @@ export default abstract class BaseRouter<T = BaseController> {
     handlers[handlers.length - 1] = tryCatchWrapper(handlers[handlers.length - 1]);
 
     if (options?.secured) {
-        // handlers = [authenticationMiddleware, ...handlers];
+      // handlers = [authenticationMiddleware, ...handlers];
     }
 
     console.info(`${method.toUpperCase()}: ${this.parseEndPoint(path)}`);
