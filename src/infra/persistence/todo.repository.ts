@@ -1,8 +1,9 @@
-import Todo, { ITodo } from '@/domain/todo/todo.model';
+import { ITodoCreation } from '@/domain/todo/types';
+import Todo from '@/infra/models/todo.model';
 import { QueryOptions } from 'mongoose';
 
 class TodoRepository {
-  async create(todoObj: ITodo) {
+  async create(todoObj: ITodoCreation) {
     const todo = new Todo(todoObj);
     return await todo.save();
   }
@@ -15,7 +16,7 @@ class TodoRepository {
     return await Todo.findById(id);
   }
 
-  async update(id: string, todoObj: ITodo, options?: QueryOptions<ITodo>) {
+  async update(id: string, todoObj: ITodoCreation, options?: QueryOptions<ITodoCreation>) {
     return await Todo.findByIdAndUpdate(id, todoObj, options);
   }
 

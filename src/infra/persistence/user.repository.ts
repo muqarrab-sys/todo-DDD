@@ -1,8 +1,9 @@
 import { QueryOptions } from 'mongoose';
-import User, { IUser } from '@domain/user/user.model';
+import { IUserModel } from '@/domain/user/types';
+import User from '@infra/models/user.model';
 
 class UserRepository {
-  async create(userObj: IUser) {
+  async create(userObj: IUserModel) {
     const user = new User(userObj);
     return await user.save();
   }
@@ -15,7 +16,7 @@ class UserRepository {
     return await User.findOne({ email });
   }
 
-  async update(id: string, userObj: IUser, options: QueryOptions<IUser>) {
+  async update(id: string, userObj: IUserModel, options: QueryOptions<IUserModel>) {
     return await User.findByIdAndUpdate(id, userObj, options);
   }
 

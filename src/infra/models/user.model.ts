@@ -1,18 +1,8 @@
 import { model, Schema } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
+import { IUserModel } from '../../domain/user/types';
 
-export type IGender = 'MALE' | 'FEMALE' | 'OTHER';
-
-export interface IUser {
-  _id?: string;
-  name: string;
-  email: string;
-  password: string;
-  gender: IGender;
-  dob: Date;
-}
-
-const userSchema = new Schema<IUser>({
+const userSchema = new Schema<IUserModel>({
   _id: { type: String, default: uuidv4() },
   name: { type: String, required: true },
   email: { type: String, required: true },
@@ -21,4 +11,4 @@ const userSchema = new Schema<IUser>({
   dob: Date,
 });
 
-export default model<IUser>('User', userSchema);
+export default model<IUserModel>('User', userSchema);

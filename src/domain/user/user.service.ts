@@ -1,6 +1,6 @@
 import UserRepository from '@infra/persistence/user.repository';
 import { UserCreationDto } from './dtos/user.dtos';
-import { IUser } from './user.model';
+import { IUserModel } from './types';
 
 class UserService {
   private repository: UserRepository;
@@ -13,7 +13,7 @@ class UserService {
     const user = await this.repository.findByEmail(userObj.email.value);
     if (user) throw new Error('User already exists');
 
-    const params: IUser = {
+    const params: IUserModel = {
       email: userObj.email.value,
       name: userObj.name,
       gender: userObj.gender,
@@ -24,6 +24,10 @@ class UserService {
     params.password = await userObj.password.encode();
 
     return await this.repository.create(params);
+  }
+
+  async findById(id: string) {
+    return await this.repository.findById(id);
   }
 }
 

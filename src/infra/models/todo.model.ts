@@ -1,15 +1,8 @@
 import { model, Schema } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
+import { ITodoModel } from '../../domain/todo/types';
 
-export interface ITodo {
-  _id?: string;
-  title: string;
-  description: string;
-  userId: string;
-  active: boolean;
-}
-
-const todoSchema = new Schema<ITodo>({
+const todoSchema = new Schema<ITodoModel>({
   _id: { type: String, default: uuidv4() },
   title: String,
   description: String,
@@ -17,4 +10,4 @@ const todoSchema = new Schema<ITodo>({
   active: { type: Boolean, default: true },
 });
 
-export default model<ITodo>('Todo', todoSchema);
+export default model<ITodoModel>('Todo', todoSchema);
