@@ -11,10 +11,6 @@ export declare interface ITodo {
 
 export interface ITodoModel extends Omit<ITodo, 'id'> {
   _id?: string;
-  title: string;
-  description: string;
-  userId: string;
-  active: boolean;
 }
 
 export type TodoDoc = Document<string, any, ITodo> & ITodo;

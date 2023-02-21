@@ -1,8 +1,8 @@
 import { IUserModel } from '@domain/user/types';
-import { model, Schema } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
+import ModelFactory from './ModelFactory';
 
-const userSchema = new Schema<IUserModel>({
+const model = new ModelFactory<IUserModel>('User', {
   _id: { type: String, default: uuidv4() },
   name: { type: String, required: true },
   email: { type: String, required: true },
@@ -11,4 +11,4 @@ const userSchema = new Schema<IUserModel>({
   dob: Date,
 });
 
-export default model<IUserModel>('User', userSchema);
+export default model.create();

@@ -1,27 +1,32 @@
-import { ITodoCreation } from '@/domain/todo/types';
+import { ITodoModel } from '@/domain/todo/types';
 import Todo from '@/infra/persistence/models/todo.model';
 import { QueryOptions } from 'mongoose';
+import BaseRepository from './base/BaseRepository';
 
-class TodoRepository {
-  async create(todoObj: ITodoCreation) {
-    const todo = new Todo(todoObj);
+class TodoRepository extends BaseRepository<ITodoModel> {
+  constructor() {
+    super(Todo);
+  }
+
+  async create(todoObj: ITodoModel) {
+    const todo = new this.model(todoObj);
     return await todo.save();
   }
 
+  async find(id: string) {
+    return await this.model.findById(id);
+  }
+
   async findByUserId(userId: string) {
-    return await Todo.where({ userId });
+    return await this.model.where({ userId });
   }
 
-  async findById(id: string) {
-    return await Todo.findById(id);
-  }
-
-  async update(id: string, todoObj: ITodoCreation, options?: QueryOptions<ITodoCreation>) {
-    return await Todo.findByIdAndUpdate(id, todoObj, options);
+  async update(id: string, todoObj: ITodoModel, options?: QueryOptions<ITodoModel>) {
+    return await this.model.findByIdAndUpdate(id, todoObj, options);
   }
 
   async delete(id: string) {
-    return await Todo.findByIdAndDelete(id);
+    return await this.model.findByIdAndDelete(id);
   }
 }
 
