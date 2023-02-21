@@ -1,6 +1,6 @@
+import { ITodoModel } from '@domain/todo/types';
 import { model, Schema } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import { ITodoModel } from '../../domain/todo/types';
 
 const todoSchema = new Schema<ITodoModel>({
   _id: { type: String, default: uuidv4() },

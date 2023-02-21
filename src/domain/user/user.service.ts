@@ -1,4 +1,4 @@
-import UserRepository from '@infra/persistence/user.repository';
+import UserRepository from '@infra/persistence/repositories/user.repository';
 import { UserCreationDto } from './dtos/user.dtos';
 import { IUserModel } from './types';
 

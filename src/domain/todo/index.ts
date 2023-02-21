@@ -8,7 +8,6 @@ class Todo implements ITodo {
   userId: string;
   active: boolean;
 
-  private model: TodoDoc;
   private service: TodoService;
 
   constructor(obj: TodoDoc) {
@@ -17,7 +16,6 @@ class Todo implements ITodo {
     this.description = obj.description;
     this.userId = obj.userId;
     this.active = obj.active;
-    this.model = obj;
 
     this.service = new TodoService();
   }

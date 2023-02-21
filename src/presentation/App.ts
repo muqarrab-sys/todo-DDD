@@ -1,7 +1,7 @@
 import express, { NextFunction, Response } from 'express';
-import DatabaseAdopter from '@/infra/database/database.adopter';
+import DatabaseAdopter from '@/infra/persistence/database/database.adopter';
 import { Req } from './interfaces/express';
-import BaseRouter from './routes/BaseRouter';
+import BaseRouter from './routes/base/BaseRouter';
 
 class App {
   private port: string | number;

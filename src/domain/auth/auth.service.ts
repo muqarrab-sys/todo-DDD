@@ -1,4 +1,4 @@
-import UserRepository from '@/infra/persistence/user.repository';
+import UserRepository from '@/infra/persistence/repositories/user.repository';
 import { UserCredentialsDto } from './dtos/auth.dtos';
 
 class AuthService {

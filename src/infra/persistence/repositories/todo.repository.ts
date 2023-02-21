@@ -1,5 +1,5 @@
 import { ITodoCreation } from '@/domain/todo/types';
-import Todo from '@/infra/models/todo.model';
+import Todo from '@/infra/persistence/models/todo.model';
 import { QueryOptions } from 'mongoose';
 
 class TodoRepository {

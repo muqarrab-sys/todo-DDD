@@ -1,4 +1,4 @@
-import TodoRepository from '@/infra/persistence/todo.repository';
+import TodoRepository from '@/infra/persistence/repositories/todo.repository';
 import { ITodoCreation } from './types';
 
 class TodoService {

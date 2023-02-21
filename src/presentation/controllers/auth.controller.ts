@@ -29,7 +29,7 @@ class AuthController extends BaseController {
 
     const user = await this.authService.login(userCreds);
 
-    res.status(201).json(user);
+    res.status(200).json(user);
   };
 }
 

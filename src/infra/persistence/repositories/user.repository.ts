@@ -1,6 +1,6 @@
-import { QueryOptions } from 'mongoose';
 import { IUserModel } from '@/domain/user/types';
-import User from '@infra/models/user.model';
+import User from '@infra/persistence/models/user.model';
+import { QueryOptions } from 'mongoose';
 
 class UserRepository {
   async create(userObj: IUserModel) {

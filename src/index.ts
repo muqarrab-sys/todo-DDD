@@ -2,7 +2,7 @@ require('dotenv').config();
 import 'reflect-metadata';
 import App from './presentation/App';
 import RoutesAdopter from './presentation/routes/Routes.adopter';
-import MongooseAdopter from './infra/database/mongoose/mongoose.adopter';
+import MongooseAdopter from './infra/persistence/database/mongoose/mongoose.adopter';
 import dbConfigs from './infra/configs/database';
 
 async function init() {

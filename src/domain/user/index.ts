@@ -1,4 +1,3 @@
-import userModel from '@infra/models/user.model';
 import Email from '../shared/objects/Email';
 import Password from '../shared/objects/Password';
 import { GenderEnum, IUser, UserDoc } from './types';
@@ -10,8 +9,6 @@ class User implements IUser {
   password: Password;
   gender: GenderEnum;
   dob: Date;
-
-  private model: typeof userModel;
 
   constructor(userObj: UserDoc) {
     this.id = userObj._id;
