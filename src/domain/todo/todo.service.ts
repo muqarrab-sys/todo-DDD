@@ -13,7 +13,7 @@ class TodoService {
   }
 
   async findById(id: string) {
-    return await this.repository.findById(id);
+    return await this.repository.find(id);
   }
 
   async findByUserId(userId: string) {
