@@ -11,10 +11,10 @@ Preparation:
 Refactor Phase 1:
 --- 
 
-- [ ] Refactor the code to adapt following features from 12 Factor Apps.
-    - [ ] Codebase
-    - [ ] Dependencies
-    - [ ] Config
+- [x] Refactor the code to adapt following features from 12 Factor Apps.
+    - [x] Codebase
+    - [x] Dependencies
+    - [x] Config
 - [ ] Create domain layer and refactor your code to house entities and utilize factory pattern for todo and users.
 - [ ] Create a physical store like API on top of the mongoose model using an adapter pattern.
 - [ ] Implement Google Auth for login, using google nodejs client.
