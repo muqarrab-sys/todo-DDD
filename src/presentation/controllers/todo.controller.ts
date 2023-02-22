@@ -1,10 +1,13 @@
 import TodoService from '@/domain/todo/todo.service';
 import { IHandler } from '../interfaces/express';
+import BaseController from './base/BaseController';
 
-class TodoController {
+class TodoController extends BaseController {
   todoService: TodoService;
 
   constructor() {
+    super();
+
     this.todoService = new TodoService();
   }
 
