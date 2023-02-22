@@ -9,8 +9,9 @@ class TodoRouter extends AuthorizedRouter<TodoController> {
   }
 
   protected routes(): void {
-      this.post('/', validationMiddleware(TodoCreationDto), this.controller.create);
-      this.get('/:id', this.controller.find);
+    this.post('/', validationMiddleware(TodoCreationDto), this.controller.create);
+    this.get('/:id', this.controller.find);
+    this.get('/user/:userId', this.controller.findByUserId);
   }
 }
 

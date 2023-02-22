@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import App from './presentation/App';
 import RoutesAdopter from './presentation/routes/Routes.adopter';
 import MongooseAdopter from './infra/persistence/database/mongoose/mongoose.adopter';
-import dbConfigs from './infra/configs/database';
+import dbConfigs from '@infra/persistence/database/configs';
 
 async function init() {
   const app = new App();

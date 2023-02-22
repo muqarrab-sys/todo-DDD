@@ -1,6 +1,6 @@
 import UserRepository from '@infra/persistence/repositories/user.repository';
-import { UserCreationDto } from './dtos/user.dtos';
-import { IUserModel } from './types';
+import { UserCredentialsDto } from './dtos/user.dtos';
+import { IUserCreation, IUserModel } from './types';
 
 class UserService {
   private repository: UserRepository;
@@ -9,7 +9,7 @@ class UserService {
     this.repository = new UserRepository();
   }
 
-  async register(userObj: UserCreationDto) {
+  async register(userObj: IUserCreation) {
     const user = await this.repository.findByEmail(userObj.email.value);
     if (user) throw new Error('User already exists');
 
@@ -26,7 +26,17 @@ class UserService {
     return await this.repository.create(params);
   }
 
-  async findById(id: string) {
+  async login(userCreds: UserCredentialsDto) {
+    const user = await this.repository.findByEmail(userCreds.email.value);
+    if (!user) throw new Error('User not found');
+
+    const matchPassword = userCreds.password.compare(user.password);
+    if (!matchPassword) throw new Error('Wrong password');
+
+    return user;
+  }
+
+  async find(id: string) {
     return await this.repository.find(id);
   }
 }
