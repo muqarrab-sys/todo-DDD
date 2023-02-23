@@ -1,6 +1,6 @@
 import Email from '../shared/objects/Email';
 import Password from '../shared/objects/Password';
-import { GenderEnum, IUser, IUserExposed, UserDoc } from './types';
+import { GenderEnum, IUser, IUserExposed, IUserModelObject } from './types';
 
 class User implements IUser {
   id: string;
@@ -10,13 +10,13 @@ class User implements IUser {
   gender: GenderEnum;
   dob: Date;
 
-  constructor(userObj: UserDoc) {
-    this.id = userObj._id;
-    this.name = userObj.name;
-    this.email = new Email(userObj.email);
-    this.password = new Password(userObj.password);
-    this.gender = userObj.gender;
-    this.dob = userObj.dob;
+  constructor(id: string, name: string, email: Email, password: Password, gender: GenderEnum, dob: Date) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.gender = gender;
+    this.dob = dob;
   }
 
   get values(): IUserExposed {
@@ -27,6 +27,13 @@ class User implements IUser {
       gender: this.gender,
       dob: this.dob,
     };
+  }
+
+  static create(raw: IUserModelObject) {
+    const email = new Email(raw.email);
+    const password = new Password(raw.password);
+
+    return new User(raw._id, raw.name, email, password, raw.gender, raw.dob);
   }
 }
 

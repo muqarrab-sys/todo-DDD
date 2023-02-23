@@ -1,9 +1,9 @@
 import mongoose, { ConnectOptions } from 'mongoose';
 import { isEmpty } from 'lodash';
 import { IDatabaseConfigs } from '../interfaces';
-import DatabaseAdopter from '../database.adopter';
+import DatabasePort from '../database.port';
 
-class MongooseAdopter extends DatabaseAdopter {
+class MongooseAdopter extends DatabasePort {
   protected options: ConnectOptions = {};
 
   constructor(private readonly configs: IDatabaseConfigs) {

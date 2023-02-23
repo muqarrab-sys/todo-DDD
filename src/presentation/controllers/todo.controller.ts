@@ -1,36 +1,33 @@
-import TodoFactory from '@/domain/todo/TodoFactory';
+import CreateTodo from '@/application/use_cases/todo/CreateTodo';
+import SearchTodos from '@/application/use_cases/todo/SearchTodos';
+import { ITodoCreationObject } from '@/domain/todo/types';
+import TodoRepository from '@/infra/persistence/repositories/todo.repository';
+import UserRepository from '@/infra/persistence/repositories/user.repository';
 import { IHandler } from '../interfaces/express';
 import BaseController from './base/BaseController';
 
 class TodoController extends BaseController {
-  private factory: TodoFactory;
-
-  constructor() {
-    super();
-
-    this.factory = new TodoFactory();
-  }
-
   create: IHandler = async (req, res, next) => {
-    const todoObj = req.body;
+    const body: ITodoCreationObject = req.body;
 
-    const todo = await this.factory.create(todoObj);
+    const todo_repository = new TodoRepository();
+    const user_repository = new UserRepository();
 
-    res.status(201).json({ success: true, data: todo.values });
-  };
+    const useCase = new CreateTodo(todo_repository, user_repository);
 
-  find: IHandler = async (req, res, next) => {
-    const { id } = req.params;
+    const todo = await useCase.execute(body);
 
-    const todo = await this.factory.load(id);
-
-    res.status(200).json({ data: todo.values });
+    res.status(201).json({ success: true, data: todo });
   };
 
   findByUserId: IHandler = async (req, res, next) => {
     const { userId } = req.params;
 
-    const todos = await this.factory.loadForUser(userId);
+    const todo_repository = new TodoRepository();
+
+    const useCase = new SearchTodos(todo_repository);
+
+    const todos = await useCase.execute(userId);
 
     res.status(200).json({ success: true, data: todos });
   };

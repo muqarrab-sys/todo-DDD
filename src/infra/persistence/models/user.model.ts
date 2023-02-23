@@ -1,8 +1,8 @@
-import { IGoogleUser, IUserModel } from '@domain/user/types';
+import { IGoogleUser, IUserModelObject } from '@domain/user/types';
 import { v4 as uuidv4 } from 'uuid';
 import ModelFactory from './ModelFactory';
 
-const model = new ModelFactory<IUserModel>('User', {
+const model = new ModelFactory<IUserModelObject>('User', {
   _id: { type: String, default: uuidv4() },
   name: { type: String, required: true },
   email: { type: String, required: true },

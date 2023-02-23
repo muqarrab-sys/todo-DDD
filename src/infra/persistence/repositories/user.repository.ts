@@ -1,32 +1,27 @@
-import { IUserModel } from '@/domain/user/types';
-import User from '@infra/persistence/models/user.model';
-import { QueryOptions } from 'mongoose';
-import BaseRepository from './base/BaseRepository';
+import IUserRepository from '@/domain/user/repository/IUserRepository';
+import { IUserModelObject } from '@/domain/user/types';
+import UserModel from '@infra/persistence/models/user.model';
 
-class UserRepository extends BaseRepository<IUserModel> {
-  constructor() {
-    super(User);
-  }
-
-  async create(obj: IUserModel) {
-    const user = new this.model(obj);
+class UserRepository implements IUserRepository {
+  async create(obj: IUserModelObject) {
+    const user = new UserModel(obj);
     return await user.save();
   }
 
   async find(id: string) {
-    return await this.model.findById(id);
+    return await UserModel.findById(id);
   }
 
   async findByEmail(email: string) {
-    return await this.model.findOne({ email });
+    return await UserModel.findOne({ email });
   }
 
-  async update(id: string, obj: IUserModel, options: QueryOptions<IUserModel>) {
-    return await this.model.findByIdAndUpdate(id, obj, options);
+  async update(id: string, obj: IUserModelObject) {
+    return await UserModel.findByIdAndUpdate(id, obj);
   }
 
   async delete(id: string) {
-    return await this.model.findByIdAndDelete(id);
+    return await UserModel.findByIdAndDelete(id);
   }
 }
 
