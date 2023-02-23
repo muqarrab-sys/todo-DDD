@@ -6,7 +6,9 @@ class AuthRouter extends BaseRouter<AuthController> {
     super(new AuthController(), path);
   }
 
-  protected routes(): void {}
+  protected routes(): void {
+    this.get('/googleUrl', this.controller.getAuthUrl);
+  }
 }
 
 export default AuthRouter;

@@ -11,6 +11,8 @@ class UserRouter extends AuthorizedRouter<UserController> {
   protected routes(): void {
     this.post('/register', validationMiddleware(UserCreationDto), this.controller.register);
     this.post('/login', validationMiddleware(UserCredentialsDto), this.controller.login);
+    this.post('/signUpWithGoogle', this.controller.signUpWithGoogle);
+    this.post('/signInWithGoogle', this.controller.signInWithGoogle);
   }
 }
 

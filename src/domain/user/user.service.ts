@@ -14,14 +14,10 @@ class UserService {
     if (user) throw new Error('User already exists');
 
     const params: IUserModel = {
+      ...userObj,
       email: userObj.email.value,
-      name: userObj.name,
-      gender: userObj.gender,
-      dob: userObj.dob,
-      password: null,
+      password: await userObj?.password?.encode(),
     };
-
-    params.password = await userObj.password.encode();
 
     return await this.repository.create(params);
   }
@@ -38,6 +34,10 @@ class UserService {
 
   async find(id: string) {
     return await this.repository.find(id);
+  }
+
+  async findByEmail(email: string) {
+    return await this.repository.findByEmail(email);
   }
 }
 

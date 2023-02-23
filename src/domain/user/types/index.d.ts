@@ -13,9 +13,9 @@ export declare interface IUser {
   id?: string;
   name: string;
   email: Email;
-  password: Password;
-  gender: GenderEnum;
-  dob: Date;
+  password?: Password;
+  gender?: GenderEnum;
+  dob?: Date;
 }
 
 export declare interface IUserModel extends Omit<IUser, 'id' | 'email' | 'password'> {
@@ -26,4 +26,19 @@ export declare interface IUserModel extends Omit<IUser, 'id' | 'email' | 'passwo
 
 export declare interface IUserCreation extends Omit<IUser, 'id'> {}
 
+interface IUserExposed extends Omit<IUser, 'password' | 'email'> {
+  email: string;
+}
+
 export declare type UserDoc = Document<String, any, IUserModel> & IUserModel;
+
+export declare interface IGoogleUser extends IUser {
+  accessToken: string;
+  googleId: string;
+}
+
+export declare interface IGoogleUserModel extends Omit<IGoogleUser, 'id' | 'email' | 'password'> {
+  _id?: string;
+  email: string;
+  password: string;
+}
