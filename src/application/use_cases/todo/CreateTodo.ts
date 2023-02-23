@@ -1,3 +1,4 @@
+import { NotFoundException } from '@/application/exceptions';
 import Todo from '@/domain/todo';
 import ITodoRepository from '@/domain/todo/repository/ITodoRepository';
 import { ITodoCreationObject } from '@/domain/todo/types';
@@ -14,7 +15,7 @@ class CreateTodo {
 
   async execute(raw: ITodoCreationObject) {
     const user = await this.user_repository.find(raw.userId);
-    if (!user) throw new Error("User doesn't exist");
+    if (!user) throw new NotFoundException("User doesn't exist");
 
     const todoM = await this.todo_repository.create(raw);
 

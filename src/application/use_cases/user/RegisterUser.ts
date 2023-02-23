@@ -1,3 +1,4 @@
+import { ConflictException } from '@/application/exceptions';
 import User from '@/domain/user';
 import IUserRepository from '@/domain/user/repository/IUserRepository';
 import { IUserCreationObject, IUserModelObject } from '@/domain/user/types';
@@ -11,7 +12,7 @@ class RegisterUser {
 
   async execute(raw: IUserCreationObject) {
     let user = await this.repository.findByEmail(raw.email.value);
-    if (user) throw new Error('User already exists');
+    if (user) throw new ConflictException('User already exists');
 
     const obj: IUserModelObject = {
       ...raw,

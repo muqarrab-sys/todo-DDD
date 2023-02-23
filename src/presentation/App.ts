@@ -1,3 +1,5 @@
+import BaseHttpException from '@/application/exceptions/base/BaseHttpException';
+import { HttpStatusCode } from '@/application/exceptions/types';
 import DatabasePort from '@/infra/persistence/database/database.port';
 import cors from 'cors';
 import express, { NextFunction, Response } from 'express';
@@ -45,8 +47,11 @@ class App {
 
   private handleErrorResponse() {
     this.app.use((err: any, _req: Req, res: Response, _next: NextFunction) => {
-      console.error(err.stack);
-      res.status(500).json({ error: err.message });
+      if (err instanceof BaseHttpException) {
+        res.status(err.httpCode).json({ success: false, error: err.name, message: err.message });
+      } else {
+        res.status(HttpStatusCode.INTERNAL_SERVER).json({ success: false, message: err.message });
+      }
     });
   }
 }

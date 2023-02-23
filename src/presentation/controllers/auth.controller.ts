@@ -1,3 +1,4 @@
+import BadRequestException from '@/application/exceptions/BadRequestException';
 import SignInGoogleUser from '@/application/use_cases/googleUser/SignInGoogleUser';
 import LoginUser from '@/application/use_cases/user/LoginUser';
 import RegisterUser from '@/application/use_cases/user/RegisterUser';
@@ -42,7 +43,7 @@ class AuthController extends BaseController {
 
   googleSignIn: IHandler = async (req, res) => {
     const { code } = req.body;
-    if (!code) throw new Error('Code missing!');
+    if (!code) throw new BadRequestException('Code missing!');
 
     const repository = new UserRepository();
     const googleClient = new OAuth2(configs.googleAuth.web);
