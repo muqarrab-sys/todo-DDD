@@ -1,4 +1,4 @@
-import BaseController from '@presentation/controllers/BaseController';
+import BaseController from '@presentation/controllers/base/BaseController';
 import BaseRouter, { Call } from './BaseRouter';
 
 abstract class AuthorizedRouter<T = BaseController> extends BaseRouter {

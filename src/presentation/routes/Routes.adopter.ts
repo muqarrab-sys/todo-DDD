@@ -1,6 +1,6 @@
 import { readdirSync, statSync } from 'fs';
 import { join } from 'path';
-import BaseRouter from './BaseRouter';
+import BaseRouter from './base/BaseRouter';
 
 export default class RoutesAdopter {
   private POSTFIXES = ['.router.ts', '.router.js'];

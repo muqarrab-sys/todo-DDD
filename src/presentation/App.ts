@@ -1,8 +1,8 @@
+import DatabaseAdopter from '@/infra/persistence/database/database.adopter';
+import cors from 'cors';
 import express, { NextFunction, Response } from 'express';
-import DatabaseAdopter from '@/infra/database/database.adopter';
 import { Req } from './interfaces/express';
-import BaseRouter from './routes/BaseRouter';
-
+import BaseRouter from './routes/base/BaseRouter';
 class App {
   private port: string | number;
   private app: express.Application;
@@ -21,6 +21,12 @@ class App {
   }
 
   applyMiddleware() {
+    this.app.use(
+      cors({
+        origin: process.env.ORIGIN,
+        credentials: Boolean(process.env.CORS_CREDENTIALS),
+      }),
+    );
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
   }

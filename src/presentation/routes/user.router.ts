@@ -1,15 +1,18 @@
+import { UserCreationDto, UserCredentialsDto } from '@/domain/user/dtos/user.dtos';
 import UserController from '@presentation/controllers/user.controller';
-import AuthorizedRouter from './AuthorizedRouter';
+import validationMiddleware from '../middleware/validation.middleware';
+import AuthorizedRouter from './base/AuthorizedRouter';
 
 class UserRouter extends AuthorizedRouter<UserController> {
   constructor(path: string) {
-    super(UserController, path);
+    super(new UserController(), path);
   }
 
   protected routes(): void {
-    this.get('', (req, res, next) => {
-      res.send('hello');
-    });
+    this.post('/register', validationMiddleware(UserCreationDto), this.controller.register);
+    this.post('/login', validationMiddleware(UserCredentialsDto), this.controller.login);
+    this.post('/signUpWithGoogle', this.controller.signUpWithGoogle);
+    this.post('/signInWithGoogle', this.controller.signInWithGoogle);
   }
 }
 
