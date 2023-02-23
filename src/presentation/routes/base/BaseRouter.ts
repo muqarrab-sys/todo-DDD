@@ -3,7 +3,7 @@
 import express, { IRouter, RequestHandler } from 'express';
 import { isArray } from 'lodash';
 import tryCatchWrapper from '@/presentation/middleware/tryCatch.wrapper';
-import BaseController from '@presentation/controllers/BaseController';
+import BaseController from '@presentation/controllers/base/BaseController';
 
 export type RouterClass = { new (): BaseRouter<any> };
 export type Methods = 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';

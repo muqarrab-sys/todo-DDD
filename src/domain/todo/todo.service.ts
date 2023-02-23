@@ -1,5 +1,5 @@
-import TodoRepository from '@/infra/persistence/todo.repository';
-import { ITodo } from './todo.model';
+import TodoRepository from '@/infra/persistence/repositories/todo.repository';
+import { ITodoCreation } from './types';
 
 class TodoService {
   private repository: TodoRepository;
@@ -8,19 +8,19 @@ class TodoService {
     this.repository = new TodoRepository();
   }
 
-  async create(todoObj: ITodo) {
+  async create(todoObj: ITodoCreation) {
     return await this.repository.create(todoObj);
   }
 
   async findById(id: string) {
-    return await this.repository.findById(id);
+    return await this.repository.find(id);
   }
 
   async findByUserId(userId: string) {
     return await this.repository.findByUserId(userId);
   }
 
-  async update(id: string, todoObj: ITodo) {
+  async update(id: string, todoObj: ITodoCreation) {
     this.repository.update(id, todoObj);
   }
 

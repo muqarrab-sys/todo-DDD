@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 import { IDatabaseConfigs } from '../interfaces';
 import DatabaseAdopter from '../database.adopter';
 
-class MongoAdopter extends DatabaseAdopter {
+class MongooseAdopter extends DatabaseAdopter {
   protected options: ConnectOptions = {};
 
   constructor(private readonly configs: IDatabaseConfigs) {
@@ -57,4 +57,4 @@ class MongoAdopter extends DatabaseAdopter {
   }
 }
 
-export default MongoAdopter;
+export default MongooseAdopter;

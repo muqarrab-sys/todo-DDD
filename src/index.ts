@@ -2,14 +2,14 @@ require('dotenv').config();
 import 'reflect-metadata';
 import App from './presentation/App';
 import RoutesAdopter from './presentation/routes/Routes.adopter';
-import MongoAdopter from './infra/database/mongo/mongo.adopter';
-import dbConfigs from './infra/configs/database';
+import MongooseAdopter from './infra/persistence/database/mongoose/mongoose.adopter';
+import dbConfigs from '@infra/persistence/database/configs';
 
 async function init() {
   const app = new App();
 
   const routers = new RoutesAdopter();
-  const databaseAdopter = new MongoAdopter(dbConfigs);
+  const databaseAdopter = new MongooseAdopter(dbConfigs);
   databaseAdopter.setStrictQuery(false);
 
   app.initiateRoutes(routers.modules);

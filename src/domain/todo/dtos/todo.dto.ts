@@ -1,7 +1,7 @@
 import { IsBoolean, IsString } from 'class-validator';
-import { ITodo } from '../todo.model';
+import { ITodoCreation } from '../types';
 
-export class TodoCreationDto implements ITodo {
+export class TodoCreationDto implements ITodoCreation {
   @IsString() title: string;
   @IsString() description: string;
   @IsString() userId: string;
