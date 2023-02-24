@@ -22,7 +22,7 @@ Refactor Phase 1:
 Refactor Phase 2:
 ---
 
-- [ ] Create application services to move the logic away from controllers.
-- [ ] Add pagination options to API endpoints.
-- [ ] Add custom exceptions to stores and services and rely on exception handling to send appropriate error messages from API.
-- [ ] Use custom exceptions to express errors in system and log your exceptions.
+- [x] Create application services to move the logic away from controllers.
+- [x] Add pagination options to API endpoints.
+- [x] Add custom exceptions to stores and services and rely on exception handling to send appropriate error messages from API.
+- [x] Use custom exceptions to express errors in system and log your exceptions.

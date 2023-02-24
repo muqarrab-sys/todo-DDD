@@ -8,7 +8,7 @@ type RequestParamsFrom = 'body' | 'query' | 'params';
 const stringifyValidationErrors = (errors: Array<ValidationError>): string => {
   return errors
     .map((error: ValidationError) => {
-      if (error.children.length > 0) {
+      if (error.children?.length > 0) {
         return stringifyValidationErrors(error.children);
       }
       return Object.values(error.constraints);

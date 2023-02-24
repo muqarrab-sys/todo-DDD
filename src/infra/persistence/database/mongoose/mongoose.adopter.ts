@@ -2,6 +2,7 @@ import mongoose, { ConnectOptions } from 'mongoose';
 import { isEmpty } from 'lodash';
 import { IDatabaseConfigs } from '../interfaces';
 import DatabasePort from '../database.port';
+import logger from '@/infra/utils/logger';
 
 class MongooseAdopter extends DatabasePort {
   protected options: ConnectOptions = {};
@@ -19,10 +20,10 @@ class MongooseAdopter extends DatabasePort {
   async connect(): Promise<boolean> {
     try {
       await mongoose.connect(this.url, this.options);
-      console.log('Connected to Mongo');
+      logger.info('Connected to Mongo');
       return true;
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return false;
     }
   }

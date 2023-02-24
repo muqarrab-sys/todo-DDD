@@ -1,6 +1,6 @@
 import CreateTodo from '@/application/use_cases/todo/CreateTodo';
-import SearchTodos from '@/application/use_cases/todo/SearchTodos';
-import { ITodoCreationObject } from '@/domain/todo/types';
+import PaginatedSearchTodos from '@/application/use_cases/todo/PaginatedSearchTodos';
+import { ITodoCreationObject, ITodoSearchObject } from '@/domain/todo/types';
 import TodoRepository from '@/infra/persistence/repositories/todo.repository';
 import UserRepository from '@/infra/persistence/repositories/user.repository';
 import { IHandler } from '../interfaces/express';
@@ -10,26 +10,26 @@ class TodoController extends BaseController {
   create: IHandler = async (req, res, next) => {
     const body: ITodoCreationObject = req.body;
 
-    const todo_repository = new TodoRepository();
-    const user_repository = new UserRepository();
+    const todoRepository = new TodoRepository();
+    const userRepository = new UserRepository();
 
-    const useCase = new CreateTodo(todo_repository, user_repository);
+    const useCase = new CreateTodo(todoRepository, userRepository);
 
     const todo = await useCase.execute(body);
 
     res.status(201).json({ success: true, data: todo });
   };
 
-  findByUserId: IHandler = async (req, res, next) => {
-    const { userId } = req.params;
+  search: IHandler = async (req, res, next) => {
+    const { userId, page, limit } = req.query as ITodoSearchObject;
 
-    const todo_repository = new TodoRepository();
+    const todoRepository = new TodoRepository();
 
-    const useCase = new SearchTodos(todo_repository);
+    const useCase = new PaginatedSearchTodos(todoRepository);
 
-    const todos = await useCase.execute(userId);
+    const todos = await useCase.execute(userId, page, limit);
 
-    res.status(200).json({ success: true, data: todos });
+    res.status(200).json({ success: true, data: { items: todos, count: todos.length } });
   };
 }
 

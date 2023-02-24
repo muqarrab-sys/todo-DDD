@@ -1,9 +1,9 @@
 import BaseHttpException from '@/application/exceptions/base/BaseHttpException';
 import { HttpStatusCode } from '@/application/exceptions/types';
 import DatabasePort from '@/infra/persistence/database/database.port';
+import logger from '@/infra/utils/logger';
 import cors from 'cors';
-import express, { NextFunction, Response } from 'express';
-import { Req } from './interfaces/express';
+import express, { NextFunction, Request, Response } from 'express';
 import BaseRouter from './routes/base/BaseRouter';
 class App {
   private port: string | number;
@@ -18,7 +18,7 @@ class App {
 
   start() {
     this.app.listen(this.port, () => {
-      console.log(`Listing to ${this.port}`);
+      logger.info(`Listing to ${this.port}`);
     });
   }
 
@@ -46,7 +46,8 @@ class App {
   }
 
   private handleErrorResponse() {
-    this.app.use((err: any, _req: Req, res: Response, _next: NextFunction) => {
+    this.app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+      logger.error(err);
       if (err instanceof BaseHttpException) {
         res.status(err.httpCode).json({ success: false, error: err.name, message: err.message });
       } else {
