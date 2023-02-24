@@ -1,6 +1,7 @@
 import GoogleUser from '@/domain/user/GoogleUser';
 import IUserRepository from '@/domain/user/repository/IUserRepository';
 import { IUserModelObject } from '@/domain/user/types';
+import Auth from '@/infra/auth/Auth';
 import OAuth2 from '@/infra/auth/OAuth2';
 
 class SignInGoogleUser {
@@ -16,8 +17,8 @@ class SignInGoogleUser {
     const res = await this.googleClient.getToken(code);
     const googleUser = await this.googleClient.getGoogleUser(res.tokens.id_token);
 
-    const user = await this.repository.findByEmail(googleUser.email);
-    if (!user) {
+    let userObj = await this.repository.findByEmail(googleUser.email);
+    if (!userObj) {
       const raw: IUserModelObject = {
         name: googleUser.name,
         email: googleUser.email,
@@ -25,12 +26,14 @@ class SignInGoogleUser {
         googleId: googleUser.sub,
       };
 
-      const user = await this.repository.create(raw);
-
-      return GoogleUser.create(user);
+      userObj = await this.repository.create(raw);
     }
 
-    return GoogleUser.create(user);
+    const auth = new Auth();
+    const user = GoogleUser.create(userObj);
+    const token = auth.genToken({ id: user.id });
+
+    return { user: user.values, token };
   }
 }
 

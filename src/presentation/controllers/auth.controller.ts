@@ -49,9 +49,9 @@ class AuthController extends BaseController {
     const googleClient = new OAuth2(configs.googleAuth.web);
     const useCase = new SignInGoogleUser(repository, googleClient);
 
-    const user = await useCase.execute(code);
+    const data = await useCase.execute(code);
 
-    res.status(200).json({ success: true, data: user.values });
+    res.status(200).json({ success: true, data });
   };
 }
 
