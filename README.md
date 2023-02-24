@@ -35,6 +35,6 @@ Refactor Phase 3:
     - [ ] Port binding
     - [ ] Concurrency
 - [X] Add Infrastructure Layer and refactor your stores to repositories.
-- [ ] Use Migrations and fakers to repopulate databases.
-- [ ] Express server invocation should be moved to its own (BIN or CLI) presentation layer.
-- [ ] Implement JWT auth for login.
+- [x] Use Migrations and fakers to repopulate databases.
+- [x] Express server invocation should be moved to its own (BIN or CLI) presentation layer.
+- [x] Implement JWT auth for login.
