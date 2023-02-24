@@ -1,38 +1,35 @@
-import TodoFactory from '@/domain/todo/TodoFactory';
+import CreateTodo from '@/application/use_cases/todo/CreateTodo';
+import PaginatedSearchTodos from '@/application/use_cases/todo/PaginatedSearchTodos';
+import { ITodoCreationObject, ITodoSearchObject } from '@/domain/todo/types';
+import TodoRepository from '@/infra/persistence/repositories/todo.repository';
+import UserRepository from '@/infra/persistence/repositories/user.repository';
 import { IHandler } from '../interfaces/express';
 import BaseController from './base/BaseController';
 
 class TodoController extends BaseController {
-  private factory: TodoFactory;
-
-  constructor() {
-    super();
-
-    this.factory = new TodoFactory();
-  }
-
   create: IHandler = async (req, res, next) => {
-    const todoObj = req.body;
+    const body: ITodoCreationObject = req.body;
 
-    const todo = await this.factory.create(todoObj);
+    const todoRepository = new TodoRepository();
+    const userRepository = new UserRepository();
 
-    res.status(201).json({ success: true, data: todo.values });
+    const useCase = new CreateTodo(todoRepository, userRepository);
+
+    const todo = await useCase.execute(body);
+
+    res.status(201).json({ success: true, data: todo });
   };
 
-  find: IHandler = async (req, res, next) => {
-    const { id } = req.params;
+  search: IHandler = async (req, res, next) => {
+    const { userId, page, limit } = req.query as ITodoSearchObject;
 
-    const todo = await this.factory.load(id);
+    const todoRepository = new TodoRepository();
 
-    res.status(200).json({ data: todo.values });
-  };
+    const useCase = new PaginatedSearchTodos(todoRepository);
 
-  findByUserId: IHandler = async (req, res, next) => {
-    const { userId } = req.params;
+    const todos = await useCase.execute(userId, page, limit);
 
-    const todos = await this.factory.loadForUser(userId);
-
-    res.status(200).json({ success: true, data: todos });
+    res.status(200).json({ success: true, data: { items: todos, count: todos.length } });
   };
 }
 

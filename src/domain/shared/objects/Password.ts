@@ -1,5 +1,6 @@
 import { IsString, Length } from 'class-validator';
 import BCrypt from '@/domain/shared/encryption/bcrypt';
+import { InternalServerException } from '@/application/exceptions';
 
 export default class Password {
   @IsString() @Length(8) private password: string;
@@ -15,7 +16,7 @@ export default class Password {
 
   get encodedValue(): string {
     if (!this.encoded) {
-      throw new Error('Password is not encoded yet');
+      throw new InternalServerException('Password is not encoded yet');
     }
 
     return this.encoded;

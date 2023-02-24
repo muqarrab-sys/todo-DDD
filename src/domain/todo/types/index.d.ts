@@ -9,10 +9,15 @@ export declare interface ITodo {
   active: boolean;
 }
 
-export interface ITodoModel extends Omit<ITodo, 'id'> {
+export declare interface ITodoModelObject extends Omit<ITodo, 'id'> {
   _id?: string;
 }
 
-export type TodoDoc = Document<string, any, ITodo> & ITodo;
+export declare interface ITodoCreationObject extends Omit<ITodo, 'id'> {}
+export declare type TodoDoc = Document<string, any, ITodo> & ITodo;
 
-export declare interface ITodoCreation extends Omit<ITodo, 'id'> {}
+export declare interface ITodoSearchObject {
+  userId: string;
+  page: number;
+  limit: number;
+}

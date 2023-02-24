@@ -1,3 +1,4 @@
+import BadRequestException from '@/application/exceptions/BadRequestException';
 import { plainToInstance } from 'class-transformer';
 import { validate, ValidationError, ValidatorOptions } from 'class-validator';
 import { RequestHandler } from 'express';
@@ -7,7 +8,7 @@ type RequestParamsFrom = 'body' | 'query' | 'params';
 const stringifyValidationErrors = (errors: Array<ValidationError>): string => {
   return errors
     .map((error: ValidationError) => {
-      if (error.children.length > 0) {
+      if (error.children?.length > 0) {
         return stringifyValidationErrors(error.children);
       }
       return Object.values(error.constraints);
@@ -23,7 +24,7 @@ const validationMiddleware = (
   return async (req, _res, next) => {
     try {
       const errors = await validate(plainToInstance(validator, req[params]), options);
-      if (errors.length > 0) throw new Error(stringifyValidationErrors(errors));
+      if (errors.length > 0) throw new BadRequestException(stringifyValidationErrors(errors));
 
       req[params] = plainToInstance(validator, req[params]);
       next();

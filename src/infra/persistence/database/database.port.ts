@@ -1,4 +1,4 @@
-abstract class DatabaseAdopter {
+abstract class DatabasePort {
   protected module: any;
   protected url: string;
 
@@ -7,4 +7,4 @@ abstract class DatabaseAdopter {
   abstract connect(options?: {}): Promise<any>;
 }
 
-export default DatabaseAdopter;
+export default DatabasePort;

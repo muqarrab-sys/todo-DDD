@@ -1,20 +1,57 @@
-import AuthService from '@/domain/auth/auth.service';
+import BadRequestException from '@/application/exceptions/BadRequestException';
+import SignInGoogleUser from '@/application/use_cases/googleUser/SignInGoogleUser';
+import LoginUser from '@/application/use_cases/user/LoginUser';
+import RegisterUser from '@/application/use_cases/user/RegisterUser';
+import { IUserCreationObject, IUserCredentialsObject } from '@/domain/user/types';
+import configs from '@/infra/authorization/configs';
+import OAuth2 from '@/infra/authorization/OAuth2';
+import UserRepository from '@/infra/persistence/repositories/user.repository';
 import { IHandler } from '../interfaces/express';
 import BaseController from './base/BaseController';
 
 class AuthController extends BaseController {
-  private authService: AuthService;
+  register: IHandler = async (req, res) => {
+    const body: IUserCreationObject = req.body;
 
-  constructor() {
-    super();
+    const repository = new UserRepository();
 
-    this.authService = new AuthService();
-  }
+    const useCase = new RegisterUser(repository);
+
+    const user = await useCase.execute(body);
+
+    res.status(201).json({ success: true, data: user.values });
+  };
+
+  login: IHandler = async (req, res) => {
+    const body: IUserCredentialsObject = req.body;
+
+    const repository = new UserRepository();
+
+    const useCase = new LoginUser(repository);
+
+    const user = await useCase.execute(body);
+
+    res.status(201).json({ success: true, data: user.values });
+  };
 
   getAuthUrl: IHandler = async (req, res) => {
-    const url = this.authService.getAuthUrl();
+    const googleClient = new OAuth2(configs.googleAuth.web);
+    const url = googleClient.generateAuthUrl();
 
     res.status(200).json({ success: true, data: url });
+  };
+
+  googleSignIn: IHandler = async (req, res) => {
+    const { code } = req.body;
+    if (!code) throw new BadRequestException('Code missing!');
+
+    const repository = new UserRepository();
+    const googleClient = new OAuth2(configs.googleAuth.web);
+    const useCase = new SignInGoogleUser(repository, googleClient);
+
+    const user = await useCase.execute(code);
+
+    res.status(200).json({ success: true, data: user.values });
   };
 }
 
