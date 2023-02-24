@@ -3,8 +3,8 @@ import SignInGoogleUser from '@/application/use_cases/googleUser/SignInGoogleUse
 import LoginUser from '@/application/use_cases/user/LoginUser';
 import RegisterUser from '@/application/use_cases/user/RegisterUser';
 import { IUserCreationObject, IUserCredentialsObject } from '@/domain/user/types';
-import configs from '@/infra/authorization/configs';
-import OAuth2 from '@/infra/authorization/OAuth2';
+import configs from '@/infra/auth/configs';
+import OAuth2 from '@/infra/auth/OAuth2';
 import UserRepository from '@/infra/persistence/repositories/user.repository';
 import { IHandler } from '../interfaces/express';
 import BaseController from './base/BaseController';
@@ -29,9 +29,9 @@ class AuthController extends BaseController {
 
     const useCase = new LoginUser(repository);
 
-    const user = await useCase.execute(body);
+    const data = await useCase.execute(body);
 
-    res.status(201).json({ success: true, data: user.values });
+    res.status(201).json({ success: true, data });
   };
 
   getAuthUrl: IHandler = async (req, res) => {

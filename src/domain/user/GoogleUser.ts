@@ -6,17 +6,27 @@ class GoogleUser extends User {
   accessToken: string;
   googleId: string;
 
-  constructor(id: string, name: string, email: Email, gender: GenderEnum, dob: Date, accessToken: string, googleId: string) {
-    super(id, name, email, null, gender, dob);
+  constructor(
+    id: string,
+    name: string,
+    email: Email,
+    gender: GenderEnum,
+    dob: Date,
+    accessToken: string,
+    googleId: string,
+    createdAt: Date,
+    updatedAt: Date,
+  ) {
+    super(id, name, email, null, gender, dob, createdAt, updatedAt);
 
     this.accessToken = accessToken;
     this.googleId = googleId;
   }
 
-  static create(raw: IUserModelObject) {
-    const email = new Email(raw.email);
+  static create(obj: IUserModelObject) {
+    const email = new Email(obj.email);
 
-    return new GoogleUser(raw._id, raw.name, email, raw.gender, raw.dob, raw.accessToken, raw.googleId);
+    return new GoogleUser(obj._id, obj.name, email, obj.gender, obj.dob, obj.accessToken, obj.googleId, obj.createdAt, obj.updatedAt);
   }
 }
 

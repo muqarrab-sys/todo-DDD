@@ -10,7 +10,6 @@ class App {
   private app: express.Application;
 
   constructor() {
-    this.port = process.env.PORT || 8080;
     this.app = express();
 
     this.applyMiddleware();
@@ -43,6 +42,10 @@ class App {
     });
 
     this.handleErrorResponse();
+  }
+
+  setPort(port: number | string) {
+    this.port = port;
   }
 
   private handleErrorResponse() {

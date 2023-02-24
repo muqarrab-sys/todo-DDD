@@ -1,7 +1,7 @@
 import GoogleUser from '@/domain/user/GoogleUser';
 import IUserRepository from '@/domain/user/repository/IUserRepository';
 import { IUserModelObject } from '@/domain/user/types';
-import OAuth2 from '@/infra/authorization/OAuth2';
+import OAuth2 from '@/infra/auth/OAuth2';
 
 class SignInGoogleUser {
   private repository: IUserRepository;

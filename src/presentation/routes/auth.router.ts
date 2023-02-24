@@ -14,6 +14,8 @@ class AuthRouter extends BaseRouter<AuthController> {
     this.get('/googleUrl', this.controller.getAuthUrl);
     this.post('/google_sign_in', this.controller.googleSignIn);
   }
+
+  protected protectedRoutes(): void {}
 }
 
 export default AuthRouter;

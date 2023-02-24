@@ -1,8 +1,8 @@
-import { ITodoModelObject, TodoDoc } from '../types';
+import { ITodoCreationObject, TodoDoc } from '../types';
 
 export default interface ITodoRepository {
-  create: (obj: ITodoModelObject) => Promise<TodoDoc>;
-  update: (id: string, obj: ITodoModelObject) => Promise<TodoDoc>;
+  create: (obj: ITodoCreationObject) => Promise<TodoDoc>;
+  update: (id: string, obj: ITodoCreationObject) => Promise<TodoDoc>;
   delete: (id: string) => Promise<TodoDoc>;
   find: (id: string) => Promise<TodoDoc>;
   search: (userId: string) => Promise<TodoDoc[]>;

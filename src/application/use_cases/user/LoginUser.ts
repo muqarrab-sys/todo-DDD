@@ -3,6 +3,7 @@ import BadRequestException from '@/application/exceptions/BadRequestException';
 import User from '@/domain/user';
 import IUserRepository from '@/domain/user/repository/IUserRepository';
 import { IUserCredentialsObject } from '@/domain/user/types';
+import Auth from '@/infra/auth/Auth';
 
 class LoginUser {
   private repository: IUserRepository;
@@ -18,7 +19,10 @@ class LoginUser {
     const isMatch = await credentials.password.compare(user.password);
     if (!isMatch) throw new BadRequestException('Wrong password');
 
-    return User.create(user);
+    const auth = new Auth();
+    const token = auth.genToken({ id: user.id });
+
+    return { user: User.create(user).values, token };
   }
 }
 

@@ -4,12 +4,14 @@ class ModelFactory<T> {
   constructor(
     private readonly name: string,
     private readonly schemaObj: SchemaDefinition<any> | T,
-    private readonly schemaOptions?: SchemaOptions<FlatRecord<T>>,
+    private readonly schemaOptions: SchemaOptions<FlatRecord<T>> = {},
     private readonly collection?: string,
-    private readonly modelOptions?: CompileModelOptions,
+    private readonly modelOptions: CompileModelOptions = {},
   ) {}
 
   create() {
+    this.schemaOptions.timestamps = true;
+
     const schema = new Schema<T>(this.schemaObj, this.schemaOptions);
 
     return model<T>(this.name, schema, this.collection, this.modelOptions);

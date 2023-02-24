@@ -1,6 +1,11 @@
+import { IUser } from '@/domain/user/types';
 import { NextFunction, Request, Response } from 'express';
-import { ParamsDictionary, Query } from 'express-serve-static-core';
+import { ParamsDictionary } from 'express-serve-static-core';
 
-export declare type IHandler = (req: Request<ParamsDictionary, any, any, any>, res: Response, next: NextFunction) => void;
+export declare interface Req extends Request<ParamsDictionary, any, any, any> {
+  currentUser?: IUser;
+}
+
+export declare type IHandler = (req: Req, res: Response, next: NextFunction) => void;
 
 export declare type IErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => void;

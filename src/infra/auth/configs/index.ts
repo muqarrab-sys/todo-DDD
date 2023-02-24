@@ -10,4 +10,7 @@ export default {
       redirectUri: process.env.REDIRECT_URI,
     },
   },
+  jwt: {
+    secret: process.env.SECRET,
+  },
 };

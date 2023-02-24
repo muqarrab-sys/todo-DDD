@@ -1,11 +1,11 @@
 import IUserRepository from '@/domain/user/repository/IUserRepository';
 import { IUserModelObject } from '@/domain/user/types';
+import UniqId from '@/infra/services/uniqId';
 import UserModel from '@infra/persistence/models/user.model';
-import { v4 as uuidv4 } from 'uuid';
 
 class UserRepository implements IUserRepository {
   async create(obj: IUserModelObject) {
-    obj._id = uuidv4();
+    obj._id = new UniqId().generate();
     const user = new UserModel(obj);
     return await user.save();
   }

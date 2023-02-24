@@ -26,3 +26,15 @@ Refactor Phase 2:
 - [x] Add pagination options to API endpoints.
 - [x] Add custom exceptions to stores and services and rely on exception handling to send appropriate error messages from API.
 - [x] Use custom exceptions to express errors in system and log your exceptions.
+
+Refactor Phase 3:
+---
+
+- [ ] Cover next concepts in 12 factor app
+    - [ ] Processes
+    - [ ] Port binding
+    - [ ] Concurrency
+- [X] Add Infrastructure Layer and refactor your stores to repositories.
+- [ ] Use Migrations and fakers to repopulate databases.
+- [ ] Express server invocation should be moved to its own (BIN or CLI) presentation layer.
+- [ ] Implement JWT auth for login.

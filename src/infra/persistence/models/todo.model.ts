@@ -1,9 +1,9 @@
+import UniqId from '@/infra/services/uniqId';
 import { ITodoModelObject } from '@domain/todo/types';
-import { v4 as uuidv4 } from 'uuid';
 import ModelFactory from './ModelFactory';
 
 const model = new ModelFactory<ITodoModelObject>('Todo', {
-  _id: { type: String, default: uuidv4() },
+  _id: { type: String },
   title: String,
   description: String,
   userId: String,

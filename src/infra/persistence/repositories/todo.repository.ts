@@ -1,11 +1,11 @@
 import ITodoRepository from '@/domain/todo/repository/ITodoRepository';
 import { ITodoModelObject } from '@/domain/todo/types';
 import TodoModel from '@/infra/persistence/models/todo.model';
-import { v4 as uuidv4 } from 'uuid';
+import UniqId from '@/infra/services/uniqId';
 
 class TodoRepository implements ITodoRepository {
   async create(todoObj: ITodoModelObject) {
-    todoObj._id = uuidv4();
+    todoObj._id = new UniqId().generate();
     const todo = new TodoModel(todoObj);
     return await todo.save();
   }

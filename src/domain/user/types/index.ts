@@ -3,10 +3,10 @@ import Password from '@/domain/shared/objects/Password';
 import { Omit } from 'lodash';
 import { Document } from 'mongoose';
 
-export declare enum GenderEnum {
-  MALE = 'MALE',
-  FEMALE = 'FEMALE',
-  OTHER = 'OTHER',
+export enum GenderEnum {
+  MALE = 'male',
+  FEMALE = 'female',
+  OTHER = 'other',
 }
 
 export declare interface IUser {
@@ -18,9 +18,11 @@ export declare interface IUser {
   dob?: Date;
   accessToken?: string;
   googleId?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export declare interface IUserModelObject extends Omit<IUser, 'id' | 'email' | 'password'> {
+export declare interface IUserModelObject extends Omit<IUser, 'id' | 'email' | 'password' | 'createdAt' | 'updatedAt'> {
   _id?: string;
   email: string;
   password?: string;
