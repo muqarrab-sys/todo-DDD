@@ -1,6 +1,6 @@
-import { TodoCreationDto, TodoSearchDto } from '@/domain/todo/dtos/todo.dto';
+import { TodoCreationDto, TodoSearchDto } from '@/domain/entities/todo/dtos/todo.dto';
 import TodoController from '../controllers/todo.controller';
-import validationMiddleware from '../middleware/validation.middleware';
+import validationMiddleware from '../../interfaces/http/middleware/validationMiddleware';
 import BaseRouter from './base/BaseRouter';
 
 class TodoRouter extends BaseRouter<TodoController> {

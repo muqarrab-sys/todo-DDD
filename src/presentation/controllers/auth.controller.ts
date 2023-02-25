@@ -3,9 +3,9 @@ import SignInGoogleUser from '@/application/use_cases/googleUser/SignInGoogleUse
 import LoginUser from '@/application/use_cases/user/LoginUser';
 import RegisterUser from '@/application/use_cases/user/RegisterUser';
 import { IUserCreationObject, IUserCredentialsObject } from '@/domain/user/types';
-import configs from '@/infra/auth/configs';
-import OAuth2 from '@/infra/auth/OAuth2';
-import UserRepository from '@/infra/persistence/repositories/user.repository';
+import configs from '@/infrastructure/auth/configs';
+import OAuth2 from '@/infrastructure/auth/OAuth2';
+import UserRepository from '@/infrastructure/persistence/repositories/user.repository';
 import { IHandler } from '../interfaces/express';
 import BaseController from './base/BaseController';
 

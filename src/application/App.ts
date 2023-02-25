@@ -1,10 +1,11 @@
 import BaseHttpException from '@/application/exceptions/base/BaseHttpException';
 import { HttpStatusCode } from '@/application/exceptions/types';
-import DatabasePort from '@/infrastructure/persistence/database/database.port';
 import logger from '@/infrastructure/utils/logger';
+import { IDatabaseClient } from '@/interfaces';
+import BaseRouter from '@/interfaces/http/routes/base/BaseRouter';
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
-import BaseRouter from './routes/base/BaseRouter';
+
 class App {
   private port: string | number;
   private app: express.Application;
@@ -16,12 +17,32 @@ class App {
   }
 
   start() {
+    if (!this.port) {
+      throw new Error('Missing port!');
+    }
+
     this.app.listen(this.port, () => {
       logger.info(`Listing to ${this.port}`);
     });
   }
 
-  applyMiddleware() {
+  async connectDatabase(dbClient: IDatabaseClient) {
+    await dbClient.connect();
+  }
+
+  initiateRoutes(routers: Array<BaseRouter>) {
+    routers.forEach(router => {
+      this.app.use('/api', router.getRoutes);
+    });
+
+    this.handleErrorResponse();
+  }
+
+  setPort(port: number | string) {
+    this.port = port;
+  }
+
+  private applyMiddleware() {
     this.app.use(
       cors({
         origin: '*',
@@ -30,22 +51,6 @@ class App {
     );
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
-  }
-
-  async connectDatabase(adopter: DatabasePort) {
-    await adopter.connect();
-  }
-
-  initiateRoutes(routers: Array<BaseRouter>) {
-    routers.forEach(router => {
-      this.app.use('/api/', router.module);
-    });
-
-    this.handleErrorResponse();
-  }
-
-  setPort(port: number | string) {
-    this.port = port;
   }
 
   private handleErrorResponse() {

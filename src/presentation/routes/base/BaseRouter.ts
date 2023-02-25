@@ -1,4 +1,4 @@
-import logger from '@/infra/utils/logger';
+import logger from '@/infrastructure/utils/logger';
 import authenticationMiddleware from '@/presentation/middleware/authentication.middleware';
 import tryCatchWrapper from '@/presentation/middleware/tryCatch.wrapper';
 import BaseController from '@presentation/controllers/base/BaseController';

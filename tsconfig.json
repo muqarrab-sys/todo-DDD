@@ -19,15 +19,16 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "importHelpers": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["*"],
-      "@configs/*": ["configs/*"],
-      "@presentation/*": ["presentation/*"],
-      "@infra/*": ["infra/*"],
-      "@domain/*": ["domain/*"],
+      "@/*": ["src/*"],
+      "@bin/*": ["bin/*"],
+      "@configs/*": ["src/configs/*"],
+      "@presentation/*": ["src/presentation/*"],
+      "@infrastructure/*": ["src/infrastructure/*"],
+      "@domain/*": ["src/domain/*"],
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.json", ".env"],
+  "include": ["src/**/*.ts", "src/**/*.json", ".env", "bin/www.ts"],
   "exclude": ["node_modules"]
 }

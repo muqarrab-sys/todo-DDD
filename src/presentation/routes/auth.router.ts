@@ -1,6 +1,6 @@
 import { UserCreationDto, UserCredentialsDto } from '@/domain/user/dtos/user.dtos';
 import AuthController from '@presentation/controllers/auth.controller';
-import validationMiddleware from '../middleware/validation.middleware';
+import validationMiddleware from '../../interfaces/http/middleware/validationMiddleware';
 import BaseRouter from './base/BaseRouter';
 
 class AuthRouter extends BaseRouter<AuthController> {

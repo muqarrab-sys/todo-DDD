@@ -1,8 +1,8 @@
 import { UnAuthorizedException } from '@/application/exceptions';
 import { IHandler } from '../interfaces/express';
 import FetchUser from '@/application/use_cases/user/FetchUser';
-import UserRepository from '@/infra/persistence/repositories/user.repository';
-import Auth from '@/infra/auth/Auth';
+import UserRepository from '@/infrastructure/persistence/repositories/user.repository';
+import Auth from '@/infrastructure/auth/Auth';
 
 const authenticationMiddleware =
   (skipFetchUser?: boolean): IHandler =>
