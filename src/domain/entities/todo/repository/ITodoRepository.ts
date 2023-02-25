@@ -1,10 +1,10 @@
-import { ITodoCreationObject, TodoDoc } from '../types';
+import { IPrismaTodo, ITodoModel } from '../types';
 
 export default interface ITodoRepository {
-  create: (obj: ITodoCreationObject) => Promise<TodoDoc>;
-  update: (id: string, obj: ITodoCreationObject) => Promise<TodoDoc>;
-  delete: (id: string) => Promise<TodoDoc>;
-  find: (id: string) => Promise<TodoDoc>;
-  search: (userId: string) => Promise<TodoDoc[]>;
-  paginatedSearch: (userId: string, page: number, limit: number) => Promise<TodoDoc[]>;
+  create: (obj: ITodoModel) => Promise<IPrismaTodo>;
+  // update: (id: string, obj: any) => Promise<any>;
+  // delete: (id: string) => Promise<any>;
+  // find: (id: string) => Promise<any>;
+  // search: (userId: string) => Promise<any[]>;
+  // paginatedSearch: (userId: string, page: number, limit: number) => Promise<any[]>;
 }

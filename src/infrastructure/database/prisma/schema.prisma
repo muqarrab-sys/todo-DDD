@@ -14,10 +14,11 @@ model User {
   id        Int       @id @default(autoincrement())
   uid       String
   email     String    @unique
-  password  String
+  password  String?
   name      String?
   dob       DateTime?
   gender    String?
+  googleId  String?
   todos     Todo[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now())

@@ -1,51 +1,50 @@
 import User from '@/domain/entities/user';
-import { IUserCredentialsValidation, IUserValidationObject } from '@/domain/entities/user/types';
+import { IGoogleCodeValidation, IUserCredentialsValidation, IUserValidation } from '@/domain/entities/user/types';
 import UserRepository from '@/infrastructure/repositories/UserRepository';
-import SharedUtils from '@/infrastructure/utils/SharedUtils';
-import { IHandler } from '@/presentation/interfaces/express';
-import { NotFoundException } from '../exceptions';
-import BadRequestException from '../exceptions/BadRequestException';
+import { IHandler } from '@/interfaces';
+import UserServices from '../services/UserServices';
 import HttpResponse from '../utils/HttpResponse';
-import JsonWebToken from '../utils/JsonWebToken';
 import BaseController from './base/BaseController';
 
 class UserController extends BaseController {
+  private service: UserServices;
+
+  constructor() {
+    super();
+
+    this.service = new UserServices(UserRepository);
+  }
+
   public register: IHandler = async (req, res) => {
-    const data: IUserValidationObject = req.body;
+    const data: IUserValidation = req.body;
 
-    const repo = new UserRepository();
+    const response = await this.service.registerUser(
+      User.create({
+        name: data.name,
+        email: data.email.value,
+        password: data.password.value,
+        gender: data.gender,
+        dob: data.dob,
+      }),
+    );
 
-    let dbUser = await repo.findByEmail(data.email.value);
-    if (dbUser) throw new BadRequestException('User already registered!');
-
-    dbUser = await repo.create({
-      ...data,
-      uid: SharedUtils.uuid(),
-      email: data.email.value,
-      password: await data.password.encode(),
-    });
-
-    const user = User.createFromDetails(dbUser);
-
-    res.status(201).json(HttpResponse.ok(user, 'User Registered!'));
+    res.status(201).json(HttpResponse.ok(response, 'User Registered!'));
   };
 
   public login: IHandler = async (req, res) => {
     const data: IUserCredentialsValidation = req.body;
 
-    const repo = new UserRepository();
+    const response = this.service.loginUser(data.email, data.password);
 
-    const dbUser = await repo.findByEmail(data.email.value);
-    if (!dbUser) throw new NotFoundException("User doesn't exist!");
+    res.status(200).json(HttpResponse.ok(response));
+  };
 
-    const isMatch = await data.password.compare(dbUser.password);
-    if (!isMatch) throw new BadRequestException('Wrong Password!');
+  public signInWithGoogle: IHandler = async (req, res) => {
+    const data: IGoogleCodeValidation = req.body;
 
-    const token = JsonWebToken.encode({ id: dbUser.id, uid: dbUser.uid });
+    const response = await this.service.registerOrLoginWithGoogle(data.code);
 
-    const user = User.createFromDetails(dbUser);
-
-    res.status(200).json(HttpResponse.ok({ user, token }));
+    res.status(200).json(HttpResponse.ok(response));
   };
 }
 

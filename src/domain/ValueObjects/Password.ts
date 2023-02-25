@@ -1,13 +1,15 @@
-import { IsString, Length } from 'class-validator';
-import BCrypt from '@/domain/shared/encryption/bcrypt';
 import { InternalServerException } from '@/application/exceptions';
+import BCrypt from '@/infrastructure/utils/bcrypt';
+import { IsString, Length } from 'class-validator';
 
 export default class Password {
   @IsString() @Length(8) private password: string;
   private encoded: string;
+  private encryption: BCrypt;
 
   constructor(password: string) {
     this.password = password;
+    this.encryption = new BCrypt();
   }
 
   get value(): string {
@@ -16,20 +18,18 @@ export default class Password {
 
   get encodedValue(): string {
     if (!this.encoded) {
-      throw new InternalServerException('Password is not encoded yet');
+      throw new InternalServerException('Password is not encoded');
     }
 
     return this.encoded;
   }
 
   async encode(): Promise<string> {
-    const encrypt = new BCrypt();
-    this.encoded = await encrypt.encrypt(this.password);
+    this.encoded = await this.encryption.encrypt(this.password);
     return this.encoded;
   }
 
   async compare(hash: string): Promise<boolean> {
-    const encrypt = new BCrypt();
-    return await encrypt.compare(this.password, hash);
+    return await this.encryption.compare(this.password, hash);
   }
 }

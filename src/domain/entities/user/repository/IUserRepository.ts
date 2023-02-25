@@ -1,7 +1,7 @@
-import { IPrismaUser, IUserModel } from '../types';
+import { IPrismaUser, IUser, IUserModel } from '../types';
 
 export default interface IUserRepository {
-  create: (obj: IUserModel) => Promise<IPrismaUser>;
+  create: (obj: IUser) => Promise<IPrismaUser>;
   find: (id: number) => Promise<IPrismaUser>;
   findByEmail: (email: string) => Promise<IPrismaUser>;
   // update: (id: string, obj: any) => Promise<any>;

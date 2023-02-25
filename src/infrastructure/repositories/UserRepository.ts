@@ -1,5 +1,5 @@
 import IUserRepository from '@/domain/entities/user/repository/IUserRepository';
-import { IUserModel } from '@/domain/entities/user/types';
+import { IPrismaUser, IUser } from '@/domain/entities/user/types';
 import { Prisma } from '@prisma/client';
 import PrismaDatabase from '../database/prisma/PrismaDatabase';
 
@@ -10,8 +10,18 @@ class UserRepository implements IUserRepository {
     this.model = new PrismaDatabase().getClient().user;
   }
 
-  async create(data: IUserModel) {
-    return await this.model.create({ data });
+  async create(data: IUser) {
+    return await this.model.create({
+      data: {
+        uid: data.uid,
+        name: data.name,
+        email: data.email.value,
+        password: data.password?.encodedValue,
+        gender: data.gender,
+        dob: data.dob,
+        googleId: data.googleId,
+      },
+    });
   }
 
   async find(id: number) {

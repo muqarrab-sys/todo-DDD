@@ -1,6 +1,7 @@
 import BaseController from '@/application/controllers/base/BaseController';
 import logger from '@/infrastructure/utils/logger';
 import { RequestHandler, Router } from 'express';
+import authorize from '../../middleware/authMiddleware';
 import tryMiddleware from '../../middleware/tryMiddleware';
 
 type Methods = 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
@@ -14,10 +15,10 @@ abstract class BaseRouter<T = BaseController> {
   constructor(Controller: { new (): T }) {
     this.router = Router();
     this.controller = new Controller();
+
     this.routes();
 
-    this.appliedMiddleware = [];
-
+    this.appliedMiddleware = [authorize()];
     this.protectedRoutes();
   }
 

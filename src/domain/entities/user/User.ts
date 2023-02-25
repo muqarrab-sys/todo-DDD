@@ -10,6 +10,7 @@ class User implements IUser {
   password: Password;
   gender: GenderEnum;
   dob: Date;
+  googleId: string;
   createdAt: Date;
   updatedAt: Date;
 
@@ -21,6 +22,7 @@ class User implements IUser {
     password: Password,
     gender: GenderEnum,
     dob: Date,
+    googleId: string,
     createdAt: Date,
     updatedAt: Date,
   ) {
@@ -31,6 +33,7 @@ class User implements IUser {
     this.password = password;
     this.gender = gender;
     this.dob = dob;
+    this.googleId = googleId;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -50,17 +53,18 @@ class User implements IUser {
 
   static create(obj: IUserModel) {
     const email = new Email(obj.email);
-    const password = new Password(obj.password);
+    const password = obj?.password ? new Password(obj.password) : null;
+    const gender = obj.gender as GenderEnum;
 
-    return new User(obj.id, obj.uid, obj.name, email, password, obj.gender, obj.dob, obj.createdAt, obj.updatedAt);
+    return new User(obj?.id, obj?.uid, obj.name, email, password, gender, obj.dob, obj?.googleId, obj?.createdAt, obj?.updatedAt);
   }
 
   static createFromDetails(obj: IPrismaUser) {
     const email = new Email(obj.email);
-    const password = new Password(obj.password);
+    const password = obj?.password ? new Password(obj.password) : null;
     const gender = obj.gender as GenderEnum;
 
-    return new User(obj.id, obj.uid, obj.name, email, password, gender, obj.dob, obj.createdAt, obj.updatedAt);
+    return new User(obj.id, obj.uid, obj.name, email, password, gender, obj.dob, obj?.googleId, obj.createdAt, obj.updatedAt);
   }
 }
 

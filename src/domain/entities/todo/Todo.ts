@@ -1,20 +1,34 @@
-import { ITodo, ITodoModelObject } from './types';
+import { IPrismaTodo, ITodo, ITodoModel } from './types';
 
 class Todo implements ITodo {
-  id: string;
+  id: number;
+  uid: string;
   title: string;
   description: string;
-  userId: string;
-  active: boolean;
+  isCompleted: boolean;
+  dueDate: Date;
+  userId: number;
   createdAt: Date;
   updatedAt: Date;
 
-  constructor(id: string, title: string, description: string, userId: string, active: boolean, createdAt: Date, updatedAt: Date) {
+  constructor(
+    id: number,
+    uid: string,
+    title: string,
+    description: string,
+    isCompleted: boolean,
+    dueDate: Date,
+    userId: number,
+    createdAt: Date,
+    updatedAt: Date,
+  ) {
     this.id = id;
+    this.uid = uid;
     this.title = title;
     this.description = description;
+    this.isCompleted = isCompleted;
+    this.dueDate = dueDate;
     this.userId = userId;
-    this.active = active;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -22,17 +36,25 @@ class Todo implements ITodo {
   get values(): ITodo {
     return {
       id: this.id,
+      uid: this.uid,
       title: this.title,
       description: this.description,
+      isCompleted: this.isCompleted,
+      dueDate: this.dueDate,
       userId: this.userId,
-      active: this.active,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
   }
 
-  static create(obj: ITodoModelObject) {
-    const todo = new Todo(obj._id, obj.title, obj.description, obj.userId, obj.active, obj.createdAt, obj.updatedAt);
+  static create(obj: ITodoModel) {
+    const todo = new Todo(obj.id, obj.uid, obj.title, obj.description, obj.isCompleted, obj.dueDate, obj.userId, obj.createdAt, obj.updatedAt);
+
+    return todo;
+  }
+
+  static createFromDetails(obj: IPrismaTodo) {
+    const todo = new Todo(obj.id, obj.uid, obj.title, obj.description, obj.isCompleted, obj.dueDate, obj.userId, obj.createdAt, obj.updatedAt);
 
     return todo;
   }
