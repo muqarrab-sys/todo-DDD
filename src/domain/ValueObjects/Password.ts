@@ -1,15 +1,13 @@
 import { InternalServerException } from '@/application/exceptions';
-import BCrypt from '@/infrastructure/utils/bcrypt';
+import BCrypt from '@/infrastructure/utils/BCrypt';
 import { IsString, Length } from 'class-validator';
 
 export default class Password {
   @IsString() @Length(8) private password: string;
   private encoded: string;
-  private encryption: BCrypt;
 
   constructor(password: string) {
     this.password = password;
-    this.encryption = new BCrypt();
   }
 
   get value(): string {
@@ -25,11 +23,13 @@ export default class Password {
   }
 
   async encode(): Promise<string> {
-    this.encoded = await this.encryption.encrypt(this.password);
+    const encryption = new BCrypt();
+    this.encoded = await encryption.encrypt(this.password);
     return this.encoded;
   }
 
   async compare(hash: string): Promise<boolean> {
-    return await this.encryption.compare(this.password, hash);
+    const encryption = new BCrypt();
+    return await encryption.compare(this.password, hash);
   }
 }

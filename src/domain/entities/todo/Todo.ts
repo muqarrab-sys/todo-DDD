@@ -48,7 +48,17 @@ class Todo implements ITodo {
   }
 
   static create(obj: ITodoModel) {
-    const todo = new Todo(obj.id, obj.uid, obj.title, obj.description, obj.isCompleted, obj.dueDate, obj.userId, obj.createdAt, obj.updatedAt);
+    const todo = new Todo(
+      obj.id,
+      obj.uid,
+      obj.title,
+      obj.description,
+      obj.isCompleted || false,
+      obj.dueDate,
+      obj.userId,
+      obj.createdAt,
+      obj.updatedAt,
+    );
 
     return todo;
   }

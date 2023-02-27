@@ -1,6 +1,7 @@
 import User from '@/domain/entities/user';
 import { IGoogleCodeValidation, IUserCredentialsValidation, IUserValidation } from '@/domain/entities/user/types';
 import UserRepository from '@/infrastructure/repositories/UserRepository';
+import SharedUtils from '@/infrastructure/utils/SharedUtils';
 import { IHandler } from '@/interfaces';
 import UserServices from '../services/UserServices';
 import HttpResponse from '../utils/HttpResponse';
@@ -20,6 +21,7 @@ class UserController extends BaseController {
 
     const response = await this.service.registerUser(
       User.create({
+        uid: SharedUtils.uuid(),
         name: data.name,
         email: data.email.value,
         password: data.password.value,
@@ -34,7 +36,7 @@ class UserController extends BaseController {
   public login: IHandler = async (req, res) => {
     const data: IUserCredentialsValidation = req.body;
 
-    const response = this.service.loginUser(data.email, data.password);
+    const response = await this.service.loginUser(data.email, data.password);
 
     res.status(200).json(HttpResponse.ok(response));
   };

@@ -23,10 +23,10 @@
     "paths": {
       "@/*": ["src/*"],
       "@bin/*": ["bin/*"],
-      "@configs/*": ["src/configs/*"],
-      "@presentation/*": ["src/presentation/*"],
-      "@infrastructure/*": ["src/infrastructure/*"],
       "@domain/*": ["src/domain/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@application/*": ["src/application/*"],
+      "@infrastructure/*": ["src/infrastructure/*"],
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env", "bin/www.ts"],

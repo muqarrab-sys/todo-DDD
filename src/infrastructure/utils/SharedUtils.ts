@@ -4,6 +4,10 @@ class SharedUtils {
   static uuid(): string {
     return uuidv4();
   }
+
+  static convertToBoolean(value: 'true' | 'false') {
+    return { true: true, false: false }[value] || false;
+  }
 }
 
 export default SharedUtils;

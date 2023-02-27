@@ -1,5 +1,5 @@
 import IUserRepository from '@/domain/entities/user/repository/IUserRepository';
-import { IPrismaUser, IUser } from '@/domain/entities/user/types';
+import { IUser } from '@/domain/entities/user/types';
 import { Prisma } from '@prisma/client';
 import PrismaDatabase from '../database/prisma/PrismaDatabase';
 
