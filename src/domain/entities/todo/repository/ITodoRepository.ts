@@ -1,16 +1,11 @@
 import { IPaginationQuery } from '@/application/utils/Pagination';
-import { IPrismaTodo, ITodo, ITodoModel, ITodoUpdate, TodoOrderByWithRelationInput } from '../types';
+import { ITodo, TodoOrderByInput, TodoPartial, TodoUpdateObject } from '../types';
 
 export default interface ITodoRepository {
-  create: (obj: ITodo) => Promise<IPrismaTodo>;
-  find: (id: number) => Promise<IPrismaTodo>;
-  findMany: (
-    userId: number,
-    pagination?: IPaginationQuery,
-    where?: Partial<ITodoModel>,
-    orderBy?: TodoOrderByWithRelationInput,
-  ) => Promise<IPrismaTodo[]>;
-  count: (userId: number, where?: Partial<ITodoModel>) => Promise<number>;
-  delete: (id: number) => Promise<IPrismaTodo>;
-  update: (id: number, obj: ITodoUpdate) => Promise<IPrismaTodo>;
+  create: (obj: ITodo) => Promise<ITodo>;
+  find: (id: number) => Promise<ITodo>;
+  findMany: (userId: number, pagination?: IPaginationQuery, where?: TodoPartial, orderBy?: TodoOrderByInput) => Promise<ITodo[]>;
+  count: (userId: number, where?: TodoPartial) => Promise<number>;
+  delete: (id: number) => Promise<ITodo>;
+  update: (id: number, obj: TodoUpdateObject) => Promise<ITodo>;
 }

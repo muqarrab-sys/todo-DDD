@@ -1,6 +1,6 @@
 import { IPaginationQuery } from '@/application/utils/Pagination';
 import ITodoRepository from '@/domain/entities/todo/repository/ITodoRepository';
-import { ITodo, ITodoModel, ITodoUpdate, TodoOrderByWithRelationInput } from '@/domain/entities/todo/types';
+import { ITodo, TodoOrderByInput, TodoPartial, TodoUpdateObject } from '@/domain/entities/todo/types';
 import { Prisma } from '@prisma/client';
 import PrismaDatabase from '../database/prisma/PrismaDatabase';
 
@@ -28,7 +28,7 @@ class TodoRepository implements ITodoRepository {
     return await this.model.findUnique({ where: { id } });
   }
 
-  async findMany(userId: number, pagination?: IPaginationQuery, where?: Partial<ITodoModel>, orderBy?: TodoOrderByWithRelationInput) {
+  async findMany(userId: number, pagination?: IPaginationQuery, where?: TodoPartial, orderBy?: TodoOrderByInput) {
     return await this.model.findMany({
       where: {
         AND: {
@@ -41,7 +41,7 @@ class TodoRepository implements ITodoRepository {
     });
   }
 
-  async count(userId: number, where?: Partial<ITodoModel>) {
+  async count(userId: number, where?: TodoPartial) {
     return await this.model.count({
       where: {
         AND: {
@@ -56,7 +56,7 @@ class TodoRepository implements ITodoRepository {
     return await this.model.delete({ where: { id } });
   }
 
-  async update(id: number, data: ITodoUpdate) {
+  async update(id: number, data: TodoUpdateObject) {
     return await this.model.update({ where: { id }, data });
   }
 }

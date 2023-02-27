@@ -1,7 +1,7 @@
-import { SortOrder } from '@/interfaces';
-import { Prisma, Todo } from '@prisma/client';
+import { IOrderBy, ISearchQuery, PartialBy } from '@/interfaces';
+import { Todo } from '@prisma/client';
 
-export interface ITodo {
+export interface ITodo extends Todo {
   id: number;
   uid: string;
   title: string;
@@ -13,52 +13,20 @@ export interface ITodo {
   updatedAt: Date;
 }
 
-export interface ITodoModel {
-  id?: number;
-  uid: string;
-  title: string;
-  description: string;
+export type TodoInput = PartialBy<ITodo, 'id' | 'isCompleted' | 'createdAt' | 'updatedAt'>;
+
+export type TodoPartial = Partial<ITodo>;
+
+export type TodoUserInput = Pick<ITodo, 'title' | 'description' | 'isCompleted' | 'dueDate'>;
+
+export type TodoCreationObject = PartialBy<TodoUserInput, 'isCompleted'>;
+
+export type TodoUpdateObject = Partial<TodoUserInput>;
+
+export interface ITodoSearchObject extends ISearchQuery<ITodo> {
   isCompleted?: boolean;
-  dueDate: Date;
-  userId: number;
-  createdAt?: Date;
-  updatedAt?: Date;
 }
 
-export interface ITodoUpdate {
-  title?: string;
-  description?: string;
-  isCompleted?: boolean;
-  dueDate?: Date;
-}
+export type KeysOfTodo = keyof ITodo;
 
-export interface IPrismaTodo extends Todo {}
-
-export interface ITodoValidationObject {
-  title: string;
-  description: string;
-  dueDate: Date;
-}
-
-export interface ITodoIdValidationObject {
-  id: number;
-}
-
-export interface ITodoSearchObject {
-  page?: number;
-  limit?: number;
-  isCompleted?: boolean;
-  orderBy?: ITodoOrderBy;
-  sortBy?: SortOrder;
-}
-
-export interface ITodoUpdateValidationObject {
-  title?: string;
-  description?: string;
-  isCompleted?: boolean;
-  dueDate?: Date;
-}
-
-export type ITodoOrderBy = keyof TodoOrderByWithRelationInput;
-
-export interface TodoOrderByWithRelationInput extends Prisma.TodoOrderByWithRelationInput {}
+export type TodoOrderByInput = Partial<IOrderBy<ITodo>>;

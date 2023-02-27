@@ -1,6 +1,6 @@
 import Todo from '@/domain/entities/todo';
 import ITodoRepository from '@/domain/entities/todo/repository/ITodoRepository';
-import { ITodo, ITodoModel, ITodoOrderBy, ITodoUpdate } from '@/domain/entities/todo/types';
+import { ITodo, KeysOfTodo, TodoOrderByInput, TodoPartial, TodoUpdateObject } from '@/domain/entities/todo/types';
 import { SortOrder } from '@/interfaces';
 import { isNil } from 'lodash';
 import { ASCENDING } from '../constants';
@@ -32,16 +32,16 @@ class TodoService extends BaseServices<ITodoRepository> {
       page: number;
       limit: number;
       isCompleted?: boolean;
-      orderBy: ITodoOrderBy;
+      orderBy: KeysOfTodo;
       sortBy: SortOrder;
     },
   ) {
     const pagination = Pagination.convertToSqlQuery(data.page, data.limit);
 
-    const filter: Partial<ITodoModel> = {};
+    const filter: TodoPartial = {};
     if (!isNil(data.isCompleted)) filter.isCompleted = data.isCompleted;
 
-    const orderBy = {};
+    const orderBy: TodoOrderByInput = {};
     if (data.orderBy) orderBy[data.orderBy] = data.sortBy || ASCENDING;
 
     const todos = await this.repository.findMany(userId, pagination, filter, orderBy);
@@ -60,7 +60,7 @@ class TodoService extends BaseServices<ITodoRepository> {
     return await this.repository.delete(id);
   }
 
-  async update(id: number, userId: number, data: ITodoUpdate) {
+  async update(id: number, userId: number, data: TodoUpdateObject) {
     let todo = await this.repository.find(id);
     if (todo.userId !== userId) throw new UnAuthorizedException('You are not authorized to perform this action!');
 

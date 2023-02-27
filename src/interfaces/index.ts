@@ -16,3 +16,20 @@ export declare const SortOrder: {
 };
 
 export type SortOrder = typeof SortOrder[keyof typeof SortOrder];
+
+export declare type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
+export type IdObject = {
+  id: number;
+};
+
+export interface ISearchQuery<T> {
+  page?: number;
+  limit?: number;
+  orderBy?: keyof T;
+  sortBy?: SortOrder;
+}
+
+export type IOrderBy<T> = {
+  [key in keyof T]: SortOrder;
+};

@@ -1,8 +1,8 @@
 import Todo from '@/domain/entities/todo';
-import { ITodoIdValidationObject, ITodoValidationObject, ITodoSearchObject, ITodoUpdateValidationObject } from '@/domain/entities/todo/types';
+import { ITodoSearchObject, TodoCreationObject, TodoUpdateObject } from '@/domain/entities/todo/types';
 import TodoRepository from '@/infrastructure/repositories/TodoRepository';
 import SharedUtils from '@/infrastructure/utils/SharedUtils';
-import { IHandler } from '@/interfaces';
+import { IdObject, IHandler } from '@/interfaces';
 import { isNil, omitBy } from 'lodash';
 import TodoService from '../services/TodoServices';
 import HttpResponse from '../utils/HttpResponse';
@@ -17,7 +17,7 @@ class TodoController extends BaseController {
     this.service = new TodoService(TodoRepository);
   }
   create: IHandler = async (req, res) => {
-    const data: ITodoValidationObject = req.body;
+    const data: TodoCreationObject = req.body;
 
     const todo = Todo.create({
       uid: SharedUtils.uuid(),
@@ -33,7 +33,7 @@ class TodoController extends BaseController {
   };
 
   find: IHandler = async (req, res) => {
-    const { id } = req.params as ITodoIdValidationObject;
+    const { id } = req.params as IdObject;
 
     const response = await this.service.find(id);
 
@@ -55,7 +55,7 @@ class TodoController extends BaseController {
   };
 
   delete: IHandler = async (req, res) => {
-    const { id } = req.params as ITodoIdValidationObject;
+    const { id } = req.params as IdObject;
 
     await this.service.delete(req.currentUser.id, id);
 
@@ -63,8 +63,8 @@ class TodoController extends BaseController {
   };
 
   update: IHandler = async (req, res) => {
-    const { id } = req.params as ITodoIdValidationObject;
-    const body = req.body as ITodoUpdateValidationObject;
+    const { id } = req.params as IdObject;
+    const body = req.body as TodoUpdateObject;
 
     const response = await this.service.update(id, req.currentUser.id, omitBy(body, isNil));
 
