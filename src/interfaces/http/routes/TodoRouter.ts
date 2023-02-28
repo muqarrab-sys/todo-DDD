@@ -15,6 +15,14 @@ class TodoRouter extends BaseRouter<TodoController> {
 
   protected routes(): void {}
 
+  // TODO: Implement more routes:
+  // route: '/todo/completed'
+  // route: '/todo/active'
+  // route: '/todo/complete'
+  // route: '/todo/clear_completed'
+  // route: '/todo/clear_all'
+  // route: '/todo/history'
+  // route: '/todo/clear_history'
   protected protectedRoutes(): void {
     this.post('/todo', validate(TodoCreationValidation), this.controller.create);
     this.get('/todo', validate(TodoSearchValidation, 'query', { skipMissingProperties: true }), this.controller.findByUser);

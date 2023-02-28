@@ -50,14 +50,9 @@ export default class Password {
     return this.encodedPassword;
   }
 
-  async compare(hash: string): Promise<boolean> {
-    if (!this.hasPlainTextPassword) {
-      throw new InternalServerException('There is nothing to compare with');
-    }
-
+  async compare(compareValue: string): Promise<boolean> {
     const encryption = new BCrypt();
-
-    return await encryption.compare(this.password, hash);
+    return await encryption.compare(this.password || this.encodedPassword, compareValue);
   }
 
   private saveEncoded(encoded: string) {

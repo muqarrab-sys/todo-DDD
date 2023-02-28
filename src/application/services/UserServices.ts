@@ -27,7 +27,7 @@ class UserServices extends BaseServices<IUserRepository> {
     const user = User.createFromDetails(dbUser);
     const token = JsonWebToken.encode({ id: user.id, uid: user.uid });
 
-    return { user, token };
+    return { user: user.values, token };
   }
 
   async loginUser(email: Email, password: Password) {
@@ -41,7 +41,7 @@ class UserServices extends BaseServices<IUserRepository> {
 
     const user = User.createFromDetails(dbUser);
 
-    return { user, token };
+    return { user: user.values, token };
   }
 
   async registerOrLoginWithGoogle(code: string) {
@@ -66,7 +66,7 @@ class UserServices extends BaseServices<IUserRepository> {
     const user = User.createFromDetails(dbUser);
     const token = JsonWebToken.encode({ id: user.id, uid: user.uid });
 
-    return { user, token };
+    return { user: user.values, token };
   }
 
   async findById(id: number) {
@@ -79,21 +79,21 @@ class UserServices extends BaseServices<IUserRepository> {
   async updateProfile(user: IUser, obj: UserUpdateObject) {
     const updatedUser = await this.repository.update(user.id, Object.assign(user, obj));
 
-    return User.createFromDetails(updatedUser);
+    return User.createFromDetails(updatedUser).values;
   }
 
   async updatePassword(user: IUser, obj: UserUpdatePasswordObject) {
     if (obj.newPassword.value !== obj.confirmPassword.value) throw new BadRequestException("Passwords Don't match");
 
-    const isMatch = await user.password.compare(obj.oldPassword.value);
-    if (isMatch) throw new BadRequestException('Wrong password');
+    const isMatch = await obj.oldPassword.compare(user.password.value);
+    if (!isMatch) throw new BadRequestException('Wrong password');
 
     user.password = obj.newPassword;
     await user.password.encode();
 
     const updatedUser = await this.repository.update(user.id, user);
 
-    return User.createFromDetails(updatedUser);
+    return User.createFromDetails(updatedUser).values;
   }
 }
 
