@@ -5,14 +5,14 @@ import { Prisma } from '@prisma/client';
 import PrismaDatabase from '../database/prisma/PrismaDatabase';
 
 class TodoRepository implements ITodoRepository {
-  private model: Prisma.TodoDelegate<{}>;
+  private todo: Prisma.TodoDelegate<{}>;
 
   constructor() {
-    this.model = new PrismaDatabase().getClient().todo;
+    this.todo = new PrismaDatabase().getClient().todo;
   }
 
   async create(data: ITodo) {
-    return await this.model.create({
+    return await this.todo.create({
       data: {
         uid: data.uid,
         title: data.title,
@@ -25,11 +25,11 @@ class TodoRepository implements ITodoRepository {
   }
 
   async find(id: number) {
-    return await this.model.findUnique({ where: { id } });
+    return await this.todo.findUnique({ where: { id } });
   }
 
   async findMany(userId: number, pagination?: IPaginationQuery, where?: TodoPartial, orderBy?: TodoOrderByInput) {
-    return await this.model.findMany({
+    return await this.todo.findMany({
       where: {
         AND: {
           userId,
@@ -42,7 +42,7 @@ class TodoRepository implements ITodoRepository {
   }
 
   async count(userId: number, where?: TodoPartial) {
-    return await this.model.count({
+    return await this.todo.count({
       where: {
         AND: {
           userId,
@@ -53,11 +53,11 @@ class TodoRepository implements ITodoRepository {
   }
 
   async delete(id: number) {
-    return await this.model.delete({ where: { id } });
+    return await this.todo.delete({ where: { id } });
   }
 
   async update(id: number, data: TodoUpdateObject) {
-    return await this.model.update({ where: { id }, data });
+    return await this.todo.update({ where: { id }, data });
   }
 }
 

@@ -19,9 +19,10 @@ class TodoService extends BaseServices<ITodoRepository> {
     return Todo.createFromDetails(todo);
   }
 
-  async find(id: number) {
+  async find(id: number, userId: number) {
     const todo = await this.repository.find(id);
-    if (!todo) throw new NotFoundException('Item no longer exists!');
+    if (!todo) throw new NotFoundException('Item not found!');
+    if (todo.userId !== userId) throw new UnAuthorizedException('You are not authorized to view this item!');
 
     return Todo.createFromDetails(todo);
   }

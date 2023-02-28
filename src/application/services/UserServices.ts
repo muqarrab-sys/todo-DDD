@@ -1,6 +1,6 @@
 import User from '@/domain/entities/user';
 import IUserRepository from '@/domain/entities/user/repository/IUserRepository';
-import { IUser } from '@/domain/entities/user/types';
+import { IUser, UserUpdateObject, UserUpdatePasswordObject } from '@/domain/entities/user/types';
 import Email from '@/domain/ValueObjects/Email';
 import Password from '@/domain/ValueObjects/Password';
 import OAuth2 from '@/infrastructure/auth/google/OAuth2';
@@ -74,6 +74,26 @@ class UserServices extends BaseServices<IUserRepository> {
     if (!dbUser) throw new NotFoundException("User doesn't exist!");
 
     return User.createFromDetails(dbUser);
+  }
+
+  async updateProfile(user: IUser, obj: UserUpdateObject) {
+    const updatedUser = await this.repository.update(user.id, Object.assign(user, obj));
+
+    return User.createFromDetails(updatedUser);
+  }
+
+  async updatePassword(user: IUser, obj: UserUpdatePasswordObject) {
+    if (obj.newPassword.value !== obj.confirmPassword.value) throw new BadRequestException("Passwords Don't match");
+
+    const isMatch = await user.password.compare(obj.oldPassword.value);
+    if (isMatch) throw new BadRequestException('Wrong password');
+
+    user.password = obj.newPassword;
+    await user.password.encode();
+
+    const updatedUser = await this.repository.update(user.id, user);
+
+    return User.createFromDetails(updatedUser);
   }
 }
 

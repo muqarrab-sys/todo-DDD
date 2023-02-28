@@ -1,6 +1,6 @@
 import Email from '@/domain/ValueObjects/Email';
 import Password from '@/domain/ValueObjects/Password';
-import { GenderEnum, IPrismaUser, IUser, IUserModel } from './types';
+import { GenderEnum, IUser, IUserModel, UserInput } from './types';
 
 class User implements IUser {
   id: number;
@@ -51,7 +51,7 @@ class User implements IUser {
     };
   }
 
-  static create(obj: IUserModel) {
+  static create(obj: UserInput) {
     const email = new Email(obj.email);
     const password = obj?.password ? new Password(obj.password) : null;
     const gender = obj.gender as GenderEnum;
@@ -59,9 +59,9 @@ class User implements IUser {
     return new User(obj?.id, obj?.uid, obj.name, email, password, gender, obj.dob, obj?.googleId, obj?.createdAt, obj?.updatedAt);
   }
 
-  static createFromDetails(obj: IPrismaUser) {
+  static createFromDetails(obj: IUserModel) {
     const email = new Email(obj.email);
-    const password = obj?.password ? new Password(obj.password) : null;
+    const password = obj?.password ? new Password(obj.password, true) : null;
     const gender = obj.gender as GenderEnum;
 
     return new User(obj.id, obj.uid, obj.name, email, password, gender, obj.dob, obj?.googleId, obj.createdAt, obj.updatedAt);

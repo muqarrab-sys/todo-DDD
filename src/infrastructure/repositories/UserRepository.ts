@@ -4,19 +4,19 @@ import { Prisma } from '@prisma/client';
 import PrismaDatabase from '../database/prisma/PrismaDatabase';
 
 class UserRepository implements IUserRepository {
-  private model: Prisma.UserDelegate<{}>;
+  private user: Prisma.UserDelegate<{}>;
 
   constructor() {
-    this.model = new PrismaDatabase().getClient().user;
+    this.user = new PrismaDatabase().getClient().user;
   }
 
   async create(data: IUser) {
-    return await this.model.create({
+    return await this.user.create({
       data: {
         uid: data.uid,
         name: data.name,
         email: data.email.value,
-        password: data.password?.encodedValue,
+        password: data.password?.encoded,
         gender: data.gender,
         dob: data.dob,
         googleId: data.googleId,
@@ -25,11 +25,23 @@ class UserRepository implements IUserRepository {
   }
 
   async find(id: number) {
-    return await this.model.findUnique({ where: { id } });
+    return await this.user.findUnique({ where: { id } });
   }
 
   async findByEmail(email: string) {
-    return await this.model.findUnique({ where: { email } });
+    return await this.user.findUnique({ where: { email } });
+  }
+
+  async update(id: number, user: IUser) {
+    return await this.user.update({
+      where: { id },
+      data: {
+        name: user.name,
+        gender: user.gender,
+        dob: user.dob,
+        password: user.password?.encoded,
+      },
+    });
   }
 }
 

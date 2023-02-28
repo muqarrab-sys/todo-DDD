@@ -16,6 +16,7 @@ class TodoController extends BaseController {
 
     this.service = new TodoService(TodoRepository);
   }
+
   create: IHandler = async (req, res) => {
     const data: TodoCreationObject = req.body;
 
@@ -35,7 +36,7 @@ class TodoController extends BaseController {
   find: IHandler = async (req, res) => {
     const { id } = req.params as IdObject;
 
-    const response = await this.service.find(id);
+    const response = await this.service.find(id, req.currentUser.id);
 
     res.status(200).json(HttpResponse.ok(response));
   };
