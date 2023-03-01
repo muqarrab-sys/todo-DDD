@@ -3,7 +3,7 @@ import { IUser } from '@/domain/entities/user/types';
 import { NextFunction, Request, Response } from 'express';
 
 export declare interface Req extends Request<any, any, any, any> {
-  currentUser?: IUser;
+  user?: IUser;
 }
 
 export declare type IHandler = (req: Req, res: Response, next: NextFunction) => void;

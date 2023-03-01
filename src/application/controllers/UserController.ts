@@ -52,7 +52,7 @@ class UserController extends BaseController {
   public updateProfile: IHandler = async (req, res) => {
     const body: UserUpdateObject = req.body;
 
-    const response = await this.service.updateProfile(req.currentUser, body);
+    const response = await this.service.updateProfile(req.user, body);
 
     res.status(200).json(HttpResponse.ok(response, 'User Profile Updated!'));
   };
@@ -60,7 +60,7 @@ class UserController extends BaseController {
   public updatePassword: IHandler = async (req, res) => {
     const body: UserUpdatePasswordObject = req.body;
 
-    const response = await this.service.updatePassword(req.currentUser, body);
+    const response = await this.service.updatePassword(req.user, body);
 
     res.status(200).json(HttpResponse.ok(response, 'Password updated!'));
   };

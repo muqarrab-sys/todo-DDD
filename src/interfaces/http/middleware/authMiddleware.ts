@@ -15,7 +15,7 @@ const authorize = (): IHandler => async (req, res, next) => {
     const user = await new UserServices(UserRepository).findById(decoded.id);
     if (!user) throw new UnAuthorizedException('Invalid User');
 
-    req.currentUser = user;
+    req.user = user;
 
     next();
   } catch (ex) {

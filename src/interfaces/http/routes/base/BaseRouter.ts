@@ -1,7 +1,7 @@
 import BaseController from '@/application/controllers/base/BaseController';
 import logger from '@/infrastructure/utils/logger';
 import { RequestHandler, Router } from 'express';
-import authorize from '../../middleware/authMiddleware';
+import PassportJwtAuth from '../../middleware/PassportJwtAuth';
 import tryMiddleware from '../../middleware/tryMiddleware';
 
 type Methods = 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
@@ -18,7 +18,7 @@ abstract class BaseRouter<T = BaseController> {
 
     this.routes();
 
-    this.appliedMiddleware = [authorize()];
+    this.appliedMiddleware = [PassportJwtAuth()];
     this.protectedRoutes();
   }
 

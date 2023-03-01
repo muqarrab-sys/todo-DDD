@@ -7,11 +7,15 @@ export interface IJwtPayload {
 
 class JsonWebToken {
   static encode(data: IJwtPayload) {
-    return jwt.sign(data, process.env.SECRET);
+    const token = jwt.sign(data, process.env.SECRET);
+
+    return `bearer ${token}`;
   }
 
   static decode(token: string): IJwtPayload {
-    return jwt.verify(token, process.env.SECRET) as IJwtPayload;
+    const fixedToken = token.replace('bearer ', '');
+
+    return jwt.verify(fixedToken, process.env.SECRET) as IJwtPayload;
   }
 }
 
