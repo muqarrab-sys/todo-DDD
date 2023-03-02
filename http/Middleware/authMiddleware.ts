@@ -1,6 +1,6 @@
 import { UnAuthorizedException } from '@Infrastructure/Exceptions';
 import UserServices from '@Application/Services/User/UserServices';
-import JsonWebToken from '@Infrastructure/Utils/JsonWebToken';
+import JsonWebToken from '@Infrastructure/Auth/JWT/JsonWebToken';
 import UserRepository from '@Infrastructure/Repositories/UserRepository';
 import { IHandler } from '@interfaces/index';
 

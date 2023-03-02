@@ -41,7 +41,8 @@ export enum Env {
   'TEST' = 'test',
 }
 
-export interface JwtPayload extends JsonWebTokenPayload {
-  id: number;
-  uid: string;
+export interface JwtPayload extends Omit<JsonWebTokenPayload, 'sub'> {
+  id?: number;
+  uid?: string;
+  sub?: string | number | undefined;
 }

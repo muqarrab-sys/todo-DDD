@@ -5,9 +5,9 @@ import Email from '@Domain/ValueObjects/Email';
 import Password from '@Domain/ValueObjects/Password';
 import OAuth2 from '@Infrastructure/Auth/Google/OAuth2';
 import configs from '@Infrastructure/Configs';
-import JsonWebToken from '@Infrastructure/Utils/JsonWebToken';
+import JsonWebToken from '@Infrastructure/Auth/JWT/JsonWebToken';
 import SharedUtils from '@Infrastructure/Utils/SharedUtils';
-import { NotFoundException } from '@Infrastructure/Exceptions';
+import { NotFoundException, UnAuthorizedException } from '@Infrastructure/Exceptions';
 import BadRequestException from '@Infrastructure/Exceptions/BadRequestException';
 import BaseServices from '../BaseServices';
 
@@ -33,6 +33,8 @@ class UserServices extends BaseServices<IUserRepository> {
   async loginUser(email: Email, password: Password) {
     const dbUser = await this.repository.findByEmail(email.value);
     if (!dbUser) throw new NotFoundException("User doesn't exist!");
+
+    if (dbUser.googleId) throw new UnAuthorizedException('This account can only be logged in through google');
 
     const isMatch = await password.compare(dbUser.password);
     if (!isMatch) throw new BadRequestException('Wrong Password!');

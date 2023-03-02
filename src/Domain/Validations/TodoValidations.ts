@@ -2,12 +2,12 @@ import SharedUtils from '@Infrastructure/Utils/SharedUtils';
 import { IdObject, SortOrder } from '@interfaces/index';
 import { ITodoSearchObject, KeysOfTodo, TodoCreationObject, TodoUpdateObject } from '@interfaces/todo';
 import { Transform } from 'class-transformer';
-import { IsBoolean, IsDate, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsNumber, IsString, IsOptional } from 'class-validator';
 
 export class TodoCreationValidation implements TodoCreationObject {
   @IsString() title: string;
   @IsString() description: string;
-  @IsBoolean() isCompleted?: boolean;
+  @IsOptional() @IsBoolean() isCompleted?: boolean;
   @Transform(({ value }) => new Date(value)) @IsDate() dueDate: Date;
 }
 

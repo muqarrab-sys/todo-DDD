@@ -17,12 +17,12 @@ class UserRouter extends BaseRouter<UserController> {
   protected routes(): void {
     this.post('/register', validate(UserCreationValidation), this.controller.register);
     this.post('/login', validate(UserCredentialsValidation), this.controller.login);
-    this.post('/google_sign_in', validate(GoogleCodeValidation), this.controller.signInWithGoogle);
+    this.post('/googleSignIn', validate(GoogleCodeValidation), this.controller.signInWithGoogle);
   }
 
   protected protectedRoutes(): void {
-    this.put('/update_profile', validate(UserUpdateValidation, 'body', { skipMissingProperties: true }), this.controller.updateProfile);
-    this.put('/update_password', validate(UserUpdatePasswordValidation), this.controller.updatePassword);
+    this.put('/updateProfile', validate(UserUpdateValidation, 'body', { skipMissingProperties: true }), this.controller.updateProfile);
+    this.put('/updatePassword', validate(UserUpdatePasswordValidation), this.controller.updatePassword);
   }
 }
 
