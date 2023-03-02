@@ -1,10 +1,11 @@
 require('dotenv').config();
-import App from '@/application/App';
-import PrismaDatabase from '@/infrastructure/database/prisma/PrismaDatabase';
-import Routes from '@/interfaces/http/routes';
+import 'reflect-metadata';
+
+import PrismaDatabase from '@Infrastructure/Database/Prisma/PrismaDatabase';
+import Routes from '@http/Routes';
 import { Command } from 'commander';
 import figlet from 'figlet';
-import 'reflect-metadata';
+import App from './App';
 
 console.log(figlet.textSync('Todo APP - DDD'));
 

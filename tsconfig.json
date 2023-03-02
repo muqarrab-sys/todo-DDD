@@ -21,14 +21,15 @@
     "importHelpers": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "@*": ["src/*"],
       "@bin/*": ["bin/*"],
-      "@domain/*": ["src/domain/*"],
-      "@interfaces/*": ["src/interfaces/*"],
-      "@application/*": ["src/application/*"],
-      "@infrastructure/*": ["src/infrastructure/*"],
+      "@http/*": ["http/*"],
+      "@Domain/*": ["src/Domain/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@Application/*": ["src/Application/*"],
+      "@Infrastructure/*": ["src/Infrastructure/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.json", ".env", "bin/www.ts"],
+  "include": ["src/**/*.ts", "src/**/*.json", "bin/**/*.ts", "http/**/*.ts", "interfaces/**/*.ts", ".env"],
   "exclude": ["node_modules"]
 }

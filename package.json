@@ -4,7 +4,8 @@
   "main": "bin/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "npm run build && cross-env NODE_ENV=production node dist/index.js",
+    "start": "npm run build && cross-env NODE_ENV=production node dist/bin/www.js",
+    "build": "tsc --project './tsconfig.json'",
     "dev": "cross-env NODE_ENV=development nodemon",
     "seed:user": "ts-node -r tsconfig-paths/register --transpile-only bin/index.ts -s user",
     "seed:todo": "ts-node -r tsconfig-paths/register --transpile-only bin/index.ts -s todo"
