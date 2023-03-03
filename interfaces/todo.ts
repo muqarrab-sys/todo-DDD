@@ -8,12 +8,12 @@ export interface ITodo extends Todo {
   description: string;
   isCompleted: boolean;
   dueDate: Date;
-  userId: number;
+  userId: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export type TodoInput = PartialBy<ITodo, 'id' | 'isCompleted' | 'createdAt' | 'updatedAt'>;
+export type TodoInput = PartialBy<ITodo, 'id' | 'uid' | 'isCompleted' | 'createdAt' | 'updatedAt'>;
 
 export type TodoPartial = Partial<ITodo>;
 
@@ -27,6 +27,6 @@ export interface ITodoSearchObject extends ISearchQuery<ITodo> {
   isCompleted?: boolean;
 }
 
-export type KeysOfTodo = keyof ITodo;
+export type TodoAttributes = keyof ITodo;
 
 export type TodoOrderByInput = Partial<IOrderBy<ITodo>>;

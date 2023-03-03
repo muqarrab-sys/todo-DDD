@@ -12,23 +12,14 @@ class TodoRepository implements ITodoRepository {
   }
 
   async create(data: ITodo) {
-    return await this.todo.create({
-      data: {
-        uid: data.uid,
-        title: data.title,
-        description: data.description,
-        isCompleted: data.isCompleted,
-        dueDate: data.dueDate,
-        userId: data.userId,
-      },
-    });
+    return await this.todo.create({ data });
   }
 
-  async find(id: number) {
-    return await this.todo.findUnique({ where: { id } });
+  async find(where) {
+    return await this.todo.findUnique({ where });
   }
 
-  async findMany(userId: number, pagination?: IPaginationQuery, where?: TodoPartial, orderBy?: TodoOrderByInput) {
+  async findMany(userId: string, where?: TodoPartial, pagination?: IPaginationQuery, orderBy?: TodoOrderByInput) {
     return await this.todo.findMany({
       where: {
         AND: {
@@ -41,7 +32,7 @@ class TodoRepository implements ITodoRepository {
     });
   }
 
-  async count(userId: number, where?: TodoPartial) {
+  async count(userId: string, where?: TodoPartial) {
     return await this.todo.count({
       where: {
         AND: {
@@ -52,12 +43,12 @@ class TodoRepository implements ITodoRepository {
     });
   }
 
-  async delete(id: number) {
-    return await this.todo.delete({ where: { id } });
+  async delete(uid: string) {
+    return await this.todo.delete({ where: { uid } });
   }
 
-  async update(id: number, data: TodoUpdateObject) {
-    return await this.todo.update({ where: { id }, data });
+  async update(uid: string, data: TodoUpdateObject) {
+    return await this.todo.update({ where: { uid }, data });
   }
 }
 

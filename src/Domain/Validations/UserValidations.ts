@@ -1,20 +1,18 @@
 import { GenderEnum, GoogleCodeObject, UserCredentialObject, UserInputObject, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/user';
-import Email from '@Domain/ValueObjects/Email';
-import Password from '@Domain/ValueObjects/Password';
-import { Transform, Type } from 'class-transformer';
-import { IsDate, IsEnum, IsString, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsDate, IsEmail, IsEnum, IsString, Length, ValidateNested } from 'class-validator';
 
 export class UserCreationValidation implements UserInputObject {
   @IsString() name: string;
-  @Transform(({ value }) => new Email(value)) @ValidateNested() email: Email;
-  @Transform(({ value }) => new Password(value)) @ValidateNested() password: Password;
+  @IsEmail() email: string;
+  @IsString() @Length(8) password: string;
   @IsString() @IsEnum(GenderEnum) gender: GenderEnum;
   @Type(() => Date) @IsDate() dob: Date;
 }
 
 export class UserCredentialsValidation implements UserCredentialObject {
-  @Transform(({ value }) => new Email(value)) @ValidateNested() email: Email;
-  @Transform(({ value }) => new Password(value)) @ValidateNested() password: Password;
+  @IsEmail() email: string;
+  @IsString() password: string;
 }
 
 export class GoogleCodeValidation implements GoogleCodeObject {
@@ -28,7 +26,7 @@ export class UserUpdateValidation implements UserUpdateObject {
 }
 
 export class UserUpdatePasswordValidation implements UserUpdatePasswordObject {
-  @Transform(({ value }) => new Password(value)) @ValidateNested() oldPassword: Password;
-  @Transform(({ value }) => new Password(value)) @ValidateNested() newPassword: Password;
-  @Transform(({ value }) => new Password(value)) @ValidateNested() confirmPassword: Password;
+  @IsString() @Length(8) oldPassword: string;
+  @IsString() @Length(8) newPassword: string;
+  @IsString() @Length(8) confirmPassword: string;
 }

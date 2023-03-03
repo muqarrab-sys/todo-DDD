@@ -1,18 +1,18 @@
-import SharedUtils from '@Infrastructure/Utils/SharedUtils';
-import { IdObject, SortOrder } from '@interfaces/index';
-import { ITodoSearchObject, TodoAttributes, TodoCreationObject, TodoUpdateObject } from '@interfaces/todo';
+import SharedUtils from '@/infrastructure/utils/SharedUtils';
+import { IdObject } from '@interfaces/index';
 import { Transform } from 'class-transformer';
-import { IsBoolean, IsDate, IsNumber, IsString, IsOptional } from 'class-validator';
+import { IsBoolean, IsDate, IsNumber, IsString } from 'class-validator';
+import { ITodoSearchObject, TodoAttributes, TodoCreationObject, TodoUpdateObject } from '../../../../../interfaces/todo';
 
 export class TodoCreationValidation implements TodoCreationObject {
   @IsString() title: string;
   @IsString() description: string;
-  @IsOptional() @IsBoolean() isCompleted?: boolean;
+  @IsBoolean() isCompleted?: boolean;
   @Transform(({ value }) => new Date(value)) @IsDate() dueDate: Date;
 }
 
 export class TodoIdValidation implements IdObject {
-  @IsString() uid: string;
+  @Transform(({ value }) => Number(value)) @IsNumber() id: number;
 }
 
 export class TodoSearchValidation implements ITodoSearchObject {

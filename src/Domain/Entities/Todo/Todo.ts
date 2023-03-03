@@ -7,7 +7,7 @@ class Todo implements ITodo {
   description: string;
   isCompleted: boolean;
   dueDate: Date;
-  userId: number;
+  userId: string;
   createdAt: Date;
   updatedAt: Date;
 
@@ -18,7 +18,7 @@ class Todo implements ITodo {
     description: string,
     isCompleted: boolean,
     dueDate: Date,
-    userId: number,
+    userId: string,
     createdAt: Date,
     updatedAt: Date,
   ) {

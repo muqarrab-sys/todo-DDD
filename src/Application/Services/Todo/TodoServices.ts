@@ -1,6 +1,6 @@
 import Todo from '@Domain/Entities/Todo';
 import ITodoRepository from '@Domain/Entities/Todo/Repository/ITodoRepository';
-import { ITodo, KeysOfTodo, TodoOrderByInput, TodoPartial, TodoUpdateObject } from '@interfaces/todo';
+import { ITodo, TodoAttributes, TodoOrderByInput, TodoPartial, TodoUpdateObject } from '@interfaces/todo';
 import { SortOrder } from '@interfaces/index';
 import { isNil } from 'lodash';
 import { ASCENDING } from '../../Constants';
@@ -19,8 +19,8 @@ class TodoService extends BaseServices<ITodoRepository> {
     return Todo.createFromDetails(todo);
   }
 
-  async find(id: number, userId: number) {
-    const todo = await this.repository.find(id);
+  async find(uid: string, userId: string) {
+    const todo = await this.repository.find({ uid });
     if (!todo) throw new NotFoundException('Item not found!');
     if (todo.userId !== userId) throw new UnAuthorizedException('You are not authorized to view this item!');
 
@@ -28,12 +28,12 @@ class TodoService extends BaseServices<ITodoRepository> {
   }
 
   async findByUser(
-    userId: number,
+    userId: string,
     data: {
       page: number;
       limit: number;
       isCompleted?: boolean;
-      orderBy: KeysOfTodo;
+      orderBy: TodoAttributes;
       sortBy: SortOrder;
     },
   ) {
@@ -45,7 +45,7 @@ class TodoService extends BaseServices<ITodoRepository> {
     const orderBy: TodoOrderByInput = {};
     if (data.orderBy) orderBy[data.orderBy] = data.sortBy || ASCENDING;
 
-    const todos = await this.repository.findMany(userId, pagination, filter, orderBy);
+    const todos = await this.repository.findMany(userId, filter, pagination, orderBy);
     const totalTodos = await this.repository.count(userId, { isCompleted: data.isCompleted });
 
     return {
@@ -54,18 +54,18 @@ class TodoService extends BaseServices<ITodoRepository> {
     };
   }
 
-  async delete(userId: number, id: number) {
-    const todo = await this.repository.find(id);
+  async delete(userId: string, uid: string) {
+    const todo = await this.repository.find({ uid });
     if (todo.userId !== userId) throw new UnAuthorizedException('You are not authorized to perform this action!');
 
-    return await this.repository.delete(id);
+    return await this.repository.delete(uid);
   }
 
-  async update(id: number, userId: number, data: TodoUpdateObject) {
-    let todo = await this.repository.find(id);
+  async update(uid: string, userId: string, data: TodoUpdateObject) {
+    let todo = await this.repository.find({ uid });
     if (todo.userId !== userId) throw new UnAuthorizedException('You are not authorized to perform this action!');
 
-    todo = await this.repository.update(id, data);
+    todo = await this.repository.update(uid, data);
 
     return Todo.createFromDetails(todo);
   }

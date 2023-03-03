@@ -1,4 +1,3 @@
-import Email from '@Domain/ValueObjects/Email';
 import Password from '@Domain/ValueObjects/Password';
 import { PartialBy } from '@interfaces/index';
 import { User } from '@prisma/client';
@@ -13,8 +12,8 @@ export interface IUser {
   id: number;
   uid: string;
   name: string;
-  email: Email;
-  password: Password;
+  email: string;
+  password: string;
   dob: Date;
   gender: GenderEnum;
   googleId: string;
@@ -24,7 +23,7 @@ export interface IUser {
 
 export interface IUserModel extends User {}
 
-export type UserInput = PartialBy<IUserModel, 'id' | 'dob' | 'gender' | 'password' | 'googleId' | 'createdAt' | 'updatedAt'>;
+export type UserInput = PartialBy<IUserModel, 'id' | 'uid' | 'dob' | 'gender' | 'password' | 'googleId' | 'createdAt' | 'updatedAt'>;
 
 export type UserPartial = Partial<IUserModel>;
 
@@ -35,9 +34,9 @@ export type UserCredentialObject = Pick<IUser, 'email' | 'password'>;
 export type UserUpdateObject = Pick<IUser, 'name' | 'gender' | 'dob'>;
 
 export type UserUpdatePasswordObject = {
-  oldPassword: Password;
-  newPassword: Password;
-  confirmPassword: Password;
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
 };
 
 export type GoogleCodeObject = {

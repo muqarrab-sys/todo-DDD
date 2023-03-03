@@ -21,10 +21,9 @@ class UserController extends BaseController {
 
     const response = await this.service.registerUser(
       User.create({
-        uid: SharedUtils.uuid(),
         name: data.name,
-        email: data.email.value,
-        password: data.password.value,
+        email: data.email,
+        password: data.password,
         gender: data.gender,
         dob: data.dob,
       }),

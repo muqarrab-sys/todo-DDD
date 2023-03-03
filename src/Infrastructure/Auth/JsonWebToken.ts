@@ -26,7 +26,7 @@ class JsonWebToken {
   static strategy(repo: IUserRepository) {
     return new JwtStrategy(JsonWebToken.options, async (payload: JwtPayload, done) => {
       try {
-        const user = await repo.find(payload.id);
+        const user = await repo.find({ uid: payload.sub });
         if (!user) done(new UnAuthorizedException('Invalid User'), false);
 
         done(null, user);

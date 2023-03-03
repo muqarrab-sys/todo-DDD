@@ -21,7 +21,7 @@ export type SortOrder = typeof SortOrder[keyof typeof SortOrder];
 export declare type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 export type IdObject = {
-  id: number;
+  uid: string;
 };
 
 export interface ISearchQuery<T> {
@@ -43,6 +43,4 @@ export enum Env {
 
 export interface JwtPayload extends Omit<JsonWebTokenPayload, 'sub'> {
   id?: number;
-  uid?: string;
-  sub?: string | number | undefined;
 }

@@ -11,35 +11,25 @@ class UserRepository implements IUserRepository {
   }
 
   async create(data: IUser) {
-    return await this.user.create({
-      data: {
-        uid: data.uid,
-        name: data.name,
-        email: data.email.value,
-        password: data.password?.encoded,
-        gender: data.gender,
-        dob: data.dob,
-        googleId: data.googleId,
-      },
-    });
+    return await this.user.create({ data });
   }
 
-  async find(id: number) {
-    return await this.user.findUnique({ where: { id } });
+  async find(where) {
+    return await this.user.findUnique({ where });
   }
 
   async findByEmail(email: string) {
     return await this.user.findUnique({ where: { email } });
   }
 
-  async update(id: number, user: IUser) {
+  async update(uid: string, user: IUser) {
     return await this.user.update({
-      where: { id },
+      where: { uid },
       data: {
         name: user.name,
         gender: user.gender,
         dob: user.dob,
-        password: user.password?.encoded,
+        password: user.password,
       },
     });
   }

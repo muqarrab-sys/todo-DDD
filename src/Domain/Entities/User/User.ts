@@ -1,13 +1,11 @@
-import Email from '@Domain/ValueObjects/Email';
-import Password from '@Domain/ValueObjects/Password';
 import { GenderEnum, IUser, IUserModel, UserInput } from '@interfaces/user';
 
 class User implements IUser {
   id: number;
   uid: string;
   name: string;
-  email: Email;
-  password: Password;
+  email: string;
+  password: string;
   gender: GenderEnum;
   dob: Date;
   googleId: string;
@@ -18,8 +16,8 @@ class User implements IUser {
     id: number,
     uid: string,
     name: string,
-    email: Email,
-    password: Password,
+    email: string,
+    password: string,
     gender: GenderEnum,
     dob: Date,
     googleId: string,
@@ -43,7 +41,7 @@ class User implements IUser {
       id: this.id,
       uid: this.uid,
       name: this.name,
-      email: this.email.value,
+      email: this.email,
       gender: this.gender,
       dob: this.dob,
       createdAt: this.createdAt,
@@ -52,19 +50,33 @@ class User implements IUser {
   }
 
   static create(obj: UserInput) {
-    const email = new Email(obj.email);
-    const password = obj?.password ? new Password(obj.password) : null;
-    const gender = obj.gender as GenderEnum;
-
-    return new User(obj?.id, obj?.uid, obj.name, email, password, gender, obj.dob, obj?.googleId, obj?.createdAt, obj?.updatedAt);
+    return new User(
+      obj?.id,
+      obj?.uid,
+      obj?.name,
+      obj.email,
+      obj?.password,
+      obj?.gender as GenderEnum,
+      obj?.dob,
+      obj?.googleId,
+      obj?.createdAt,
+      obj?.updatedAt,
+    );
   }
 
   static createFromDetails(obj: IUserModel) {
-    const email = new Email(obj.email);
-    const password = obj?.password ? new Password(obj.password, true) : null;
-    const gender = obj.gender as GenderEnum;
-
-    return new User(obj.id, obj.uid, obj.name, email, password, gender, obj.dob, obj?.googleId, obj.createdAt, obj.updatedAt);
+    return new User(
+      obj.id,
+      obj.uid,
+      obj?.name,
+      obj.email,
+      obj?.password,
+      obj?.gender as GenderEnum,
+      obj?.dob,
+      obj?.googleId,
+      obj.createdAt,
+      obj.updatedAt,
+    );
   }
 }
 
