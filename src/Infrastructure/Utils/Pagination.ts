@@ -1,4 +1,4 @@
-import { DEFAULT_PAGE_LIMIT } from '../Constants';
+import { DEFAULT_PAGE_LIMIT } from '../../Application/Constants';
 
 export interface IPaginationQuery {
   skip: number;

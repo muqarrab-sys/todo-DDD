@@ -1,5 +1,5 @@
-import { IPaginationQuery } from '@Application/Utils/Pagination';
 import ITodoRepository from '@Domain/Entities/Todo/Repository/ITodoRepository';
+import { IPaginationQuery } from '@Infrastructure/Utils/Pagination';
 import { ITodo, TodoOrderByInput, TodoPartial, TodoUpdateObject } from '@interfaces/todo';
 import { Prisma } from '@prisma/client';
 import PrismaDatabase from '../Database/Prisma/PrismaDatabase';

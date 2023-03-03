@@ -1,5 +1,5 @@
 import TodoService from '@Application/Services/Todo/TodoServices';
-import HttpResponse from '@Application/Utils/HttpResponse';
+import HttpResponse from '@Infrastructure/Utils/HttpResponse';
 import Todo from '@Domain/Entities/Todo';
 import TodoRepository from '@Infrastructure/Repositories/TodoRepository';
 import { IdObject, IHandler } from '@interfaces/index';

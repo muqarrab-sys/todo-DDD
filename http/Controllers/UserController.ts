@@ -1,8 +1,7 @@
 import UserServices from '@Application/Services/User/UserServices';
-import HttpResponse from '@Application/Utils/HttpResponse';
 import User from '@Domain/Entities/User';
 import UserRepository from '@Infrastructure/Repositories/UserRepository';
-import SharedUtils from '@Infrastructure/Utils/SharedUtils';
+import HttpResponse from '@Infrastructure/Utils/HttpResponse';
 import { IHandler } from '@interfaces/index';
 import { GoogleCodeObject, UserCredentialObject, UserInputObject, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/user';
 import BaseController from './Base/BaseController';
