@@ -5,6 +5,7 @@ import { ExtractJwt, Strategy as JwtStrategy, StrategyOptions } from 'passport-j
 import { UnAuthorizedException } from '@Infrastructure/Exceptions';
 import BaseServices from '../BaseServices';
 import { JwtPayload } from '@interfaces/index';
+import JsonWebToken from '@Infrastructure/Auth/JsonWebToken';
 
 class AuthServices extends BaseServices<IUserRepository> {
   constructor(Repository: { new (): IUserRepository }) {
@@ -20,21 +21,7 @@ class AuthServices extends BaseServices<IUserRepository> {
   }
 
   public jwtStrategy() {
-    const options: StrategyOptions = {
-      secretOrKey: configs.jwt.secret,
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    };
-
-    return new JwtStrategy(options, async (payload: JwtPayload, done) => {
-      try {
-        const user = await this.repository.find(payload.id);
-        if (!user) done(new UnAuthorizedException('Invalid User'), false);
-
-        done(null, user);
-      } catch (error) {
-        done(error, false);
-      }
-    });
+    return JsonWebToken.strategy(this.repository);
   }
 }
 
