@@ -12,7 +12,7 @@ const authorize = (): IHandler => async (req, res, next) => {
     const decoded = JsonWebToken.decode(token);
     if (!decoded) throw new UnAuthorizedException('Bad token');
 
-    const user = await new UserServices(UserRepository).findById(decoded.id);
+    const user = await new UserServices(UserRepository).findById(decoded.sub);
     if (!user) throw new UnAuthorizedException('Invalid User');
 
     req.user = user;

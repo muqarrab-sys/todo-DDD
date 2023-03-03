@@ -1,4 +1,3 @@
-import Password from '@Domain/ValueObjects/Password';
 import { PartialBy } from '@interfaces/index';
 import { User } from '@prisma/client';
 

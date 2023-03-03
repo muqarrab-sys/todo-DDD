@@ -1,16 +1,13 @@
 import User from '@Domain/Entities/User';
 import IUserRepository from '@Domain/Entities/User/Repository/IUserRepository';
-import { IUser, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/user';
-import Email from '@Domain/ValueObjects/Email';
-import Password from '@Domain/ValueObjects/Password';
+import BCrypt from '@Infrastructure/Auth/Encrypt/BCrypt';
 import OAuth2 from '@Infrastructure/Auth/Google/OAuth2';
-import configs from '@Infrastructure/Configs';
 import JsonWebToken from '@Infrastructure/Auth/JsonWebToken';
-import SharedUtils from '@Infrastructure/Utils/SharedUtils';
+import configs from '@Infrastructure/Configs';
 import { NotFoundException, UnAuthorizedException } from '@Infrastructure/Exceptions';
 import BadRequestException from '@Infrastructure/Exceptions/BadRequestException';
+import { IUser, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/user';
 import BaseServices from '../BaseServices';
-import BCrypt from '@Infrastructure/Auth/Encrypt/BCrypt';
 
 class UserServices extends BaseServices<IUserRepository> {
   constructor(Repository: { new (): IUserRepository }) {

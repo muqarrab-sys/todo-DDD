@@ -13,6 +13,7 @@
     "pretty": true,
     "sourceMap": true,
     "declaration": true,
+    "rootDir": ".",
     "outDir": "dist",
     "allowJs": true,
     "noEmit": false,

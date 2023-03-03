@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run build && cross-env NODE_ENV=production node dist/bin/www.js",
-    "build": "tsc --project './tsconfig.json'",
+    "build": "tsc --project './tsconfig.json' && resolve-tspaths",
     "dev": "cross-env NODE_ENV=development nodemon",
     "seed:user": "ts-node -r tsconfig-paths/register --transpile-only bin/index.ts -s user",
     "seed:todo": "ts-node -r tsconfig-paths/register --transpile-only bin/index.ts -s todo"
@@ -46,6 +46,7 @@
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.20",
     "prisma": "^4.10.1",
+    "resolve-tspaths": "^0.8.8",
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.2",
     "tsconfig-paths": "^4.1.2",
