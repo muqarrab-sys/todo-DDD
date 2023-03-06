@@ -1,4 +1,4 @@
-import { DEFAULT_PAGE_LIMIT } from '../../Application/Constants';
+import { DEFAULT_PAGE_SIZE } from '@Infrastructure/Constants';
 
 export interface IPaginationQuery {
   skip: number;
@@ -6,12 +6,12 @@ export interface IPaginationQuery {
 }
 
 export default class Pagination {
-  static convertToSqlQuery(page: number, limit: number): IPaginationQuery {
+  static offsetPaginationQuery(page: number, size: number): IPaginationQuery {
     if (!page) return;
 
     return {
-      skip: limit * (page - 1),
-      take: limit || DEFAULT_PAGE_LIMIT,
+      skip: size * (page - 1),
+      take: size || DEFAULT_PAGE_SIZE,
     };
   }
 }

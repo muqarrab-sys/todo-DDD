@@ -5,8 +5,8 @@ import Pagination from '@Infrastructure/Utils/Pagination';
 import { SortOrder } from '@interfaces/index';
 import { ITodo, TodoAttributes, TodoOrderByInput, TodoPartial, TodoUpdateObject } from '@interfaces/todo';
 import { isNil } from 'lodash';
-import { ASCENDING } from '../../Constants';
-import BaseServices from '../BaseServices';
+import { ASCENDING } from '@Infrastructure/Constants';
+import BaseServices from '../../Base/BaseServices';
 
 class TodoService extends BaseServices<ITodoRepository> {
   constructor(Repository: { new (): ITodoRepository }) {
@@ -31,13 +31,13 @@ class TodoService extends BaseServices<ITodoRepository> {
     userId: string,
     data: {
       page: number;
-      limit: number;
+      size: number;
       isCompleted?: boolean;
       orderBy: TodoAttributes;
       sortBy: SortOrder;
     },
   ) {
-    const pagination = Pagination.convertToSqlQuery(data.page, data.limit);
+    const pagination = Pagination.offsetPaginationQuery(data.page, data.size);
 
     const filter: TodoPartial = {};
     if (!isNil(data.isCompleted)) filter.isCompleted = data.isCompleted;

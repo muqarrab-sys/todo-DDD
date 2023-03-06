@@ -41,10 +41,10 @@ class TodoController extends BaseController {
   };
 
   findByUser: IHandler = async (req, res) => {
-    const { limit, page, isCompleted, orderBy, sortBy } = req.query as ITodoSearchObject;
+    const { size, page, isCompleted, orderBy, sortBy } = req.query as ITodoSearchObject;
 
     const response = await this.service.findByUser(req.user.uid, {
-      limit,
+      size,
       page,
       isCompleted,
       orderBy,

@@ -7,7 +7,7 @@ export enum GenderEnum {
   OTHER = 'other',
 }
 
-export interface IUser {
+export interface IUser extends User {
   id: number;
   uid: string;
   name: string;
@@ -20,11 +20,9 @@ export interface IUser {
   updatedAt: Date;
 }
 
-export interface IUserModel extends User {}
+export type UserInput = PartialBy<IUser, 'id' | 'uid' | 'name' | 'dob' | 'gender' | 'password' | 'googleId' | 'createdAt' | 'updatedAt'>;
 
-export type UserInput = PartialBy<IUserModel, 'id' | 'uid' | 'dob' | 'gender' | 'password' | 'googleId' | 'createdAt' | 'updatedAt'>;
-
-export type UserPartial = Partial<IUserModel>;
+export type UserPartial = Partial<IUser>;
 
 export type UserInputObject = Pick<IUser, 'name' | 'email' | 'password' | 'gender' | 'dob'>;
 

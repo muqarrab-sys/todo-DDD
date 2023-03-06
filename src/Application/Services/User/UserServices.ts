@@ -7,7 +7,7 @@ import configs from '@Infrastructure/Configs';
 import { NotFoundException, UnAuthorizedException } from '@Infrastructure/Exceptions';
 import BadRequestException from '@Infrastructure/Exceptions/BadRequestException';
 import { IUser, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/user';
-import BaseServices from '../BaseServices';
+import BaseServices from '../../Base/BaseServices';
 
 class UserServices extends BaseServices<IUserRepository> {
   constructor(Repository: { new (): IUserRepository }) {

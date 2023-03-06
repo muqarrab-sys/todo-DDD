@@ -17,7 +17,7 @@ export class TodoIdValidation implements IdObject {
 
 export class TodoSearchValidation implements ITodoSearchObject {
   @Transform(({ value }) => Number(value)) @IsNumber() page: number;
-  @Transform(({ value }) => Number(value)) @IsNumber() limit: number;
+  @Transform(({ value }) => Number(value)) @IsNumber() size: number;
   @Transform(({ value }) => SharedUtils.convertToBoolean(value)) @IsBoolean() isCompleted: boolean;
   @IsString() orderBy?: TodoAttributes;
   @IsString() sortBy?: SortOrder;

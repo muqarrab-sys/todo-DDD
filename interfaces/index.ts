@@ -26,7 +26,7 @@ export type IdObject = {
 
 export interface ISearchQuery<T> {
   page?: number;
-  limit?: number;
+  size?: number;
   orderBy?: keyof T;
   sortBy?: SortOrder;
 }

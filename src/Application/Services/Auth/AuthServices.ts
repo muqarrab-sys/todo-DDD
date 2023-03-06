@@ -1,11 +1,8 @@
 import IUserRepository from '@Domain/Entities/User/Repository/IUserRepository';
 import OAuth2 from '@Infrastructure/Auth/Google/OAuth2';
-import configs from '@Infrastructure/Configs';
-import { ExtractJwt, Strategy as JwtStrategy, StrategyOptions } from 'passport-jwt';
-import { UnAuthorizedException } from '@Infrastructure/Exceptions';
-import BaseServices from '../BaseServices';
-import { JwtPayload } from '@interfaces/index';
 import JsonWebToken from '@Infrastructure/Auth/JsonWebToken';
+import configs from '@Infrastructure/Configs';
+import BaseServices from '../../Base/BaseServices';
 
 class AuthServices extends BaseServices<IUserRepository> {
   constructor(Repository: { new (): IUserRepository }) {

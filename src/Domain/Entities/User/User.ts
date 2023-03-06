@@ -1,4 +1,4 @@
-import { GenderEnum, IUser, IUserModel, UserInput } from '@interfaces/user';
+import { GenderEnum, IUser, UserInput } from '@interfaces/user';
 
 class User implements IUser {
   id: number;
@@ -64,7 +64,7 @@ class User implements IUser {
     );
   }
 
-  static createFromDetails(obj: IUserModel) {
+  static createFromDetails(obj: IUser) {
     return new User(
       obj.id,
       obj.uid,
