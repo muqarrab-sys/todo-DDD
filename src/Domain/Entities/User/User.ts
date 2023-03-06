@@ -1,4 +1,4 @@
-import { GenderEnum, IUser, UserInput } from '@interfaces/user';
+import { GenderEnum, IUser, ReturnableUser, UserInput } from '@interfaces/user';
 
 class User implements IUser {
   id: number;
@@ -36,7 +36,7 @@ class User implements IUser {
     this.updatedAt = updatedAt;
   }
 
-  get values() {
+  get values(): ReturnableUser {
     return {
       id: this.id,
       uid: this.uid,

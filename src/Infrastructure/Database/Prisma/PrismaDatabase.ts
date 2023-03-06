@@ -37,7 +37,9 @@ class PrismaDatabase implements IDatabaseClient {
   initiateMiddleware() {
     this.client.$use(async (params, next) => {
       if (params.action === 'create') {
-        params.args.data.uid = SharedUtils.uuid();
+        if (!params.args.data.uid) {
+          params.args.data.uid = SharedUtils.uuid();
+        }
       }
 
       return await next(params);

@@ -14,7 +14,7 @@ export interface IUser extends User {
   email: string;
   password: string;
   dob: Date;
-  gender: GenderEnum;
+  gender: string;
   googleId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -39,3 +39,5 @@ export type UserUpdatePasswordObject = {
 export type GoogleCodeObject = {
   code: string;
 };
+
+export type ReturnableUser = Omit<IUser, 'password' | 'googleId'>;
