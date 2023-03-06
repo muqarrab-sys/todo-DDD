@@ -1,17 +1,16 @@
 import Todo from '@Domain/Entities/Todo';
-import ITodoRepository from '@Domain/Entities/Todo/Repository/ITodoRepository';
+import { ASCENDING } from '@Infrastructure/Constants';
 import { NotFoundException, UnAuthorizedException } from '@Infrastructure/Exceptions';
+import TodoRepository from '@Infrastructure/Repositories/TodoRepository';
 import Pagination from '@Infrastructure/Utils/Pagination';
 import { SortOrder } from '@interfaces/index';
 import { ITodo, TodoAttributes, TodoOrderByInput, TodoPartial, TodoUpdateObject } from '@interfaces/todo';
 import { isNil } from 'lodash';
-import { ASCENDING } from '@Infrastructure/Constants';
-import BaseServices from '../../Base/BaseServices';
+import { Inject, Service } from 'typedi';
 
-class TodoService extends BaseServices<ITodoRepository> {
-  constructor(Repository: { new (): ITodoRepository }) {
-    super(Repository);
-  }
+@Service()
+class TodoService {
+  constructor(@Inject() private readonly repository: TodoRepository) {}
 
   async create(data: ITodo) {
     const todo = await this.repository.create(data);

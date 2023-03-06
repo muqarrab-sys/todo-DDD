@@ -1,9 +1,9 @@
 import UserServices from '@Application/Services/User/UserServices';
 import User from '@Domain/Entities/User';
-import UserRepository from '@Infrastructure/Repositories/UserRepository';
 import HttpResponse from '@Infrastructure/Utils/HttpResponse';
 import { IHandler } from '@interfaces/index';
 import { GoogleCodeObject, UserCredentialObject, UserInputObject, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/user';
+import Container from 'typedi';
 import BaseController from './Base/BaseController';
 
 class UserController extends BaseController {
@@ -12,7 +12,7 @@ class UserController extends BaseController {
   constructor() {
     super();
 
-    this.service = new UserServices(UserRepository);
+    this.service = Container.get(UserServices);
   }
 
   public register: IHandler = async (req, res) => {

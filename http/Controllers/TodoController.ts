@@ -1,10 +1,10 @@
 import TodoService from '@Application/Services/Todo/TodoServices';
-import HttpResponse from '@Infrastructure/Utils/HttpResponse';
 import Todo from '@Domain/Entities/Todo';
-import TodoRepository from '@Infrastructure/Repositories/TodoRepository';
+import HttpResponse from '@Infrastructure/Utils/HttpResponse';
 import { IdObject, IHandler } from '@interfaces/index';
 import { ITodoSearchObject, TodoCreationObject, TodoUpdateObject } from '@interfaces/todo';
 import { isNil, omitBy } from 'lodash';
+import Container from 'typedi';
 import BaseController from './Base/BaseController';
 
 class TodoController extends BaseController {
@@ -13,7 +13,7 @@ class TodoController extends BaseController {
   constructor() {
     super();
 
-    this.service = new TodoService(TodoRepository);
+    this.service = Container.get(TodoService);
   }
 
   create: IHandler = async (req, res) => {

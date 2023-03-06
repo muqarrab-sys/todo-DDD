@@ -1,18 +1,17 @@
 import User from '@Domain/Entities/User';
-import IUserRepository from '@Domain/Entities/User/Repository/IUserRepository';
 import BCrypt from '@Infrastructure/Auth/Encrypt/BCrypt';
 import OAuth2 from '@Infrastructure/Auth/Google/OAuth2';
 import JsonWebToken from '@Infrastructure/Auth/JsonWebToken';
 import configs from '@Infrastructure/Configs';
 import { NotFoundException, UnAuthorizedException } from '@Infrastructure/Exceptions';
 import BadRequestException from '@Infrastructure/Exceptions/BadRequestException';
+import UserRepository from '@Infrastructure/Repositories/UserRepository';
 import { IUser, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/user';
-import BaseServices from '../../Base/BaseServices';
+import { Inject, Service } from 'typedi';
 
-class UserServices extends BaseServices<IUserRepository> {
-  constructor(Repository: { new (): IUserRepository }) {
-    super(Repository);
-  }
+@Service()
+class UserServices {
+  constructor(@Inject() private readonly repository: UserRepository) {}
 
   async registerUser(data: IUser) {
     let dbUser = await this.repository.find({ email: data.email });

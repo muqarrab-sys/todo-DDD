@@ -1,7 +1,7 @@
 import AuthServices from '@Application/Services/Auth/AuthServices';
 import HttpResponse from '@Infrastructure/Utils/HttpResponse';
-import UserRepository from '@Infrastructure/Repositories/UserRepository';
 import { IHandler } from '@interfaces/index';
+import Container from 'typedi';
 import BaseController from './Base/BaseController';
 
 class AuthController extends BaseController {
@@ -10,7 +10,7 @@ class AuthController extends BaseController {
   constructor() {
     super();
 
-    this.service = new AuthServices(UserRepository);
+    this.service = Container.get(AuthServices);
   }
 
   fetchGoogleAuthUrl: IHandler = async (req, res) => {

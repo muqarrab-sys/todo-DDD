@@ -3,7 +3,8 @@ import { IPaginationQuery } from '@Infrastructure/Utils/Pagination';
 import { ITodo, TodoOrderByInput, TodoPartial, TodoUpdateObject } from '@interfaces/todo';
 import { Prisma } from '@prisma/client';
 import PrismaDatabase from '../Database/Prisma/PrismaDatabase';
-
+import { Service } from 'typedi';
+@Service()
 class TodoRepository implements ITodoRepository {
   private todo: Prisma.TodoDelegate<{}>;
 

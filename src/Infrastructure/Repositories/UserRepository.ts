@@ -1,8 +1,10 @@
 import IUserRepository from '@Domain/Entities/User/Repository/IUserRepository';
 import { IUser } from '@interfaces/user';
 import { Prisma } from '@prisma/client';
+import { Service } from 'typedi';
 import PrismaDatabase from '../Database/Prisma/PrismaDatabase';
 
+@Service()
 class UserRepository implements IUserRepository {
   private user: Prisma.UserDelegate<{}>;
 
@@ -16,10 +18,6 @@ class UserRepository implements IUserRepository {
 
   async find(where) {
     return await this.user.findUnique({ where });
-  }
-
-  async findByEmail(email: string) {
-    return await this.user.findUnique({ where: { email } });
   }
 
   async update(uid: string, user: IUser) {
