@@ -28,24 +28,24 @@ class TodoService {
 
   async findByUser(
     userId: string,
-    data: {
-      page: number;
-      size: number;
+    data?: {
+      page?: number;
+      size?: number;
       isCompleted?: boolean;
       orderBy: TodoAttributes;
       sortBy: SortOrder;
     },
   ) {
-    const pagination = Pagination.offsetPaginationQuery(data.page, data.size);
+    const pagination = Pagination.offsetPaginationQuery(data?.page, data?.size);
 
     const filter: TodoPartial = {};
-    if (!isNil(data.isCompleted)) filter.isCompleted = data.isCompleted;
+    if (!isNil(data?.isCompleted)) filter.isCompleted = data?.isCompleted;
 
     const orderBy: TodoOrderByInput = {};
-    if (data.orderBy) orderBy[data.orderBy] = data.sortBy || ASCENDING;
+    if (data?.orderBy) orderBy[data?.orderBy] = data?.sortBy || ASCENDING;
 
     const todos = await this.repository.findMany(userId, filter, pagination, orderBy);
-    const totalTodos = await this.repository.count(userId, { isCompleted: data.isCompleted });
+    const totalTodos = await this.repository.count(userId, { isCompleted: data?.isCompleted });
 
     return {
       todos: todos.map(todo => Todo.createFromDetails(todo)),

@@ -91,6 +91,10 @@ class UserServices {
 
     return User.createFromDetails(updatedUser).values;
   }
+
+  async deleteUser(uid: string) {
+    return await this.repository.delete(uid);
+  }
 }
 
 export default UserServices;

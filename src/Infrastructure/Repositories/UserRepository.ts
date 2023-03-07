@@ -31,6 +31,10 @@ class UserRepository implements IUserRepository {
       },
     });
   }
+
+  async delete(uid: string) {
+    return await this.user.delete({ where: { uid } });
+  }
 }
 
 export default UserRepository;

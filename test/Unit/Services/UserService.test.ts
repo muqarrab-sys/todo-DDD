@@ -1,11 +1,10 @@
 import { faker } from '@faker-js/faker';
 import { assert, expect } from 'chai';
+import { stub } from 'sinon';
 import { IUser } from '../../../interfaces/user';
 import UserServices from '../../../src/Application/Services/User/UserServices';
 import User from '../../../src/Domain/Entities/User';
-import PrismaDatabase from '../../../src/Infrastructure/Database/Prisma/PrismaDatabase';
 import UserRepository from '../../../src/Infrastructure/Repositories/UserRepository';
-import { createStubInstance, stub } from 'sinon';
 import SharedUtil from '../../../src/Infrastructure/Utils/SharedUtils';
 
 describe('UserService', () => {
