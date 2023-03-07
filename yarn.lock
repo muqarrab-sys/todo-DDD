@@ -1281,7 +1281,7 @@ lodash.get@^4.4.2:
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
   integrity sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==
 
-lodash@^4.17.21:
+lodash@^4.17.21, lodash@^4.17.5:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -1924,6 +1924,13 @@ signal-exit@^3.0.0:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
+
+simple-command-bus@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/simple-command-bus/-/simple-command-bus-1.0.7.tgz#569d7a10ee0a0b9e283cbf0b79c2325df66b9fb0"
+  integrity sha512-bkbV0VRABqG7wLixMlMFM3j5cKSH7MnQXVjdQXyfihj3m8WeRIw9dtG064Aa+2mgeMnUxO5+o9jT6a5aeEA3RQ==
+  dependencies:
+    lodash "^4.17.5"
 
 simple-update-notifier@^1.0.7:
   version "1.1.0"

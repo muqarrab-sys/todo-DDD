@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "es2021",
     "lib": ["es2021", "esnext.asynciterable"],
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": ["node_modules/@types", "interfaces/@types"],
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
