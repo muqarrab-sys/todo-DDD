@@ -42,5 +42,5 @@ Refactor Phase 1:
 
 - [x] Use single docker containers to run databases.
 - [x] Shift Login related to passport js with jwt support.
-- [ ] Implement the Command Bus pattern to interact with stores and entities in todo app.
-- [ ] Use mocha, sinon and chai to add test cases to the app.
+- [x] Implement the Command Bus pattern to interact with stores and entities in todo app.
+- [x] Use mocha, sinon and chai to add test cases to the app.
