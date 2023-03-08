@@ -4,7 +4,7 @@ import BaseRouter from '@http/Routes/Base/BaseRouter';
 import { IDatabaseClient } from '@interfaces/index';
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
-import { HttpStatusCode } from '@interfaces/HttpStatus';
+import { HttpStatusCode } from '@interfaces/HttpInterfaces';
 
 class App {
   private port: string | number;

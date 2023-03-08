@@ -1,5 +1,5 @@
 import BaseHttpException from './Base/BaseHttpException';
-import { HttpStatusCode } from '@interfaces/HttpStatus';
+import { HttpStatusCode } from '@interfaces/HttpInterfaces';
 
 class NotFoundException extends BaseHttpException {
   constructor(description: string) {

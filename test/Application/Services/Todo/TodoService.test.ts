@@ -1,10 +1,10 @@
 import { stub } from 'sinon';
-import { ITodo } from '../../../interfaces/todo';
-import Todo from '../../../src/Domain/Entities/Todo';
-import TodoService from '../../../src/Application/Services/Todo/TodoServices';
-import TodoRepository from '../../../src/Infrastructure/Repositories/TodoRepository';
+import { ITodo } from '../../../../interfaces/todo';
+import Todo from '../../../../src/Domain/Entities/Todo';
+import TodoService from '../../../../src/Application/Services/Todo/TodoServices';
+import TodoRepository from '../../../../src/Infrastructure/Repositories/TodoRepository';
 import { assert, expect } from 'chai';
-import SharedUtils from '../../../src/Infrastructure/Utils/SharedUtils';
+import SharedUtils from '../../../../src/Infrastructure/Utils/SharedUtils';
 
 describe('Todo Service', () => {
   let todo: ITodo;

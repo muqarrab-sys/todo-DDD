@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '@interfaces/HttpStatus';
+import { HttpStatusCode } from '@interfaces/HttpInterfaces';
 
 class BaseHttpException extends Error {
   public readonly name: string;

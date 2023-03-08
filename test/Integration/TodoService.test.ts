@@ -1,12 +1,12 @@
+import { faker } from '@faker-js/faker';
+import { assert } from 'chai';
+import Container from 'typedi';
+import { ITodo } from '../../interfaces/todo';
+import TodoService from '../../src/Application/Services/Todo/TodoServices';
+import Todo from '../../src/Domain/Entities/Todo';
+import SharedUtils from '../../src/Infrastructure/Utils/SharedUtils';
 import CreateUser from '../Utils/CreateUser';
 import Database from '../Utils/Database';
-import TodoService from '../../src/Application/Services/Todo/TodoServices';
-import Container from 'typedi';
-import { assert, expect } from 'chai';
-import Todo from '../../src/Domain/Entities/Todo';
-import { ITodo } from '../../interfaces/todo';
-import { faker } from '@faker-js/faker';
-import SharedUtils from '../../src/Infrastructure/Utils/SharedUtils';
 
 describe('Todo Service Integration', () => {
   let user: CreateUser;

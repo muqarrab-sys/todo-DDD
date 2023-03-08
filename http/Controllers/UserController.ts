@@ -4,14 +4,11 @@ import HttpResponse from '@Infrastructure/Utils/HttpResponse';
 import { IHandler } from '@interfaces/index';
 import { GoogleCodeObject, UserCredentialObject, UserInputObject, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/user';
 import Container from 'typedi';
-import BaseController from './Base/BaseController';
 
-class UserController extends BaseController {
+class UserController {
   private service: UserServices;
 
   constructor() {
-    super();
-
     this.service = Container.get(UserServices);
   }
 
@@ -28,7 +25,7 @@ class UserController extends BaseController {
       }),
     );
 
-    res.status(201).json(HttpResponse.ok(response, 'User Registered!'));
+    return HttpResponse.created(response, 'User Registered!');
   };
 
   public login: IHandler = async (req, res) => {
@@ -36,7 +33,7 @@ class UserController extends BaseController {
 
     const response = await this.service.loginUser(data.email, data.password);
 
-    res.status(200).json(HttpResponse.ok(response));
+    return HttpResponse.ok(response);
   };
 
   public signInWithGoogle: IHandler = async (req, res) => {
@@ -44,7 +41,7 @@ class UserController extends BaseController {
 
     const response = await this.service.registerOrLoginWithGoogle(data.code);
 
-    res.status(200).json(HttpResponse.ok(response));
+    return HttpResponse.ok(response);
   };
 
   public updateProfile: IHandler = async (req, res) => {
@@ -52,7 +49,7 @@ class UserController extends BaseController {
 
     const response = await this.service.updateProfile(req.user, body);
 
-    res.status(200).json(HttpResponse.ok(response, 'User Profile Updated!'));
+    return HttpResponse.ok(response, 'User Profile Updated!');
   };
 
   public updatePassword: IHandler = async (req, res) => {
@@ -60,7 +57,7 @@ class UserController extends BaseController {
 
     const response = await this.service.updatePassword(req.user, body);
 
-    res.status(200).json(HttpResponse.ok(response, 'Password updated!'));
+    return HttpResponse.ok(response, 'Password updated!');
   };
 }
 

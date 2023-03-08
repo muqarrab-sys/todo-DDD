@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import AuthServices from '../../../src/Application/Services/Auth/AuthServices';
-import UserRepository from '../../../src/Infrastructure/Repositories/UserRepository';
+import AuthServices from '../../../../src/Application/Services/Auth/AuthServices';
+import UserRepository from '../../../../src/Infrastructure/Repositories/UserRepository';
 
 describe('Auth Service', () => {
   it('returns google auth url', () => {
