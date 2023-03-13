@@ -1,6 +1,6 @@
 import TodoController from '@http/Controllers/TodoController';
 import { TodoCreationValidation, TodoIdValidation, TodoSearchValidation, TodoUpdateValidation } from '@Domain/Validations/TodoValidations';
-import validate from '../Middleware/validationMiddleware';
+import Validate from '../Middleware/ValidationMiddleware';
 import BaseRouter from './Base/BaseRouter';
 
 class TodoRouter extends BaseRouter<TodoController> {
@@ -19,14 +19,14 @@ class TodoRouter extends BaseRouter<TodoController> {
   // route: '/todo/history'
   // route: '/todo/clear_history'
   protected protectedRoutes(): void {
-    this.post('/todo', validate(TodoCreationValidation), this.controller.create);
-    this.get('/todo', validate(TodoSearchValidation, 'query', { skipMissingProperties: true }), this.controller.findByUser);
-    this.get('/todo/:uid', validate(TodoIdValidation, 'params'), this.controller.find);
-    this.delete('/todo/:uid', validate(TodoIdValidation, 'params'), this.controller.delete);
+    this.post('/todo', Validate(TodoCreationValidation), this.controller.create);
+    this.get('/todo', Validate(TodoSearchValidation, 'query', { skipMissingProperties: true }), this.controller.findByUser);
+    this.get('/todo/:uid', Validate(TodoIdValidation, 'params'), this.controller.find);
+    this.delete('/todo/:uid', Validate(TodoIdValidation, 'params'), this.controller.delete);
     this.put(
       '/todo/:uid',
-      validate(TodoIdValidation, 'params'),
-      validate(TodoUpdateValidation, 'body', { skipMissingProperties: true }),
+      Validate(TodoIdValidation, 'params'),
+      Validate(TodoUpdateValidation, 'body', { skipMissingProperties: true }),
       this.controller.update,
     );
   }

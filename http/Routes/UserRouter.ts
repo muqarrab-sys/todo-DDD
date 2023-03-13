@@ -6,7 +6,7 @@ import {
   UserUpdatePasswordValidation,
   UserUpdateValidation,
 } from '@Domain/Validations/UserValidations';
-import validate from '../Middleware/validationMiddleware';
+import Validate from '../Middleware/ValidationMiddleware';
 import BaseRouter from './Base/BaseRouter';
 
 class UserRouter extends BaseRouter<UserController> {
@@ -15,14 +15,14 @@ class UserRouter extends BaseRouter<UserController> {
   }
 
   protected routes(): void {
-    this.post('/register', validate(UserCreationValidation), this.controller.register);
-    this.post('/login', validate(UserCredentialsValidation), this.controller.login);
-    this.post('/googleSignIn', validate(GoogleCodeValidation), this.controller.signInWithGoogle);
+    this.post('/register', Validate(UserCreationValidation), this.controller.register);
+    this.post('/login', Validate(UserCredentialsValidation), this.controller.login);
+    this.post('/googleSignIn', Validate(GoogleCodeValidation), this.controller.signInWithGoogle);
   }
 
   protected protectedRoutes(): void {
-    this.put('/updateProfile', validate(UserUpdateValidation, 'body', { skipMissingProperties: true }), this.controller.updateProfile);
-    this.put('/updatePassword', validate(UserUpdatePasswordValidation), this.controller.updatePassword);
+    this.put('/updateProfile', Validate(UserUpdateValidation, 'body', { skipMissingProperties: true }), this.controller.updateProfile);
+    this.put('/updatePassword', Validate(UserUpdatePasswordValidation), this.controller.updatePassword);
   }
 }
 

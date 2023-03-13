@@ -16,7 +16,7 @@ const stringifyValidationErrors = (errors: Array<ValidationError>): string => {
     .join(', ');
 };
 
-const validate = (
+const Validate = (
   validator: any,
   params: RequestParamsFrom = 'body',
   options: ValidatorOptions = { skipMissingProperties: false, whitelist: true, forbidNonWhitelisted: true },
@@ -34,4 +34,4 @@ const validate = (
   };
 };
 
-export default validate;
+export default Validate;
