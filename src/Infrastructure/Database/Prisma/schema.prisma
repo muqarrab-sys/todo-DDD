@@ -29,7 +29,8 @@ model Todo {
   uid         String   @unique
   title       String
   description String
-  isCompleted Boolean
+  active      Boolean  @default(true)
+  isCompleted Boolean  @default(false)
   dueDate     DateTime
   userId      String
   User        User     @relation(fields: [userId], references: [uid])

@@ -2,10 +2,10 @@ import { IHttpResponse } from '@interfaces/HttpInterfaces';
 import { IHandler } from '@interfaces/index';
 import { NextFunction, Request, Response } from 'express';
 
-export type ExMiddleware = (req: Request, res: Response, next: NextFunction) => any;
+export type HandlerCallback = (req: Request, res: Response, next: NextFunction) => Promise<IHttpResponse>;
 
 const ResponseHandler =
-  (cb: ExMiddleware): IHandler =>
+  (cb: HandlerCallback): IHandler =>
   async (req, res, next) => {
     try {
       const httpResponse: IHttpResponse = await cb(req, res, next);

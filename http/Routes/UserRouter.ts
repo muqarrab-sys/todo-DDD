@@ -17,7 +17,6 @@ class UserRouter extends BaseRouter<UserController> {
   protected routes(): void {
     this.post('/register', Validate(UserCreationValidation), this.controller.register);
     this.post('/login', Validate(UserCredentialsValidation), this.controller.login);
-    this.post('/googleSignIn', Validate(GoogleCodeValidation), this.controller.signInWithGoogle);
   }
 
   protected protectedRoutes(): void {

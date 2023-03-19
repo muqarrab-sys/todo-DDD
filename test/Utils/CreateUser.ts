@@ -1,11 +1,10 @@
 import { faker } from '@faker-js/faker';
-import Container from 'typedi';
 import { ReturnableUser } from '../../interfaces/user';
-import UserService from '../../src/Application/Services/User/UserServices';
 import User from '../../src/Domain/Entities/User';
+import { RegUserDomainService, UserDomainService } from '../../src/Infrastructure/IoC/Containers';
 
 class CreateUser {
-  constructor(private readonly service: UserService, private readonly user: ReturnableUser, private readonly authToken: string) {}
+  constructor(private readonly user: ReturnableUser, private readonly authToken: string) {}
 
   get values(): ReturnableUser {
     return this.user;
@@ -16,13 +15,11 @@ class CreateUser {
   }
 
   async delete() {
-    this.service.deleteUser(this.user.uid);
+    await UserDomainService.deleteUser(this.user.uid);
   }
 
   static async create() {
-    const service = Container.get(UserService);
-
-    const response = await service.registerUser(
+    const response = await RegUserDomainService.register(
       User.create({
         name: faker.name.fullName(),
         email: faker.internet.email(),
@@ -32,7 +29,7 @@ class CreateUser {
       }),
     );
 
-    return new CreateUser(service, response.user, response.token);
+    return new CreateUser(response.user, response.token);
   }
 }
 

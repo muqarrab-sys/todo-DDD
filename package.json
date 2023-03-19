@@ -9,7 +9,9 @@
     "dev": "cross-env NODE_ENV=development nodemon",
     "test": "cross-env NODE_ENV=test mocha './test/**/*.test.ts' --require ./test/prepare.js --recursive",
     "seed:user": "ts-node -r tsconfig-paths/register --transpile-only bin/index.ts -s user",
-    "seed:todo": "ts-node -r tsconfig-paths/register --transpile-only bin/index.ts -s todo"
+    "seed:todo": "ts-node -r tsconfig-paths/register --transpile-only bin/index.ts -s todo",
+    "migrate:dev": "dotenv -e .env -- prisma migrate dev",
+    "migrate:test": "dotenv -e .env.test -- prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "^4.10.1",
@@ -25,6 +27,7 @@
     "google-auth-library": "^8.7.0",
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
+    "nodemailer": "^6.9.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
@@ -45,12 +48,14 @@
     "@types/lodash": "^4.14.191",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.14.1",
+    "@types/nodemailer": "^6.4.7",
     "@types/passport": "^1.0.12",
     "@types/passport-jwt": "^3.0.8",
     "@types/sinon": "^10.0.13",
     "@types/uuid": "^9.0.1",
     "chai": "^4.3.7",
     "cross-env": "^7.0.3",
+    "dotenv-cli": "^7.1.0",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.20",
     "prisma": "^4.10.1",

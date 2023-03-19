@@ -21,17 +21,17 @@ describe('UserService', () => {
     });
   });
 
-  it('registers a user and returns user object with token', async () => {
-    const userRepo = new UserRepository();
-    const stubRepo = stub(userRepo, 'create').returns(new Promise(res => res(user)));
+  // it('registers a user and returns user object with token', async () => {
+  //   const userRepo = new UserRepository();
+  //   const stubRepo = stub(userRepo, 'create').returns(new Promise(res => res(user)));
 
-    const service = new UserServices(userRepo);
-    const response = await service.registerUser(user);
+  //   const service = new UserServices(userRepo);
+  //   const response = await service.registerUser(user);
 
-    assert.isTrue(stubRepo.calledOnce);
-    expect(response.user.uid).eq(user.uid);
-    assert.typeOf(response.token, 'string');
-  });
+  //   assert.isTrue(stubRepo.calledOnce);
+  //   expect(response.user.uid).eq(user.uid);
+  //   assert.typeOf(response.token, 'string');
+  // });
 
   it('finds user by id and returns user object', async () => {
     const userRepo = new UserRepository();

@@ -13,4 +13,16 @@ export default {
   jwt: {
     secret: process.env.SECRET,
   },
+  mail: {
+    smtp: {
+      host: process.env.SMTP_HOST,
+      port: process.env.MAIL_PORT,
+    },
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
+    },
+    service: process.env.MAIL_SERVICE,
+    from: process.env.FROM_EMAIL,
+  },
 };

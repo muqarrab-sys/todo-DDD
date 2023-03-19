@@ -1,6 +1,6 @@
 import SharedUtils from '@Infrastructure/Utils/SharedUtils';
 import { IdObject, SortOrder } from '@interfaces/index';
-import { ITodoSearchObject, TodoAttributes, TodoCreationObject, TodoUpdateObject } from '@interfaces/todo';
+import { ITodoSearchObject, TodoAttributes, TodoCreationObject, TodoUserInput } from '@interfaces/todo';
 import { Transform } from 'class-transformer';
 import { IsBoolean, IsDate, IsNumber, IsString, IsOptional } from 'class-validator';
 
@@ -23,7 +23,7 @@ export class TodoSearchValidation implements ITodoSearchObject {
   @IsString() sortBy?: SortOrder;
 }
 
-export class TodoUpdateValidation implements TodoUpdateObject {
+export class TodoUpdateValidation implements Partial<TodoUserInput> {
   @IsString() title: string;
   @IsString() description: string;
   @IsBoolean() isCompleted?: boolean;

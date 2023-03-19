@@ -1,16 +1,16 @@
 import Todo from '@Domain/Entities/Todo';
+import ITodoRepository from '@Domain/Entities/Todo/Repository/ITodoRepository';
 import { ASCENDING } from '@Infrastructure/Constants';
 import { NotFoundException, UnAuthorizedException } from '@Infrastructure/Exceptions';
-import TodoRepository from '@Infrastructure/Repositories/TodoRepository';
 import Pagination from '@Infrastructure/Utils/Pagination';
 import { SortOrder } from '@interfaces/index';
-import { ITodo, TodoAttributes, TodoOrderByInput, TodoPartial, TodoUpdateObject } from '@interfaces/todo';
+import { ITodo, TodoAttributes, TodoOrderByInput, TodoUserInput } from '@interfaces/todo';
 import { isNil } from 'lodash';
 import { Inject, Service } from 'typedi';
 
 @Service()
 class TodoService {
-  constructor(@Inject() private readonly repository: TodoRepository) {}
+  constructor(@Inject('todo.repo.prisma') private readonly repository: ITodoRepository) {}
 
   async create(data: ITodo) {
     const todo = await this.repository.create(data);
@@ -38,13 +38,14 @@ class TodoService {
   ) {
     const pagination = Pagination.offsetPaginationQuery(data?.page, data?.size);
 
-    const filter: TodoPartial = {};
+    const filter: Partial<ITodo> = {};
+    filter.userId = userId;
     if (!isNil(data?.isCompleted)) filter.isCompleted = data?.isCompleted;
 
     const orderBy: TodoOrderByInput = {};
     if (data?.orderBy) orderBy[data?.orderBy] = data?.sortBy || ASCENDING;
 
-    const todos = await this.repository.findMany(userId, filter, pagination, orderBy);
+    const todos = await this.repository.findMany(filter, pagination, orderBy);
     const totalTodos = await this.repository.count(userId, { isCompleted: data?.isCompleted });
 
     return {
@@ -60,7 +61,7 @@ class TodoService {
     return await this.repository.delete(uid);
   }
 
-  async update(uid: string, userId: string, data: TodoUpdateObject) {
+  async update(uid: string, userId: string, data: Partial<TodoUserInput>) {
     let todo = await this.repository.find({ uid });
     if (todo.userId !== userId) throw new UnAuthorizedException('You are not authorized to perform this action!');
 

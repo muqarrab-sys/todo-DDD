@@ -8,6 +8,10 @@ export default class BCrypt {
   }
 
   static async compare(plainText: string, hash: string) {
-    return await bcrypt.compare(plainText, hash);
+    try {
+      return await bcrypt.compare(plainText, hash);
+    } catch (error) {
+      return false;
+    }
   }
 }

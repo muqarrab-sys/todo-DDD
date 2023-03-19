@@ -1,11 +1,12 @@
-import { ITodo, TodoInput } from '@interfaces/todo';
+import { ITodo } from '@interfaces/todo';
 
 class Todo implements ITodo {
   id: number;
   uid: string;
   title: string;
   description: string;
-  isCompleted: boolean;
+  active: boolean = true;
+  isCompleted: boolean = false;
   dueDate: Date;
   userId: string;
   createdAt: Date;
@@ -16,6 +17,7 @@ class Todo implements ITodo {
     uid: string,
     title: string,
     description: string,
+    active: boolean,
     isCompleted: boolean,
     dueDate: Date,
     userId: string,
@@ -26,6 +28,7 @@ class Todo implements ITodo {
     this.uid = uid;
     this.title = title;
     this.description = description;
+    this.active = active;
     this.isCompleted = isCompleted;
     this.dueDate = dueDate;
     this.userId = userId;
@@ -39,6 +42,7 @@ class Todo implements ITodo {
       uid: this.uid,
       title: this.title,
       description: this.description,
+      active: this.active,
       isCompleted: this.isCompleted,
       dueDate: this.dueDate,
       userId: this.userId,
@@ -47,13 +51,14 @@ class Todo implements ITodo {
     };
   }
 
-  static create(obj: TodoInput) {
+  static create(obj: Partial<ITodo>) {
     const todo = new Todo(
       obj.id,
       obj.uid,
       obj.title,
       obj.description,
-      obj.isCompleted || false,
+      obj.active,
+      obj.isCompleted,
       obj.dueDate,
       obj.userId,
       obj.createdAt,
@@ -64,7 +69,18 @@ class Todo implements ITodo {
   }
 
   static createFromDetails(obj: ITodo) {
-    const todo = new Todo(obj.id, obj.uid, obj.title, obj.description, obj.isCompleted, obj.dueDate, obj.userId, obj.createdAt, obj.updatedAt);
+    const todo = new Todo(
+      obj.id,
+      obj.uid,
+      obj.title,
+      obj.description,
+      obj.active,
+      obj.isCompleted,
+      obj.dueDate,
+      obj.userId,
+      obj.createdAt,
+      obj.updatedAt,
+    );
 
     return todo;
   }

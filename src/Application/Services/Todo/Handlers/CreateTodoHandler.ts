@@ -1,14 +1,17 @@
 import Todo from '@Domain/Entities/Todo';
-import { TodoInput } from '@interfaces/todo';
-import Container from 'typedi';
+import CreateTodoEvent from '@Domain/Events/CreateTodoEvent';
+import { TodoDomainService } from '@Infrastructure/IoC/Containers';
+import { ITodo } from '@interfaces/todo';
 import { CreateTodoCommand } from '../Commands';
-import TodoService from '../TodoServices';
 
 class CreateTodoHandler {
   async handle(command: CreateTodoCommand) {
-    const service = Container.get(TodoService);
+    const todo = await TodoDomainService.create(Todo.create(command as Partial<ITodo>));
 
-    return await service.create(Todo.create(command as TodoInput));
+    const event = new CreateTodoEvent();
+    event.emit('send', todo);
+
+    return todo;
   }
 }
 

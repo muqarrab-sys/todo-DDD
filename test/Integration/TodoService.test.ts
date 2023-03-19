@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { assert } from 'chai';
-import Container from 'typedi';
 import { ITodo } from '../../interfaces/todo';
-import TodoService from '../../src/Application/Services/Todo/TodoServices';
 import Todo from '../../src/Domain/Entities/Todo';
+import TodoService from '../../src/Domain/Services/Todo/TodoServices';
+import { TodoDomainService } from '../../src/Infrastructure/IoC/Containers';
 import SharedUtils from '../../src/Infrastructure/Utils/SharedUtils';
 import CreateUser from '../Utils/CreateUser';
 import Database from '../Utils/Database';
@@ -15,7 +15,7 @@ describe('Todo Service Integration', () => {
 
   before(async () => {
     database = new Database();
-    service = Container.get(TodoService);
+    service = TodoDomainService as TodoService;
     user = await CreateUser.create();
   });
 

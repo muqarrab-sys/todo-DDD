@@ -1,6 +1,6 @@
 import Container from 'typedi';
 import { FindTodoCommand } from '../Commands';
-import TodoService from '../TodoServices';
+import TodoService from '@Domain/Services/Todo/TodoServices';
 
 class FindTodoHandler {
   async handle(command: FindTodoCommand) {

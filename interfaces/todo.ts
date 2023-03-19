@@ -6,6 +6,7 @@ export interface ITodo extends Todo {
   uid: string;
   title: string;
   description: string;
+  active: boolean;
   isCompleted: boolean;
   dueDate: Date;
   userId: string;
@@ -13,15 +14,9 @@ export interface ITodo extends Todo {
   updatedAt: Date;
 }
 
-export type TodoInput = PartialBy<ITodo, 'id' | 'uid' | 'isCompleted' | 'createdAt' | 'updatedAt'>;
-
-export type TodoPartial = Partial<ITodo>;
-
 export type TodoUserInput = Pick<ITodo, 'title' | 'description' | 'isCompleted' | 'dueDate'>;
 
 export type TodoCreationObject = PartialBy<TodoUserInput, 'isCompleted'>;
-
-export type TodoUpdateObject = Partial<TodoUserInput>;
 
 export interface ITodoSearchObject extends ISearchQuery<ITodo> {
   isCompleted?: boolean;
