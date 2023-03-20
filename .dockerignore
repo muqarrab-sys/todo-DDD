@@ -1,0 +1,10 @@
+# compiled output
+.vscode
+.github
+
+/node_modules
+
+.prettierrc
+
+Dockerfile
+docker-compose.yml

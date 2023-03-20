@@ -1,15 +1,14 @@
 {
   "name": "todo-app-backend",
   "version": "1.0.0",
-  "main": "bin/index.js",
+  "main": "bin/www.js",
   "license": "MIT",
   "scripts": {
     "start": "npm run build && cross-env NODE_ENV=production node dist/bin/www.js",
     "build": "tsc --project './tsconfig.json' && resolve-tspaths",
     "dev": "cross-env NODE_ENV=development nodemon",
     "test": "cross-env NODE_ENV=test mocha './test/**/*.test.ts' --require ./test/prepare.js --recursive",
-    "seed:user": "ts-node -r tsconfig-paths/register --transpile-only bin/index.ts -s user",
-    "seed:todo": "ts-node -r tsconfig-paths/register --transpile-only bin/index.ts -s todo",
+    "seed": "prisma db seed",
     "migrate:dev": "dotenv -e .env -- prisma migrate dev",
     "migrate:test": "dotenv -e .env.test -- prisma migrate dev"
   },
@@ -68,7 +67,8 @@
     "typescript": "^4.9.5"
   },
   "prisma": {
-    "schema": "src/Infrastructure/Database/Prisma/schema.prisma"
+    "schema": "src/Infrastructure/Database/Prisma/schema.prisma",
+    "seed": "ts-node src/Infrastructure/Database/Prisma/Seed/seed.ts"
   },
   "mocha": {
     "require": [
