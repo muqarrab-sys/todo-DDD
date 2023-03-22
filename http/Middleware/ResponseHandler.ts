@@ -1,11 +1,10 @@
 import { IHttpResponse } from '@interfaces/HttpInterfaces';
-import { IHandler } from '@interfaces/index';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response, RequestHandler } from 'express';
 
 export type HandlerCallback = (req: Request, res: Response, next: NextFunction) => Promise<IHttpResponse>;
 
 const ResponseHandler =
-  (cb: HandlerCallback): IHandler =>
+  (cb: HandlerCallback): RequestHandler =>
   async (req, res, next) => {
     try {
       const httpResponse: IHttpResponse = await cb(req, res, next);

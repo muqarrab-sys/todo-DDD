@@ -10,7 +10,8 @@
     "test": "cross-env NODE_ENV=test mocha './test/**/*.test.ts' --require ./test/prepare.js --recursive",
     "seed": "prisma db seed",
     "migrate:dev": "dotenv -e .env -- prisma migrate dev",
-    "migrate:test": "dotenv -e .env.test -- prisma migrate dev"
+    "migrate:test": "dotenv -e .env.test -- prisma migrate dev",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^4.10.1",

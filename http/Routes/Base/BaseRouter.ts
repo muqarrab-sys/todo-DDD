@@ -1,13 +1,12 @@
-import BaseController from '@http/Controllers/Base/BaseController';
 import logger from '@Infrastructure/Utils/logger';
 import { RequestHandler, Router } from 'express';
 import PassportJwtAuth from '@http/Middleware/PassportJwtAuth';
-import ResponseHandler from '@http/Middleware/ResponseHandler';
+import ResponseHandler, { HandlerCallback } from '@http/Middleware/ResponseHandler';
 
 type Methods = 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
 type Call = (path: string, ...handlers: RequestHandler[]) => void;
 
-abstract class BaseRouter<T = BaseController> {
+abstract class BaseRouter<T = any> {
   private router: Router;
   protected controller: T;
   private appliedMiddleware: RequestHandler[] = [];
@@ -36,7 +35,7 @@ abstract class BaseRouter<T = BaseController> {
   protected patch: Call = (path, ...handlers) => this.call('patch', path, handlers);
 
   private call(method: Methods, path: string, handlers: RequestHandler[]): void {
-    handlers[handlers.length - 1] = ResponseHandler(handlers[handlers.length - 1]);
+    handlers[handlers.length - 1] = ResponseHandler(handlers[handlers.length - 1] as HandlerCallback);
 
     handlers = this.appliedMiddleware.concat(handlers);
 

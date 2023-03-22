@@ -1,0 +1,20 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: bash -c "npm run migrate:dev && npm run start"
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://postgres:1234@postgres/develpoment?schema=public
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: develpoment
