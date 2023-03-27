@@ -1,11 +1,10 @@
-import UserController from '@http/Controllers/UserController';
 import {
-  GoogleCodeValidation,
   UserCreationValidation,
   UserCredentialsValidation,
   UserUpdatePasswordValidation,
   UserUpdateValidation,
 } from '@Domain/Validations/UserValidations';
+import UserController from '@http/Controllers/UserController';
 import Validate from '../Middleware/ValidationMiddleware';
 import BaseRouter from './Base/BaseRouter';
 
