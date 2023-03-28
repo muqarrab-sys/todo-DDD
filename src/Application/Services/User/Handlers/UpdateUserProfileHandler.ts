@@ -1,9 +1,9 @@
-import { UpdateUserDomainService } from '@Infrastructure/IoC/Containers';
+import { UserServices } from '@Infrastructure/IoC/Containers';
 import { UpdateUserProfileCommand } from '../Commands';
 
 class UpdateUserProfileHandler {
   async handle(command: UpdateUserProfileCommand) {
-    return await UpdateUserDomainService.updateProfile(command.user, {
+    return await UserServices.updateProfile(command.user, {
       name: command.name,
       gender: command.gender,
       dob: command.dob,

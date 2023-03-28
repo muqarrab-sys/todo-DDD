@@ -1,4 +1,5 @@
 import NodeMailer from '@Infrastructure/Utils/NodeMailer';
+import { IUser } from '@interfaces/user';
 import EventEmitter from 'events';
 
 class RegisterUserEvent extends EventEmitter {
@@ -11,7 +12,7 @@ class RegisterUserEvent extends EventEmitter {
   private async initialize() {
     this.on('registerUser', this.sendMail);
   }
-  private async sendMail(user) {
+  private async sendMail(user: IUser) {
     const nodeMailer = NodeMailer.create();
 
     await nodeMailer.send({

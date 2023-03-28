@@ -25,3 +25,5 @@ export interface ITodoSearchObject extends ISearchQuery<ITodo> {
 export type TodoAttributes = keyof ITodo;
 
 export type TodoOrderByInput = Partial<IOrderBy<ITodo>>;
+
+export interface TodoFilter extends Partial<Pick<ITodo, 'title' | 'description' | 'isCompleted' | 'dueDate' | 'active'>> {}

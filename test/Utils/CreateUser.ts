@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { ReturnableUser } from '../../interfaces/user';
 import User from '../../src/Domain/Entities/User';
-import { RegUserDomainService, UserDomainService } from '../../src/Infrastructure/IoC/Containers';
+import { UserServices } from '../../src/Infrastructure/IoC/Containers';
 
 class CreateUser {
   constructor(private readonly user: ReturnableUser, private readonly authToken: string) {}
@@ -15,11 +15,11 @@ class CreateUser {
   }
 
   async delete() {
-    await UserDomainService.deleteUser(this.user.uid);
+    await UserServices.deleteUser(this.user.uid);
   }
 
   static async create() {
-    const response = await RegUserDomainService.register(
+    const response = await UserServices.register(
       User.create({
         name: faker.name.fullName(),
         email: faker.internet.email(),

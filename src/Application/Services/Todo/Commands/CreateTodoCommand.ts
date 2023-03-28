@@ -1,8 +1,9 @@
+import { IUser } from '@interfaces/user';
 import { Command } from 'simple-command-bus';
 
 class CreateTodoCommand extends Command {
   constructor(
-    public readonly userId: string,
+    public readonly user: IUser,
     public readonly title: string,
     public readonly dueDate: Date,
     public readonly description?: string,

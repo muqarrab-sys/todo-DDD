@@ -1,6 +1,8 @@
+import User from '@Domain/Entities/User';
+import RegisterUserEvent from '@Domain/Events/RegisterUserEvent';
 import OAuth2 from '@Infrastructure/Auth/Google/OAuth2';
 import JsonWebToken from '@Infrastructure/Auth/JsonWebToken';
-import configs from '@Infrastructure/Configs';
+import Configs from '@Infrastructure/Configs';
 import UserRepository from '@Infrastructure/Repositories/UserRepository';
 import { Inject, Service } from 'typedi';
 
@@ -9,7 +11,7 @@ class AuthServices {
   constructor(@Inject() private readonly repository: UserRepository) {}
 
   public generateGoogleAuthUrl() {
-    const oAuth2 = new OAuth2(configs.googleAuth.web);
+    const oAuth2 = new OAuth2(Configs.googleAuth.web);
 
     const url = oAuth2.generateAuthUrl();
 
@@ -18,6 +20,33 @@ class AuthServices {
 
   public jwtStrategy() {
     return JsonWebToken.strategy(this.repository);
+  }
+
+  async authorizeWithGoogleAuth(code: string) {
+    const oAuth = new OAuth2(Configs.googleAuth.web);
+
+    const { tokens } = await oAuth.getToken(code);
+    const googleUser = await oAuth.getGoogleUser(tokens.id_token);
+
+    let dbUser = await this.repository.find({ email: googleUser.email });
+    if (!dbUser) {
+      dbUser = await this.repository.create(
+        User.create({
+          name: googleUser.name,
+          email: googleUser.email,
+          password: null,
+          googleId: googleUser.sub,
+        }),
+      );
+
+      const event = new RegisterUserEvent();
+      event.emit('registerUser', dbUser);
+    }
+
+    const user = User.createFromDetails(dbUser);
+    const token = JsonWebToken.encode({ sub: user.uid });
+
+    return { user: user.values, token };
   }
 }
 

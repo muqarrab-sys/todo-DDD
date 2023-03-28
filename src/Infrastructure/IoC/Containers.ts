@@ -1,19 +1,13 @@
-import Container from 'typedi';
-import RegisterUserService from '@Domain/Services/User/RegisterUserService';
-import LoginUserService from '@Domain/Services/User/LoginUserService';
-import GoogleAuthService from '@Domain/Services/Auth/GoogleAuthService';
-import UpdateUserService from '@Domain/Services/User/UpdateUserService';
+import AuthService from '@Application/Services/Auth/AuthServices';
+import TodoService from '@Application/Services/Todo/TodoServices';
+import UserService from '@Application/Services/User/UserServices';
 import TodoRepository from '@Infrastructure/Repositories/TodoRepository';
 import UserRepository from '@Infrastructure/Repositories/UserRepository';
-import TodoService from '@Domain/Services/Todo/TodoServices';
-import UserServices from '@Application/Services/User/UserServices';
+import Container from 'typedi';
 
 Container.set('todo.repo.prisma', new TodoRepository());
 Container.set('user.rep.prisma', new UserRepository());
 
-export const RegUserDomainService = Container.get(RegisterUserService) as RegisterUserService;
-export const LoginDomainService = Container.get(LoginUserService) as LoginUserService;
-export const GoogleAuthDomainService = Container.get(GoogleAuthService) as GoogleAuthService;
-export const UpdateUserDomainService = Container.get(UpdateUserService) as UpdateUserService;
-export const TodoDomainService = Container.get(TodoService) as TodoService;
-export const UserDomainService = Container.get(UserServices) as UserServices;
+export const TodoServices = Container.get(TodoService) as TodoService;
+export const UserServices = Container.get(UserService) as UserService;
+export const AuthServices = Container.get(AuthService) as AuthService;

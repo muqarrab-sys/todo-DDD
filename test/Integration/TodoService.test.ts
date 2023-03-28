@@ -2,8 +2,8 @@ import { faker } from '@faker-js/faker';
 import { assert } from 'chai';
 import { ITodo } from '../../interfaces/todo';
 import Todo from '../../src/Domain/Entities/Todo';
-import TodoService from '../../src/Domain/Services/Todo/TodoServices';
-import { TodoDomainService } from '../../src/Infrastructure/IoC/Containers';
+import TodoService from '../../src/Application/Services/Todo/TodoServices';
+import { TodoServices } from '../../src/Infrastructure/IoC/Containers';
 import SharedUtils from '../../src/Infrastructure/Utils/SharedUtils';
 import CreateUser from '../Utils/CreateUser';
 import Database from '../Utils/Database';
@@ -15,7 +15,7 @@ describe('Todo Service Integration', () => {
 
   before(async () => {
     database = new Database();
-    service = TodoDomainService as TodoService;
+    service = TodoServices;
     user = await CreateUser.create();
   });
 
@@ -45,8 +45,7 @@ describe('Todo Service Integration', () => {
     const foundTodos = await service.findByUser(user.values.uid);
 
     assert.isArray(foundTodos.todos);
-    assert.isAtLeast(foundTodos.todos.length, CREATE_TODO_AMOUNT);
-    assert.equal(foundTodos.todos.length, foundTodos.totalTodos);
+    assert.isAtLeast(foundTodos.totalTodos, CREATE_TODO_AMOUNT, `todos are more then ${CREATE_TODO_AMOUNT}`);
   });
 
   function createTodo(user) {

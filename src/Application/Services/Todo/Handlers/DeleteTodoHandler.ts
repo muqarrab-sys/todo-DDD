@@ -1,9 +1,9 @@
-import { TodoDomainService } from '@Infrastructure/IoC/Containers';
+import { TodoServices } from '@Infrastructure/IoC/Containers';
 import { DeleteTodoCommand } from '../Commands';
 
 class DeleteTodoHandler {
   async handle(command: DeleteTodoCommand) {
-    return await TodoDomainService.delete(command.userId, command.uid);
+    return await TodoServices.delete(command.userId, command.uid);
   }
 }
 

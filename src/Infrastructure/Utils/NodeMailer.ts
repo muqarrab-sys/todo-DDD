@@ -1,5 +1,5 @@
 import Configs from '@Infrastructure/Configs';
-import nodemailer, { TestAccount, Transporter } from 'nodemailer';
+import nodemailer, { Transporter } from 'nodemailer';
 import logger from './logger';
 
 type configs = typeof Configs.mail;
@@ -22,6 +22,7 @@ class NodeMailer {
       const info = await this.transporter.sendMail({
         from: Configs.mail.from,
         to: opts.to,
+        subject: opts.subject,
         text: opts.body,
         html: opts.template,
         attachments: opts.attachments,

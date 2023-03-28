@@ -4,18 +4,18 @@ import { ITodoSearchObject, TodoAttributes, TodoCreationObject, TodoUserInput } 
 import { Transform } from 'class-transformer';
 import { IsBoolean, IsDate, IsNumber, IsString, IsOptional } from 'class-validator';
 
-export class TodoCreationValidation implements TodoCreationObject {
+export class TodoCreationDto implements TodoCreationObject {
   @IsString() title: string;
   @IsString() description: string;
   @IsOptional() @IsBoolean() isCompleted?: boolean;
   @Transform(({ value }) => new Date(value)) @IsDate() dueDate: Date;
 }
 
-export class TodoIdValidation implements IdObject {
+export class TodoIdDto implements IdObject {
   @IsString() uid: string;
 }
 
-export class TodoSearchValidation implements ITodoSearchObject {
+export class TodoSearchDto implements ITodoSearchObject {
   @Transform(({ value }) => Number(value)) @IsNumber() page: number;
   @Transform(({ value }) => Number(value)) @IsNumber() size: number;
   @Transform(({ value }) => SharedUtils.convertToBoolean(value)) @IsBoolean() isCompleted: boolean;
@@ -23,7 +23,7 @@ export class TodoSearchValidation implements ITodoSearchObject {
   @IsString() sortBy?: SortOrder;
 }
 
-export class TodoUpdateValidation implements Partial<TodoUserInput> {
+export class TodoUpdateDto implements Partial<TodoUserInput> {
   @IsString() title: string;
   @IsString() description: string;
   @IsBoolean() isCompleted?: boolean;

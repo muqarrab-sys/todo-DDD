@@ -2,18 +2,12 @@ import { faker } from '@faker-js/faker';
 import { expect } from 'chai';
 import { validate } from 'class-validator';
 import { GenderEnum } from '../../../interfaces/user';
-import {
-  UserCreationValidation,
-  UserCredentialsValidation,
-  GoogleCodeValidation,
-  UserUpdateValidation,
-  UserUpdatePasswordValidation,
-} from '../../../src/Domain/Validations/UserValidations';
+import { GoogleCodeDto, UserCreationDto, UserCredentialsDto, UserUpdateDto, UserUpdatePasswordDto } from '../../../src/Application/Dto/UserDto';
 
 describe('User Validation', () => {
   describe('User Creation', () => {
     it('must have name', async () => {
-      const user = new UserCreationValidation();
+      const user = new UserCreationDto();
       user.email = faker.internet.email();
       user.password = '1234567890';
 
@@ -23,7 +17,7 @@ describe('User Validation', () => {
     });
 
     it('must have email', async () => {
-      const user = new UserCreationValidation();
+      const user = new UserCreationDto();
       user.name = faker.name.fullName();
       user.password = '1234567890';
 
@@ -33,7 +27,7 @@ describe('User Validation', () => {
     });
 
     it('must have password', async () => {
-      const user = new UserCreationValidation();
+      const user = new UserCreationDto();
       user.name = faker.name.fullName();
       user.email = faker.internet.email();
 
@@ -43,7 +37,7 @@ describe('User Validation', () => {
     });
 
     it('validates user creation object', async () => {
-      const user = new UserCreationValidation();
+      const user = new UserCreationDto();
       user.name = faker.name.fullName();
       user.email = faker.internet.email();
       user.gender = GenderEnum.MALE;
@@ -58,7 +52,7 @@ describe('User Validation', () => {
 
   describe('User Credentials', () => {
     it('must have email and password', async () => {
-      const user = new UserCredentialsValidation();
+      const user = new UserCredentialsDto();
       const error1 = await validate(user);
 
       user.email = faker.internet.email();
@@ -75,7 +69,7 @@ describe('User Validation', () => {
 
   describe('Google Code', () => {
     it('must have code', async () => {
-      const googleCode = new GoogleCodeValidation();
+      const googleCode = new GoogleCodeDto();
 
       googleCode.code = faker.lorem.text();
       const error = await validate(googleCode);
@@ -86,7 +80,7 @@ describe('User Validation', () => {
 
   describe('User Update', () => {
     it('must have at least one value', async () => {
-      const user = new UserUpdateValidation();
+      const user = new UserUpdateDto();
       user.name = faker.name.fullName();
 
       const errors = await validate(user);
@@ -97,7 +91,7 @@ describe('User Validation', () => {
 
   describe('User Update Password', () => {
     it('must have all password fields', async () => {
-      const passwords = new UserUpdatePasswordValidation();
+      const passwords = new UserUpdatePasswordDto();
       passwords.oldPassword = '1234567890';
       passwords.newPassword = '1234567890';
       passwords.confirmPassword = '1234567890';
@@ -107,6 +101,4 @@ describe('User Validation', () => {
       expect(errors.length).eq(0);
     });
   });
-
-  function validateObject() {}
 });

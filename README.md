@@ -44,3 +44,10 @@ Refactor Phase 1:
 - [x] Shift Login related to passport js with jwt support.
 - [x] Implement the Command Bus pattern to interact with stores and entities in todo app.
 - [x] Use mocha, sinon and chai to add test cases to the app.
+
+## Refactor Phase 5
+
+- [x] Implement Observer pattern to raise events on creation of user and todo items.
+- [x] Implement email/slack notification drivers to notify users.
+- [x] Move the codebase to docker compose.
+- [ ] Add Integrations tests for stores and command bus

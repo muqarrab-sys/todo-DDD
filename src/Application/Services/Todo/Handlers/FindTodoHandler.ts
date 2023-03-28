@@ -1,12 +1,9 @@
-import Container from 'typedi';
+import { TodoServices } from '@Infrastructure/IoC/Containers';
 import { FindTodoCommand } from '../Commands';
-import TodoService from '@Domain/Services/Todo/TodoServices';
 
 class FindTodoHandler {
   async handle(command: FindTodoCommand) {
-    const service = Container.get(TodoService);
-
-    return await service.find(command.uid, command.userId);
+    return await TodoServices.find(command.uid, command.userId);
   }
 }
 

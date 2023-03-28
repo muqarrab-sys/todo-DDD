@@ -9,10 +9,10 @@ class TodoController {
   public create: IHandler = async (req, res) => {
     const data: TodoCreationObject = req.body;
 
-    const command = new CreateTodoCommand(req.user.uid, data.title, data.dueDate, data.description, data.isCompleted);
+    const command = new CreateTodoCommand(req.user, data.title, data.dueDate, data.description, data.isCompleted);
     const response = await commandBus.handle(command);
 
-    return HttpResponse.created(response);
+    return HttpResponse.created(response, 'Todo Created!');
   };
 
   public find: IHandler = async (req, res) => {
@@ -21,13 +21,13 @@ class TodoController {
     const command = new FindTodoCommand(uid, req.user.uid);
     const response = await commandBus.handle(command);
 
-    return HttpResponse.ok(response, 'Todo Created!');
+    return HttpResponse.ok(response);
   };
 
   public findByUser: IHandler = async (req, res) => {
     const { size, page, isCompleted, orderBy, sortBy } = req.query as ITodoSearchObject;
 
-    const command = new FindManyTodoCommand(req.user.uid, { isCompleted }, { page, size }, { sortBy, orderBy });
+    const command = new FindManyTodoCommand(req.user.uid, { isCompleted }, { page, size, sortBy, orderBy });
     const response = await commandBus.handle(command);
 
     return HttpResponse.ok(response);

@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 (async () => {
   try {
-    console.log('start');
+    console.log('🌱  Starting the seeding process\n');
     await seedUserWithTodos(10);
     await prisma.$disconnect();
   } catch (error) {
@@ -17,7 +17,7 @@ const prisma = new PrismaClient();
 
 async function seedUserWithTodos(num: number = 1) {
   for (let i = 0; i < num; i++) {
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         uid: faker.datatype.uuid(),
         name: faker.name.fullName(),
@@ -47,5 +47,7 @@ async function seedUserWithTodos(num: number = 1) {
         },
       },
     });
+
+    console.log(`🌱  seed user (${i + 1}): ${user.uid}`);
   }
 }

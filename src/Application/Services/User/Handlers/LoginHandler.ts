@@ -1,9 +1,9 @@
-import { LoginDomainService } from '@Infrastructure/IoC/Containers';
+import { UserServices } from '@Infrastructure/IoC/Containers';
 import { LoginCommand } from '../Commands';
 
 class LoginHandler {
   async handle(command: LoginCommand) {
-    const response = await LoginDomainService.login(command.email, command.password);
+    const response = await UserServices.login(command.email, command.password);
 
     return response;
   }

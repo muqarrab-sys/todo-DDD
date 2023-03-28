@@ -21,8 +21,8 @@ abstract class BaseRouter<T = any> {
     this.protectedRoutes();
   }
 
-  protected abstract routes(): void;
-  protected abstract protectedRoutes(): void;
+  protected routes(): void {}
+  protected protectedRoutes(): void {}
 
   get getRoutes(): Router {
     return this.router;

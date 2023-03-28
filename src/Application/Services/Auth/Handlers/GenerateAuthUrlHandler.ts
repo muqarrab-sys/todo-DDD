@@ -1,12 +1,9 @@
+import { AuthServices } from '@Infrastructure/IoC/Containers';
 import { Command } from 'simple-command-bus';
-import Container from 'typedi';
-import AuthServices from '../AuthServices';
 
 class GenerateAuthUrlHandler {
   handle(command: Command) {
-    const service = Container.get(AuthServices);
-
-    return service.generateGoogleAuthUrl();
+    return AuthServices.generateGoogleAuthUrl();
   }
 }
 

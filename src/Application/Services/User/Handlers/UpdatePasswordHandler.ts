@@ -1,10 +1,10 @@
-import { UpdateUserDomainService } from '@Infrastructure/IoC/Containers';
+import { UserServices } from '@Infrastructure/IoC/Containers';
 import { UpdatePasswordCommand } from '../Commands';
 
 class UpdatePasswordHandler {
   async handle(command: UpdatePasswordCommand) {
     try {
-      return await UpdateUserDomainService.updatePassword(command.user, {
+      return await UserServices.updatePassword(command.user, {
         oldPassword: command.oldPassword,
         newPassword: command.newPassword,
         confirmPassword: command.confirmPassword,

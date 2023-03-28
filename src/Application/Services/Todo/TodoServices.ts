@@ -20,7 +20,6 @@ class TodoService {
 
   async find(uid: string, userId: string) {
     const todo = await this.repository.find({ uid });
-    if (!todo) throw new NotFoundException('Item not found!');
     if (todo.userId !== userId) throw new UnAuthorizedException('You are not authorized to view this item!');
 
     return Todo.createFromDetails(todo);
@@ -45,12 +44,11 @@ class TodoService {
     const orderBy: TodoOrderByInput = {};
     if (data?.orderBy) orderBy[data?.orderBy] = data?.sortBy || ASCENDING;
 
-    const todos = await this.repository.findMany(filter, pagination, orderBy);
-    const totalTodos = await this.repository.count(userId, { isCompleted: data?.isCompleted });
+    const response = await this.repository.findMany(filter, pagination, orderBy);
 
     return {
-      todos: todos.map(todo => Todo.createFromDetails(todo)),
-      totalTodos,
+      todos: response.todos.map(todo => Todo.createFromDetails(todo)),
+      count: response.count,
     };
   }
 
