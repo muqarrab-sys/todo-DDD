@@ -1,5 +1,5 @@
 import Todo from '@Domain/Entities/Todo';
-import ITodoRepository from '@Domain/Entities/Todo/Repository/ITodoRepository';
+import ITodoRepository from '@Domain/Entities/Todo/ITodoRepository';
 import { ASCENDING } from '@Infrastructure/Constants';
 import { NotFoundException, UnAuthorizedException } from '@Infrastructure/Exceptions';
 import Pagination from '@Infrastructure/Utils/Pagination';

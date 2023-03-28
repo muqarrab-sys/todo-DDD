@@ -1,4 +1,4 @@
-import IUserRepository from '@Domain/Entities/User/Repository/IUserRepository';
+import IUserRepository from '@Domain/Entities/User/IUserRepository';
 import { IUser } from '@interfaces/user';
 import { Prisma } from '@prisma/client';
 import { Service } from 'typedi';

@@ -1,5 +1,5 @@
 import User from '@Domain/Entities/User';
-import IUserRepository from '@Domain/Entities/User/Repository/IUserRepository';
+import IUserRepository from '@Domain/Entities/User/IUserRepository';
 import BCrypt from '@Infrastructure/Auth/Encrypt/BCrypt';
 import JsonWebToken from '@Infrastructure/Auth/JsonWebToken';
 import { NotFoundException, UnAuthorizedException } from '@Infrastructure/Exceptions';

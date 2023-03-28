@@ -1,4 +1,4 @@
-import IUserRepository from '@Domain/Entities/User/Repository/IUserRepository';
+import IUserRepository from '@Domain/Entities/User/IUserRepository';
 import Configs from '@Infrastructure/Configs';
 import { UnAuthorizedException } from '@Infrastructure/Exceptions';
 import { JwtPayload } from '@interfaces/index';

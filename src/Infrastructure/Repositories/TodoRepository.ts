@@ -1,4 +1,4 @@
-import ITodoRepository from '@Domain/Entities/Todo/Repository/ITodoRepository';
+import ITodoRepository from '@Domain/Entities/Todo/ITodoRepository';
 import { NotFoundException } from '@Infrastructure/Exceptions';
 import { IPaginationQuery } from '@Infrastructure/Utils/Pagination';
 import { ITodo, TodoOrderByInput, TodoUserInput } from '@interfaces/todo';
