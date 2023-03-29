@@ -1,5 +1,5 @@
 import User from '@Domain/Entities/User';
-import RegisterUserEvent from '@Domain/Events/RegisterUserEvent';
+import RegisterUserEvent from '@Application/Events/RegisterUserEvent';
 import { UserServices } from '@Infrastructure/IoC/Containers';
 import { RegisterUserCommand } from '../Commands';
 

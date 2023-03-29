@@ -1,5 +1,5 @@
 import Todo from '@Domain/Entities/Todo';
-import CreateTodoEvent from '@Domain/Events/CreateTodoEvent';
+import CreateTodoEvent from '@Application/Events/CreateTodoEvent';
 import { TodoServices } from '@Infrastructure/IoC/Containers';
 import { ITodo } from '@interfaces/todo';
 import { CreateTodoCommand } from '../Commands';

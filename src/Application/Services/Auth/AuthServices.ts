@@ -1,5 +1,5 @@
 import User from '@Domain/Entities/User';
-import RegisterUserEvent from '@Domain/Events/RegisterUserEvent';
+import RegisterUserEvent from '@Application/Events/RegisterUserEvent';
 import OAuth2 from '@Infrastructure/Auth/Google/OAuth2';
 import JsonWebToken from '@Infrastructure/Auth/JsonWebToken';
 import Configs from '@Infrastructure/Configs';

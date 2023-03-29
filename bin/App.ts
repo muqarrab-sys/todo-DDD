@@ -1,10 +1,9 @@
-import BaseHttpException from '@Infrastructure/Exceptions/Base/BaseHttpException';
-import logger from '@Infrastructure/Utils/logger';
 import BaseRouter from '@http/Routes/Base/BaseRouter';
+import logger from '@Infrastructure/Utils/logger';
+import { HttpStatusCode } from '@interfaces/HttpInterfaces';
 import { IDatabaseClient } from '@interfaces/index';
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
-import { HttpStatusCode } from '@interfaces/HttpInterfaces';
 
 class App {
   private port: string | number;
@@ -56,11 +55,10 @@ class App {
   private handleErrorResponse() {
     this.app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
       logger.error(err);
-      if (err instanceof BaseHttpException) {
-        res.status(err.httpCode).json({ success: false, error: err.name, message: err.message });
-      } else {
-        res.status(HttpStatusCode.INTERNAL_SERVER).json({ success: false, message: err.message });
-      }
+
+      const code = err.httpCode || err.code || HttpStatusCode.INTERNAL_SERVER;
+
+      res.status(code).json({ success: false, error: err.name, message: err.message });
     });
   }
 }

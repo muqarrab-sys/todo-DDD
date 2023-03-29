@@ -33,6 +33,7 @@
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "simple-command-bus": "^1.0.7",
+    "slack-notify": "^2.0.6",
     "typedi": "^0.10.0",
     "uuid": "^9.0.0"
   },
