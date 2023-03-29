@@ -9,7 +9,7 @@ class UserRepository implements IUserRepository {
   private user: Prisma.UserDelegate<{}>;
 
   constructor() {
-    this.user = new PrismaDatabase().getClient().user;
+    this.user = new PrismaDatabase().client.user;
   }
 
   async create(data: IUser) {

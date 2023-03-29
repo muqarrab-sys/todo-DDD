@@ -4,21 +4,21 @@ import { IDatabaseClient } from '@interfaces/IDatabaseClient';
 import SharedUtils from '@Infrastructure/Utils/SharedUtils';
 
 class PrismaDatabase implements IDatabaseClient {
-  private client: PrismaClient;
+  private prisma: PrismaClient;
 
   constructor() {
-    this.client = new PrismaClient();
+    this.prisma = new PrismaClient();
 
     this.initiateMiddleware();
   }
 
-  getClient(): PrismaClient {
-    return this.client;
+  get client(): PrismaClient {
+    return this.prisma;
   }
 
   async connect() {
     try {
-      await this.client.$connect();
+      await this.prisma.$connect();
       logger.info('Database Connected: Postgres');
     } catch (error) {
       logger.error(error);
@@ -27,7 +27,7 @@ class PrismaDatabase implements IDatabaseClient {
 
   async disconnect() {
     try {
-      await this.client.$disconnect();
+      await this.prisma.$disconnect();
       logger.info('Postgres Disconnected');
     } catch (error) {
       logger.error(error);
@@ -35,7 +35,7 @@ class PrismaDatabase implements IDatabaseClient {
   }
 
   initiateMiddleware() {
-    this.client.$use(async (params, next) => {
+    this.prisma.$use(async (params, next) => {
       if (params.action === 'create') {
         if (!params.args.data.uid) {
           params.args.data.uid = SharedUtils.uuid();

@@ -12,7 +12,7 @@ class TodoRepository implements ITodoRepository {
   private client: PrismaClient;
 
   constructor() {
-    this.client = new PrismaDatabase().getClient();
+    this.client = new PrismaDatabase().client;
     this.todo = this.client.todo;
   }
 
@@ -39,7 +39,7 @@ class TodoRepository implements ITodoRepository {
     return { todos, count };
   }
 
-  async count(userId: string, where?: Prisma.TodoWhereInput) {
+  async count(where?: Prisma.TodoWhereInput) {
     return await this.todo.count({ where });
   }
 
