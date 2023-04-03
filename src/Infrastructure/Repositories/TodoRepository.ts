@@ -1,18 +1,19 @@
 import ITodoRepository from '@Domain/Entities/Todo/ITodoRepository';
+import PrismaDatabase from '@Infrastructure/Database/Prisma/PrismaDatabase';
 import { NotFoundException } from '@Infrastructure/Exceptions';
 import { IPaginationQuery } from '@Infrastructure/Utils/Pagination';
+import { IDatabaseClient } from '@interfaces/IDatabaseClient';
 import { ITodo, TodoOrderByInput, TodoUserInput } from '@interfaces/todo';
 import { Prisma, PrismaClient } from '@prisma/client';
-import { Service } from 'typedi';
-import PrismaDatabase from '../Database/Prisma/PrismaDatabase';
+import { inject, injectable } from 'inversify';
 
-@Service()
+@injectable()
 class TodoRepository implements ITodoRepository {
   private todo: Prisma.TodoDelegate<{}>;
   private client: PrismaClient;
 
-  constructor() {
-    this.client = new PrismaDatabase().client;
+  constructor(@inject(PrismaDatabase) private db: IDatabaseClient) {
+    this.client = db.client;
     this.todo = this.client.todo;
   }
 

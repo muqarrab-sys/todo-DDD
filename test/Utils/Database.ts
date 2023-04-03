@@ -16,7 +16,7 @@ class Database {
   }
 
   get client() {
-    return this.dbClient.getClient();
+    return this.dbClient.client;
   }
 }
 

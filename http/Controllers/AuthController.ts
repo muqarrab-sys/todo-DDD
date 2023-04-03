@@ -5,13 +5,13 @@ import { IHandler } from '@interfaces/index';
 import { GoogleCodeObject } from '@interfaces/user';
 
 class AuthController {
-  fetchGoogleAuthUrl: IHandler = async (req, res) => {
+  fetchGoogleAuthUrl: IHandler = async req => {
     const response = commandBus.handle(new GenerateAuthUrlCommand());
 
     return HttpResponse.ok(response);
   };
 
-  googleAuth: IHandler = async (req, res) => {
+  googleAuth: IHandler = async req => {
     const data: GoogleCodeObject = req.body;
 
     const command = GoogleAuthCommand.create(data.code);

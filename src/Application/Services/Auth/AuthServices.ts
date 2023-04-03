@@ -1,14 +1,15 @@
-import User from '@Domain/Entities/User';
 import RegisterUserEvent from '@Application/Events/RegisterUserEvent';
+import User from '@Domain/Entities/User';
+import IUserRepository from '@Domain/Entities/User/IUserRepository';
 import OAuth2 from '@Infrastructure/Auth/Google/OAuth2';
 import JsonWebToken from '@Infrastructure/Auth/JsonWebToken';
 import Configs from '@Infrastructure/Configs';
 import UserRepository from '@Infrastructure/Repositories/UserRepository';
-import { Inject, Service } from 'typedi';
+import { inject, injectable } from 'inversify';
 
-@Service()
+@injectable()
 class AuthServices {
-  constructor(@Inject() private readonly repository: UserRepository) {}
+  constructor(@inject(UserRepository) private readonly repository: IUserRepository) {}
 
   public generateGoogleAuthUrl() {
     const oAuth2 = new OAuth2(Configs.googleAuth.web);

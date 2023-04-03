@@ -1,18 +1,22 @@
 import Todo from '@Domain/Entities/Todo';
 import ITodoRepository from '@Domain/Entities/Todo/ITodoRepository';
 import { ASCENDING } from '@Infrastructure/Constants';
-import { NotFoundException, UnAuthorizedException } from '@Infrastructure/Exceptions';
+import { UnAuthorizedException } from '@Infrastructure/Exceptions';
+import TodoRepository from '@Infrastructure/Repositories/TodoRepository';
 import Pagination from '@Infrastructure/Utils/Pagination';
+import SharedUtils from '@Infrastructure/Utils/SharedUtils';
 import { SortOrder } from '@interfaces/index';
 import { ITodo, TodoAttributes, TodoOrderByInput, TodoUserInput } from '@interfaces/todo';
+import { inject, injectable } from 'inversify';
 import { isNil } from 'lodash';
-import { Inject, Service } from 'typedi';
 
-@Service()
+@injectable()
 class TodoService {
-  constructor(@Inject('todo.repo.prisma') private readonly repository: ITodoRepository) {}
+  constructor(@inject(TodoRepository) private readonly repository: ITodoRepository) {}
 
   async create(data: ITodo) {
+    data.uid = SharedUtils.uuid();
+
     const todo = await this.repository.create(data);
 
     return Todo.createFromDetails(todo);

@@ -25,8 +25,8 @@ class App {
     });
   }
 
-  async connectDatabase(dbClient: IDatabaseClient) {
-    await dbClient.connect();
+  async connectDatabase(database: IDatabaseClient) {
+    await database.connect();
   }
 
   initiateRoutes(routers: Array<BaseRouter>) {
@@ -56,7 +56,7 @@ class App {
     this.app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
       logger.error(err);
 
-      const code = err.httpCode || err.code || HttpStatusCode.INTERNAL_SERVER;
+      const code = err.httpCode || HttpStatusCode.INTERNAL_SERVER;
 
       res.status(code).json({ success: false, error: err.name, message: err.message });
     });

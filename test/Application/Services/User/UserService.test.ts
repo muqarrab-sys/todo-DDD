@@ -5,6 +5,7 @@ import { IUser } from '../../../../interfaces/user';
 import UserServices from '../../../../src/Application/Services/User/UserServices';
 import User from '../../../../src/Domain/Entities/User';
 import UserRepository from '../../../../src/Infrastructure/Repositories/UserRepository';
+import MockDatabase from '../../../Mock/Database';
 
 describe('UserService', () => {
   let user: IUser;
@@ -21,7 +22,7 @@ describe('UserService', () => {
       password: faker.lorem.word({ length: 8 }),
     });
 
-    userRepo = new UserRepository();
+    userRepo = new UserRepository(new MockDatabase());
     service = new UserServices(userRepo);
   });
 

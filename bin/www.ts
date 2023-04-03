@@ -2,7 +2,7 @@ require('dotenv').config();
 import 'reflect-metadata';
 
 import Routes from '@http/Routes';
-import PrismaDatabase from '@Infrastructure/Database/Prisma/PrismaDatabase';
+import { Database } from '@Infrastructure/IoC/Containers';
 import { Command } from 'commander';
 import figlet from 'figlet';
 import App from './App';
@@ -25,13 +25,10 @@ const { port, env } = program
 
 async function init() {
   const app = new App();
-
   const routers = Routes.build();
+
   app.initiateRoutes(routers);
-
-  const database = new PrismaDatabase();
-  await app.connectDatabase(database);
-
+  await app.connectDatabase(Database);
   app.setPort(port || process.env.PORT || 8080);
   app.start();
 }

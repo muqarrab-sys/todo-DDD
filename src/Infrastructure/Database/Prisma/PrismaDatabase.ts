@@ -1,9 +1,11 @@
-import logger from '@Infrastructure/Utils/logger';
-import { PrismaClient } from '@prisma/client';
-import { IDatabaseClient } from '@interfaces/IDatabaseClient';
 import SharedUtils from '@Infrastructure/Utils/SharedUtils';
+import logger from '@Infrastructure/Utils/logger';
+import { IDatabaseClient } from '@interfaces/IDatabaseClient';
+import { PrismaClient } from '@prisma/client';
+import { injectable } from 'inversify';
 
-class PrismaDatabase implements IDatabaseClient {
+@injectable()
+class PrismaDatabase implements IDatabaseClient<PrismaClient> {
   private prisma: PrismaClient;
 
   constructor() {
@@ -19,6 +21,7 @@ class PrismaDatabase implements IDatabaseClient {
   async connect() {
     try {
       await this.prisma.$connect();
+      logger.info('Using Prisma');
       logger.info('Database Connected: Postgres');
     } catch (error) {
       logger.error(error);

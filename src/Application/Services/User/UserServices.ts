@@ -4,18 +4,22 @@ import BCrypt from '@Infrastructure/Auth/Encrypt/BCrypt';
 import JsonWebToken from '@Infrastructure/Auth/JsonWebToken';
 import { NotFoundException, UnAuthorizedException } from '@Infrastructure/Exceptions';
 import BadRequestException from '@Infrastructure/Exceptions/BadRequestException';
+import UserRepository from '@Infrastructure/Repositories/UserRepository';
+import SharedUtils from '@Infrastructure/Utils/SharedUtils';
 import { IUser, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/user';
-import { Inject, Service } from 'typedi';
+import { inject, injectable } from 'inversify';
 
-@Service()
+@injectable()
 class UserServices {
-  constructor(@Inject('user.rep.prisma') private readonly repository: IUserRepository) {}
+  constructor(@inject(UserRepository) private readonly repository: IUserRepository) {}
 
   async register(data: IUser) {
     let dbUser = await this.repository.find({ email: data.email });
     if (dbUser) throw new BadRequestException('User already registered!');
 
     data.password = await BCrypt.encrypt(data.password);
+
+    data.uid = SharedUtils.uuid();
 
     dbUser = await this.repository.create(data);
 

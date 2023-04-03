@@ -1,4 +1,12 @@
 export default {
+  database: {
+    url: process.env.DATABASE_URL,
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    name: process.env.DB_NAME,
+  },
   googleAuth: {
     web: {
       clientId: process.env.OAUTH_CLIENT_ID,

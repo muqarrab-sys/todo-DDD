@@ -1,15 +1,16 @@
 import IUserRepository from '@Domain/Entities/User/IUserRepository';
+import PrismaDatabase from '@Infrastructure/Database/Prisma/PrismaDatabase';
+import { IDatabaseClient } from '@interfaces/IDatabaseClient';
 import { IUser } from '@interfaces/user';
 import { Prisma } from '@prisma/client';
-import { Service } from 'typedi';
-import PrismaDatabase from '../Database/Prisma/PrismaDatabase';
+import { inject, injectable } from 'inversify';
 
-@Service()
+@injectable()
 class UserRepository implements IUserRepository {
   private user: Prisma.UserDelegate<{}>;
 
-  constructor() {
-    this.user = new PrismaDatabase().client.user;
+  constructor(@inject(PrismaDatabase) private db: IDatabaseClient) {
+    this.user = db.client.user;
   }
 
   async create(data: IUser) {

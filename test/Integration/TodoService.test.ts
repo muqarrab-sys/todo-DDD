@@ -15,7 +15,7 @@ describe('Todo Service Integration', () => {
 
   before(async () => {
     database = new Database();
-    service = TodoServices;
+    service = TodoServices as TodoService;
     user = await CreateUser.create();
   });
 
@@ -45,7 +45,7 @@ describe('Todo Service Integration', () => {
     const foundTodos = await service.findByUser(user.values.uid);
 
     assert.isArray(foundTodos.todos);
-    assert.isAtLeast(foundTodos.totalTodos, CREATE_TODO_AMOUNT, `todos are more then ${CREATE_TODO_AMOUNT}`);
+    assert.isAtLeast(foundTodos.count, CREATE_TODO_AMOUNT, `todos are more then ${CREATE_TODO_AMOUNT}`);
   });
 
   function createTodo(user) {

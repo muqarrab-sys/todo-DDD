@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
+        "inversify",
         "pino",
         "Todos",
-        "typedi"
+        "typedi",
+        "typeorm"
     ]
 }

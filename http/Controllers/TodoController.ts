@@ -6,7 +6,7 @@ import { ITodoSearchObject, TodoCreationObject, TodoUserInput } from '@interface
 import { isNil, omitBy } from 'lodash';
 
 class TodoController {
-  public create: IHandler = async (req, res) => {
+  public create: IHandler = async req => {
     const data: TodoCreationObject = req.body;
 
     const command = new CreateTodoCommand(req.user, data.title, data.dueDate, data.description, data.isCompleted);
@@ -15,7 +15,7 @@ class TodoController {
     return HttpResponse.created(response, 'Todo Created!');
   };
 
-  public find: IHandler = async (req, res) => {
+  public find: IHandler = async req => {
     const { uid } = req.params as IdObject;
 
     const command = new FindTodoCommand(uid, req.user.uid);
@@ -24,7 +24,7 @@ class TodoController {
     return HttpResponse.ok(response);
   };
 
-  public findByUser: IHandler = async (req, res) => {
+  public findByUser: IHandler = async req => {
     const { size, page, isCompleted, orderBy, sortBy } = req.query as ITodoSearchObject;
 
     const command = new FindManyTodoCommand(req.user.uid, { isCompleted }, { page, size, sortBy, orderBy });
@@ -33,7 +33,7 @@ class TodoController {
     return HttpResponse.ok(response);
   };
 
-  public delete: IHandler = async (req, res) => {
+  public delete: IHandler = async req => {
     const { uid } = req.params as IdObject;
 
     const command = new DeleteTodoCommand(uid, req.user.uid);
@@ -42,7 +42,7 @@ class TodoController {
     return HttpResponse.ok({}, 'Deleted!');
   };
 
-  public update: IHandler = async (req, res) => {
+  public update: IHandler = async req => {
     const { uid } = req.params as IdObject;
     const body = req.body as Partial<TodoUserInput>;
 
