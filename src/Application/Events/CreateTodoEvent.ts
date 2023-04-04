@@ -1,4 +1,4 @@
-import NodeMailer from '@Infrastructure/Utils/NodeMailer';
+import { Mailer } from '@Infrastructure/IoC/Containers';
 import { ITodo } from '@interfaces/todo';
 import { IUser } from '@interfaces/user';
 import EventEmitter from 'events';
@@ -15,9 +15,7 @@ class CreateTodoEvent extends EventEmitter {
   }
 
   private async sendMail(todo: ITodo, user: IUser) {
-    const nodeMailer = NodeMailer.create();
-
-    await nodeMailer.send({
+    await Mailer.send({
       to: user.email,
       subject: 'Your Todo is created!',
       body: 'Your todo is created successfully',

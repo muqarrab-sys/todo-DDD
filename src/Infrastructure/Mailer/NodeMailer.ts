@@ -1,18 +1,18 @@
 import Configs from '@Infrastructure/Configs';
 import nodemailer, { Transporter } from 'nodemailer';
-import logger from './logger';
+import logger from '../Utils/logger';
+import { inject, injectable } from 'inversify';
 
-type configs = typeof Configs.mail;
-
+@injectable()
 class NodeMailer {
   private transporter: Transporter;
 
-  constructor(configs: configs) {
+  constructor(@inject('configs') configs: typeof Configs) {
     this.transporter = nodemailer.createTransport({
-      service: configs.service,
+      service: configs.mail.service,
       auth: {
-        user: configs.auth.user,
-        pass: configs.auth.pass,
+        user: configs.mail.auth.user,
+        pass: configs.mail.auth.pass,
       },
     });
   }
@@ -32,10 +32,6 @@ class NodeMailer {
     } catch (error) {
       logger.error(error);
     }
-  }
-
-  static create() {
-    return new NodeMailer(Configs.mail);
   }
 }
 

@@ -1,5 +1,4 @@
-import NodeMailer from '@Infrastructure/Utils/NodeMailer';
-import SlackNotifier from '@Infrastructure/Utils/SlackNotifier';
+import { Mailer, Slack } from '@Infrastructure/IoC/Containers';
 import { IUser } from '@interfaces/user';
 import EventEmitter from 'events';
 
@@ -15,16 +14,13 @@ class RegisterUserEvent extends EventEmitter {
   }
 
   private async notify(user: IUser) {
-    const nodeMailer = NodeMailer.create();
-    const slacker = SlackNotifier.create();
-
-    await nodeMailer.send({
+    await Mailer.send({
       to: user.email,
       subject: 'You have been registered!',
       body: 'You have been registered',
     });
 
-    await slacker.client.send({
+    await Slack.notify({
       text: `A user is created.\n\nName: ${user.name}\nEmail: ${user.email}`,
       icon_url: 'https://picsum.photos/id/237/200/300',
       username: 'System',

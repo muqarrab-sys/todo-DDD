@@ -33,4 +33,7 @@ export default {
     service: process.env.MAIL_SERVICE,
     from: process.env.FROM_EMAIL,
   },
+  slack: {
+    webhookUrl: process.env.SLACK_WEBHOOK_URL,
+  },
 };
