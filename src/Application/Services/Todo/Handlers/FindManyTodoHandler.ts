@@ -3,7 +3,7 @@ import { FindManyTodoCommand } from '../Commands';
 
 class FindManyTodoHandler {
   async handle(command: FindManyTodoCommand) {
-    return await TodoServices.findByUser(command.userId, { ...command.filter, ...command.paging, ...command.sort });
+    return await TodoServices.findByUser(command.userId, { ...command.filter, ...command.paging });
   }
 }
 

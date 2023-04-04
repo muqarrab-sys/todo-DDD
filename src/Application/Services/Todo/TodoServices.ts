@@ -35,8 +35,8 @@ class TodoService {
       page?: number;
       size?: number;
       isCompleted?: boolean;
-      orderBy: TodoAttributes;
-      sortBy: SortOrder;
+      orderBy?: TodoAttributes;
+      sortBy?: SortOrder;
     },
   ) {
     const pagination = Pagination.offsetPaginationQuery(data?.page, data?.size);
