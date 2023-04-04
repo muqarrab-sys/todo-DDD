@@ -1,11 +1,12 @@
 require('dotenv').config();
 import 'reflect-metadata';
 
-import Routes from '@http/Routes';
 import { Database } from '@Infrastructure/IoC/Containers';
+import Routes from '@http/Routes';
 import { Command } from 'commander';
 import figlet from 'figlet';
 import App from './App';
+import onExit from './Exit';
 
 console.log(figlet.textSync('Todo APP - DDD'));
 
@@ -26,6 +27,8 @@ const { port, env } = program
 async function init() {
   const app = new App();
   const routers = Routes.build();
+
+  await onExit(app, Database);
 
   app.initiateRoutes(routers);
   await app.connectDatabase(Database);

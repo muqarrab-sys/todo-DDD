@@ -1,35 +1,54 @@
 import BaseRouter from '@http/Routes/Base/BaseRouter';
 import logger from '@Infrastructure/Utils/logger';
+import BaseApp from '@interfaces/BaseApp';
 import { HttpStatusCode } from '@interfaces/HttpInterfaces';
 import { IDatabaseClient } from '@interfaces/index';
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
+import { Server } from 'http';
 
-class App {
-  private port: string | number;
+class App extends BaseApp {
   private app: express.Application;
 
   constructor() {
+    super();
     this.app = express();
 
     this.applyMiddleware();
   }
 
-  start() {
+  public start() {
     if (!this.port) {
       throw new Error('Missing port!');
     }
 
-    this.app.listen(this.port, () => {
-      logger.info(`Listing to http://localhost:${this.port}`);
-    });
+    try {
+      this.server = this.app.listen(this.port, () => {
+        logger.info(`Listing to http://localhost:${this.port}`);
+      });
+    } catch (error) {
+      logger.error("Couldn't start the server", error);
+    }
+  }
+
+  public close() {
+    if (!this.server) {
+      throw new Error('No server initiated');
+    }
+
+    try {
+      this.server.close();
+      logger.info('Server Closed!');
+    } catch (error) {
+      logger.error("Couldn't close the server", error);
+    }
   }
 
   async connectDatabase(database: IDatabaseClient) {
     await database.connect();
   }
 
-  initiateRoutes(routers: Array<BaseRouter>) {
+  public initiateRoutes(routers: Array<BaseRouter>) {
     routers.forEach(router => {
       this.app.use('/api', router.getRoutes);
     });
@@ -37,7 +56,7 @@ class App {
     this.handleErrorResponse();
   }
 
-  setPort(port: number | string) {
+  public setPort(port: number | string) {
     this.port = port;
   }
 
