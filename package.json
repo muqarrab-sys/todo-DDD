@@ -37,7 +37,8 @@
     "simple-command-bus": "^1.0.7",
     "slack-notify": "^2.0.6",
     "typeorm": "^0.3.12",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",

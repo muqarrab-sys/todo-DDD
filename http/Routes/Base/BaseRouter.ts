@@ -1,7 +1,7 @@
-import logger from '@Infrastructure/Utils/logger';
-import { RequestHandler, Router } from 'express';
+import { Logger } from '@Infrastructure/IoC/Containers';
 import PassportJwtAuth from '@http/Middleware/PassportJwtAuth';
 import ResponseHandler, { HandlerCallback } from '@http/Middleware/ResponseHandler';
+import { RequestHandler, Router } from 'express';
 
 type Methods = 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
 type Call = (path: string, ...handlers: RequestHandler[]) => void;
@@ -39,7 +39,7 @@ abstract class BaseRouter<T = any> {
 
     handlers = this.appliedMiddleware.concat(handlers);
 
-    logger.info(`${method.toUpperCase()}: ${path}`);
+    Logger.info(`${method.toUpperCase()}: ${path}`);
 
     this.router[method](path, ...handlers);
   }

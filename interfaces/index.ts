@@ -2,6 +2,8 @@ export { IDatabaseClient } from '@interfaces/IDatabaseClient';
 import { IUser } from '@interfaces/user';
 import { NextFunction, Request, Response } from 'express';
 import { JwtPayload as JsonWebTokenPayload } from 'jsonwebtoken';
+import BLogger from 'bunyan';
+import { Logger as WLogger } from 'winston';
 
 export declare interface Req extends Request<any, any, any, any> {
   user?: IUser;
@@ -44,3 +46,5 @@ export enum Env {
 export interface JwtPayload extends JsonWebTokenPayload {
   id?: number;
 }
+
+export type ILogger = WLogger | BLogger;

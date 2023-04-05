@@ -1,17 +1,21 @@
-import ServicesProvider from '@Application/Services/ServicesProvider';
+import ServicesProvider from '@Application/ServicesProvider';
 import Configs from '@Infrastructure/Configs';
 import DatabaseProvider from '@Infrastructure/Database/DatabaseProvider';
 import NodeMailer from '@Infrastructure/Mailer/NodeMailer';
 import RepositoryProvider from '@Infrastructure/Repositories/RepositoryProvider';
 import SlackNotifier from '@Infrastructure/Utils/SlackNotifier';
+import logger from '@Infrastructure/Utils/logger';
+import { ILogger } from '@interfaces/index';
 import { Container } from 'inversify';
+import Symbols from './Symbols';
 
-export default function BindContainer() {
+export default function ServicesBinder() {
   let c = new Container({ autoBindInjectable: true });
 
-  c.bind<typeof Configs>('configs').toConstantValue(Configs);
-  c.bind<NodeMailer>(NodeMailer).to(NodeMailer);
-  c.bind<SlackNotifier>(SlackNotifier).to(SlackNotifier);
+  c.bind<typeof Configs>(Symbols.Configs).toConstantValue(Configs);
+  c.bind<NodeMailer>(Symbols.NodeMailer).to(NodeMailer);
+  c.bind<SlackNotifier>(Symbols.SlackNotifier).to(SlackNotifier);
+  c.bind<ILogger>(Symbols.Logger).toConstantValue(logger);
 
   c = DatabaseProvider(c);
   c = RepositoryProvider(c);

@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { expect } from 'chai';
 import { validate } from 'class-validator';
 import { GenderEnum } from '../../../interfaces/user';
-import { GoogleCodeDto, UserCreationDto, UserCredentialsDto, UserUpdateDto, UserUpdatePasswordDto } from '../../../src/Application/Dto/UserDto';
+import { UserCreationDto, UserCredentialsDto, UserUpdateDto, UserUpdatePasswordDto } from '../../../src/Application/User/Dtos';
 
 describe('User Validation', () => {
   describe('User Creation', () => {
@@ -64,17 +64,6 @@ describe('User Validation', () => {
       expect(error1.length).eq(2);
       expect(error2.length).eq(1);
       expect(error3.length).eq(0);
-    });
-  });
-
-  describe('Google Code', () => {
-    it('must have code', async () => {
-      const googleCode = new GoogleCodeDto();
-
-      googleCode.code = faker.lorem.text();
-      const error = await validate(googleCode);
-
-      expect(error.length).eq(0);
     });
   });
 

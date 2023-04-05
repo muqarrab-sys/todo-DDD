@@ -1,5 +1,5 @@
 import commandBus from '@Application/CommandBus';
-import { CreateTodoCommand, DeleteTodoCommand, FindManyTodoCommand, FindTodoCommand, UpdateTodoCommand } from '@Application/Services/Todo/Commands';
+import { CreateTodoCommand, DeleteTodoCommand, FindManyTodoCommand, FindTodoCommand, UpdateTodoCommand } from '@Application/Todo/Commands';
 import HttpResponse from '@Infrastructure/Utils/HttpResponse';
 import { IdObject, IHandler } from '@interfaces/index';
 import { ITodoSearchObject, TodoCreationObject, TodoUserInput } from '@interfaces/todo';

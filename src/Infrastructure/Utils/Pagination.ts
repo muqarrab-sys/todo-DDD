@@ -1,9 +1,5 @@
 import { DEFAULT_PAGE_SIZE } from '@Infrastructure/Constants';
-
-export interface IPaginationQuery {
-  skip: number;
-  take: number;
-}
+import { IPaginationQuery } from '@interfaces/IQuery';
 
 export default class Pagination {
   static offsetPaginationQuery(page: number, size: number): IPaginationQuery {

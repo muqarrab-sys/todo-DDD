@@ -1,11 +1,10 @@
+import { Logger } from '@Infrastructure/IoC/Containers';
 import BaseRouter from '@http/Routes/Base/BaseRouter';
-import logger from '@Infrastructure/Utils/logger';
 import BaseApp from '@interfaces/BaseApp';
 import { HttpStatusCode } from '@interfaces/HttpInterfaces';
 import { IDatabaseClient } from '@interfaces/index';
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
-import { Server } from 'http';
 
 class App extends BaseApp {
   private app: express.Application;
@@ -24,10 +23,10 @@ class App extends BaseApp {
 
     try {
       this.server = this.app.listen(this.port, () => {
-        logger.info(`Listing to http://localhost:${this.port}`);
+        Logger.info(`Listing to http://localhost:${this.port}`);
       });
     } catch (error) {
-      logger.error("Couldn't start the server", error);
+      Logger.error("Couldn't start the server", error);
     }
   }
 
@@ -38,9 +37,9 @@ class App extends BaseApp {
 
     try {
       this.server.close();
-      logger.info('Server Closed!');
+      Logger.info('Server Closed!');
     } catch (error) {
-      logger.error("Couldn't close the server", error);
+      Logger.error("Couldn't close the server", error);
     }
   }
 
@@ -73,7 +72,7 @@ class App extends BaseApp {
 
   private handleErrorResponse() {
     this.app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-      logger.error(err);
+      Logger.error(err);
 
       const code = err.httpCode || HttpStatusCode.INTERNAL_SERVER;
 

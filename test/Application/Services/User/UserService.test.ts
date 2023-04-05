@@ -2,10 +2,10 @@ import { faker } from '@faker-js/faker';
 import { assert, expect } from 'chai';
 import { stub } from 'sinon';
 import { IUser } from '../../../../interfaces/user';
-import UserServices from '../../../../src/Application/Services/User/UserServices';
+import UserServices from '../../../../src/Application/User/UserServices';
 import User from '../../../../src/Domain/Entities/User';
 import UserRepository from '../../../../src/Infrastructure/Repositories/UserRepository';
-import MockDatabase from '../../../Mock/Database';
+import MockDatabase from '../../../Mock/MockDatabase';
 
 describe('UserService', () => {
   let user: IUser;
@@ -27,11 +27,14 @@ describe('UserService', () => {
   });
 
   it('registers a user and returns user object with token', async () => {
-    const stubRepo = stub(userRepo, 'create').returns(new Promise(res => res(user)));
+    const stubCreate = stub(userRepo, 'create').returns(new Promise(res => res(user)));
+    const stubFind = stub(userRepo, 'find').returns(new Promise(res => res(null)));
 
     const response = await service.register(user);
 
-    assert.isTrue(stubRepo.calledOnce);
+    stubFind.restore();
+
+    assert.isTrue(stubCreate.calledOnce);
     expect(response.user.uid).eq(user.uid);
     assert.typeOf(response.token, 'string');
   });

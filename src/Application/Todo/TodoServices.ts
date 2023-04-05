@@ -2,7 +2,7 @@ import Todo from '@Domain/Entities/Todo';
 import ITodoRepository from '@Domain/Entities/Todo/ITodoRepository';
 import { ASCENDING } from '@Infrastructure/Constants';
 import { UnAuthorizedException } from '@Infrastructure/Exceptions';
-import TodoRepository from '@Infrastructure/Repositories/TodoRepository';
+import Symbols from '@Infrastructure/IoC/Symbols';
 import Pagination from '@Infrastructure/Utils/Pagination';
 import SharedUtils from '@Infrastructure/Utils/SharedUtils';
 import { SortOrder } from '@interfaces/index';
@@ -11,8 +11,8 @@ import { inject, injectable } from 'inversify';
 import { isNil } from 'lodash';
 
 @injectable()
-class TodoService {
-  constructor(@inject(TodoRepository) private readonly repository: ITodoRepository) {}
+class TodoServices {
+  constructor(@inject(Symbols.TodoRepository) private readonly repository: ITodoRepository) {}
 
   async create(data: ITodo) {
     data.uid = SharedUtils.uuid();
@@ -73,4 +73,4 @@ class TodoService {
   }
 }
 
-export default TodoService;
+export default TodoServices;

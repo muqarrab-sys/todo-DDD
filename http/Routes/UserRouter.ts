@@ -1,4 +1,4 @@
-import { UserCreationDto, UserCredentialsDto, UserUpdateDto, UserUpdatePasswordDto } from '@Application/Dto/UserDto';
+import { UserCreationDto, UserCredentialsDto, UserUpdateDto, UserUpdatePasswordDto } from '@Application/User/Dtos';
 import UserController from '@http/Controllers/UserController';
 import Validate from '../Middleware/ValidationMiddleware';
 import BaseRouter from './Base/BaseRouter';

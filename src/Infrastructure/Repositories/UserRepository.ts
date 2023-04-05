@@ -1,5 +1,5 @@
 import IUserRepository from '@Domain/Entities/User/IUserRepository';
-import PrismaDatabase from '@Infrastructure/Database/Prisma/PrismaDatabase';
+import Symbols from '@Infrastructure/IoC/Symbols';
 import { IDatabaseClient } from '@interfaces/IDatabaseClient';
 import { IUser } from '@interfaces/user';
 import { Prisma } from '@prisma/client';
@@ -9,15 +9,15 @@ import { inject, injectable } from 'inversify';
 class UserRepository implements IUserRepository {
   private user: Prisma.UserDelegate<{}>;
 
-  constructor(@inject(PrismaDatabase) private db: IDatabaseClient) {
-    this.user = db.client.user;
+  constructor(@inject(Symbols.PrismaDatabase) private db: IDatabaseClient) {
+    this.user = db.client?.user;
   }
 
   async create(data: IUser) {
     return await this.user.create({ data });
   }
 
-  async find(where) {
+  async find(where: Prisma.UserWhereUniqueInput) {
     return await this.user.findUnique({ where });
   }
 

@@ -1,5 +1,6 @@
 import { PartialBy } from '@interfaces/index';
 import { User } from '@prisma/client';
+import { WhereUniqueQuery } from './IQuery';
 
 export enum GenderEnum {
   MALE = 'male',
@@ -41,3 +42,7 @@ export type GoogleCodeObject = {
 };
 
 export type ReturnableUser = Omit<IUser, 'password' | 'googleId'>;
+
+export interface UserWhereUniqueQuery extends WhereUniqueQuery {
+  email?: string;
+}

@@ -4,12 +4,12 @@ import IUserRepository from '@Domain/Entities/User/IUserRepository';
 import OAuth2 from '@Infrastructure/Auth/Google/OAuth2';
 import JsonWebToken from '@Infrastructure/Auth/JsonWebToken';
 import Configs from '@Infrastructure/Configs';
-import UserRepository from '@Infrastructure/Repositories/UserRepository';
+import Symbols from '@Infrastructure/IoC/Symbols';
 import { inject, injectable } from 'inversify';
 
 @injectable()
 class AuthServices {
-  constructor(@inject(UserRepository) private readonly repository: IUserRepository) {}
+  constructor(@inject(Symbols.UserRepository) private readonly repository: IUserRepository) {}
 
   public generateGoogleAuthUrl() {
     const oAuth2 = new OAuth2(Configs.googleAuth.web);

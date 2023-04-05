@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { assert } from 'chai';
 import { ITodo } from '../../interfaces/todo';
 import Todo from '../../src/Domain/Entities/Todo';
-import TodoService from '../../src/Application/Services/Todo/TodoServices';
+import TodoService from '../../src/Application/Todo/TodoServices';
 import { TodoServices } from '../../src/Infrastructure/IoC/Containers';
 import SharedUtils from '../../src/Infrastructure/Utils/SharedUtils';
 import CreateUser from '../Utils/CreateUser';

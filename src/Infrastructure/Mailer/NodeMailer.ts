@@ -1,13 +1,14 @@
 import Configs from '@Infrastructure/Configs';
-import nodemailer, { Transporter } from 'nodemailer';
-import logger from '../Utils/logger';
+import { Logger } from '@Infrastructure/IoC/Containers';
+import Symbols from '@Infrastructure/IoC/Symbols';
 import { inject, injectable } from 'inversify';
+import nodemailer, { Transporter } from 'nodemailer';
 
 @injectable()
 class NodeMailer {
   private transporter: Transporter;
 
-  constructor(@inject('configs') configs: typeof Configs) {
+  constructor(@inject(Symbols.Configs) configs: typeof Configs) {
     this.transporter = nodemailer.createTransport({
       service: configs.mail.service,
       auth: {
@@ -30,7 +31,7 @@ class NodeMailer {
 
       return info;
     } catch (error) {
-      logger.error(error);
+      Logger.error(error);
     }
   }
 }

@@ -1,4 +1,4 @@
-import { TodoCreationDto, TodoIdDto, TodoSearchDto, TodoUpdateDto } from '@Application/Dto/TodoDto';
+import { TodoCreationDto, TodoIdDto, TodoSearchDto, TodoUpdateDto } from '@Application/Todo/Dtos';
 import TodoController from '@http/Controllers/TodoController';
 import Validate from '../Middleware/ValidationMiddleware';
 import BaseRouter from './Base/BaseRouter';

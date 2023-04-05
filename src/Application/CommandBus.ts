@@ -1,7 +1,7 @@
 import { CommandHandlerMiddleware, ClassNameExtractor, InMemoryLocator, HandleInflector, CommandBus } from 'simple-command-bus';
-import AuthCommandHandlers from './Services/Auth/Handlers';
-import TodoCommandHandlers from './Services/Todo/Handlers';
-import UserCommandHandlers from './Services/User/Handlers';
+import AuthCommandHandlers from './Auth/Handlers';
+import TodoCommandHandlers from './Todo/Handlers';
+import UserCommandHandlers from './User/Handlers';
 
 const handlers = Object.assign({}, AuthCommandHandlers, TodoCommandHandlers, UserCommandHandlers);
 
