@@ -1,4 +1,4 @@
-import { GenderEnum } from '@interfaces/user';
+import { GenderEnum } from '@interfaces/User';
 import { Command } from 'simple-command-bus';
 
 class RegisterUserCommand extends Command {

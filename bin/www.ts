@@ -26,11 +26,10 @@ const { port, env } = program
 
 async function init() {
   const app = new App();
-  const routers = Routes.build();
 
   await onExit(app, Database);
 
-  app.initiateRoutes(routers);
+  app.initiateRoutes(Routes);
   await app.connectDatabase(Database);
   app.setPort(port || process.env.PORT || 8080);
   app.start();

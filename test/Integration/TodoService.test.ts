@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { assert } from 'chai';
-import { ITodo } from '../../interfaces/todo';
+import { ITodo } from '../../interfaces/Todo';
 import Todo from '../../src/Domain/Entities/Todo';
 import TodoService from '../../src/Application/Todo/TodoServices';
 import { TodoServices } from '../../src/Infrastructure/IoC/Containers';

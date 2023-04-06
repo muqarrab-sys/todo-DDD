@@ -5,8 +5,8 @@ import { UnAuthorizedException } from '@Infrastructure/Exceptions';
 import Symbols from '@Infrastructure/IoC/Symbols';
 import Pagination from '@Infrastructure/Utils/Pagination';
 import SharedUtils from '@Infrastructure/Utils/SharedUtils';
-import { SortOrder } from '@interfaces/index';
-import { ITodo, TodoAttributes, TodoOrderByInput, TodoUserInput } from '@interfaces/todo';
+import { SortOrder } from '@interfaces/IQuery';
+import { ITodo, TodoAttributes, TodoOrderByInput, TodoUserInput } from '@interfaces/Todo';
 import { inject, injectable } from 'inversify';
 import { isNil } from 'lodash';
 

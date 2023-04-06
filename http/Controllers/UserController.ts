@@ -1,8 +1,8 @@
 import commandBus from '@Application/CommandBus';
 import { LoginCommand, RegisterUserCommand, UpdatePasswordCommand, UpdateUserProfileCommand } from '@Application/User/Commands';
 import HttpResponse from '@Infrastructure/Utils/HttpResponse';
-import { IHandler } from '@interfaces/index';
-import { GenderEnum, UserCredentialObject, UserInputObject, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/user';
+import { IHandler } from '@interfaces/express/types';
+import { GenderEnum, UserCredentialObject, UserInputObject, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/User';
 
 class UserController {
   public register: IHandler = async req => {

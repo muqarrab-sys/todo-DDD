@@ -1,4 +1,4 @@
-import { TodoCreationObject } from '@interfaces/todo';
+import { TodoCreationObject } from '@interfaces/Todo';
 import { Transform } from 'class-transformer';
 import { IsBoolean, IsDate, IsOptional, IsString } from 'class-validator';
 

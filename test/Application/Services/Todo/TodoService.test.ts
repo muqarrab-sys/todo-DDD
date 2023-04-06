@@ -1,5 +1,5 @@
 import { stub } from 'sinon';
-import { ITodo } from '../../../../interfaces/todo';
+import { ITodo } from '../../../../interfaces/Todo';
 import Todo from '../../../../src/Domain/Entities/Todo';
 import TodoService from '../../../../src/Application/Todo/TodoServices';
 import TodoRepository from '../../../../src/Infrastructure/Repositories/TodoRepository';

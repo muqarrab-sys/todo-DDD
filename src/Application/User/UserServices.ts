@@ -6,7 +6,7 @@ import { NotFoundException, UnAuthorizedException } from '@Infrastructure/Except
 import BadRequestException from '@Infrastructure/Exceptions/BadRequestException';
 import Symbols from '@Infrastructure/IoC/Symbols';
 import SharedUtils from '@Infrastructure/Utils/SharedUtils';
-import { IUser, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/user';
+import { IUser, UserUpdateObject, UserUpdatePasswordObject } from '@interfaces/User';
 import { inject, injectable } from 'inversify';
 
 @injectable()

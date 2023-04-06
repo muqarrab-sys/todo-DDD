@@ -3,11 +3,10 @@ import TodoService from '@Application/Todo/TodoServices';
 import UserService from '@Application/User/UserServices';
 import configs from '@Infrastructure/Configs';
 import PrismaDatabase from '@Infrastructure/Database/Prisma/PrismaDatabase';
-import NodeMailer from '@Infrastructure/Mailer/NodeMailer';
 import TodoRepositoryImpl from '@Infrastructure/Repositories/TodoRepository';
 import UserRepositoryImpl from '@Infrastructure/Repositories/UserRepository';
 import SlackNotifier from '@Infrastructure/Utils/SlackNotifier';
-import { ILogger } from '@interfaces/index';
+import { ILogger, IMailer } from '@interfaces/index';
 import ServicesBinder from './ServicesBinder';
 import Symbols from './Symbols';
 
@@ -20,7 +19,7 @@ export const TodoRepository = container.get<TodoRepositoryImpl>(Symbols.TodoRepo
 export const AuthServices = container.get<AuthService>(Symbols.AuthServices);
 export const UserServices = container.get<UserService>(Symbols.UserServices);
 export const TodoServices = container.get<TodoService>(Symbols.TodoServices);
-export const Mailer = container.get<NodeMailer>(Symbols.NodeMailer);
+export const Mailer = container.get<IMailer>(Symbols.NodeMailer);
 export const Slack = container.get<SlackNotifier>(Symbols.SlackNotifier);
 export const Logger = container.get<ILogger>(Symbols.Logger);
 

@@ -1,7 +1,7 @@
 import IUserRepository from '@Domain/Entities/User/IUserRepository';
 import Symbols from '@Infrastructure/IoC/Symbols';
 import { IDatabaseClient } from '@interfaces/IDatabaseClient';
-import { IUser } from '@interfaces/user';
+import { IUser } from '@interfaces/User';
 import { Prisma } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 

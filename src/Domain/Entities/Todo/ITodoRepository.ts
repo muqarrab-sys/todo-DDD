@@ -1,5 +1,5 @@
 import { IPaginationQuery, WhereUniqueQuery } from '@interfaces/IQuery';
-import { ITodo, TodoOrderByInput, TodoUserInput } from '@interfaces/todo';
+import { ITodo, TodoOrderByInput, TodoUserInput } from '@interfaces/Todo';
 
 export default interface ITodoRepository {
   create: (obj: ITodo) => Promise<ITodo>;

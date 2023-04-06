@@ -1,8 +1,9 @@
 import commandBus from '@Application/CommandBus';
 import { CreateTodoCommand, DeleteTodoCommand, FindManyTodoCommand, FindTodoCommand, UpdateTodoCommand } from '@Application/Todo/Commands';
 import HttpResponse from '@Infrastructure/Utils/HttpResponse';
-import { IdObject, IHandler } from '@interfaces/index';
-import { ITodoSearchObject, TodoCreationObject, TodoUserInput } from '@interfaces/todo';
+import { IHandler } from '@interfaces/express/types';
+import { IdObject } from '@interfaces/index';
+import { ITodoSearchObject, TodoCreationObject, TodoUserInput } from '@interfaces/Todo';
 import { isNil, omitBy } from 'lodash';
 
 class TodoController {

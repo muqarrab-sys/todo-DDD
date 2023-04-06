@@ -1,10 +1,11 @@
-import RegisterUserEvent from '@Application/Events/RegisterUserEvent';
 import User from '@Domain/Entities/User';
 import IUserRepository from '@Domain/Entities/User/IUserRepository';
 import OAuth2 from '@Infrastructure/Auth/Google/OAuth2';
 import JsonWebToken from '@Infrastructure/Auth/JsonWebToken';
 import Configs from '@Infrastructure/Configs';
+import EventNames, { EventEmitter } from '@Infrastructure/Events';
 import Symbols from '@Infrastructure/IoC/Symbols';
+import { IUserCreatedEvent } from '@interfaces/Events';
 import { inject, injectable } from 'inversify';
 
 @injectable()
@@ -40,8 +41,11 @@ class AuthServices {
         }),
       );
 
-      const event = new RegisterUserEvent();
-      event.emit('registerUser', dbUser);
+      EventEmitter.emit<IUserCreatedEvent>(EventNames.UserCreatedEvent, {
+        email: dbUser.email,
+        name: dbUser.name,
+        ocurredAt: new Date(),
+      });
     }
 
     const user = User.createFromDetails(dbUser);

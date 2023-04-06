@@ -1,6 +1,6 @@
 import SharedUtils from '@Infrastructure/Utils/SharedUtils';
-import { SortOrder } from '@interfaces/index';
-import { ITodoSearchObject, TodoAttributes } from '@interfaces/todo';
+import { SortOrder } from '@interfaces/IQuery';
+import { ITodoSearchObject, TodoAttributes } from '@interfaces/Todo';
 import { Transform } from 'class-transformer';
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 

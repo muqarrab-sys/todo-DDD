@@ -1,5 +1,6 @@
-import { IOrderBy, ISearchQuery, PartialBy } from '@interfaces/index';
+import { IOrderBy, ISearchQuery } from '@interfaces/IQuery';
 import { Todo } from '@prisma/client';
+import { PartialBy } from '.';
 
 export interface ITodo extends Todo {
   id: number;

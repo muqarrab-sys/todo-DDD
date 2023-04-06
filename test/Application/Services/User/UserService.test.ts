@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { assert, expect } from 'chai';
 import { stub } from 'sinon';
-import { IUser } from '../../../../interfaces/user';
+import { IUser } from '../../../../interfaces/User';
 import UserServices from '../../../../src/Application/User/UserServices';
 import User from '../../../../src/Domain/Entities/User';
 import UserRepository from '../../../../src/Infrastructure/Repositories/UserRepository';

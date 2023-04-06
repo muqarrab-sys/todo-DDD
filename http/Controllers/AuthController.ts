@@ -1,8 +1,8 @@
 import commandBus from '@Application/CommandBus';
 import { GenerateAuthUrlCommand, GoogleAuthCommand } from '@Application/Auth/Commands';
 import HttpResponse from '@Infrastructure/Utils/HttpResponse';
-import { IHandler } from '@interfaces/index';
-import { GoogleCodeObject } from '@interfaces/user';
+import { IHandler } from '@interfaces/express/types';
+import { GoogleCodeObject } from '@interfaces/User';
 
 class AuthController {
   fetchGoogleAuthUrl: IHandler = async req => {

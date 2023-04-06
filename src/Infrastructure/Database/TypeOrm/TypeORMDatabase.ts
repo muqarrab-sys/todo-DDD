@@ -5,6 +5,7 @@ import { DataSource } from 'typeorm';
 import Configs from '../../Configs';
 import Entities from './Entities';
 import Symbols from '@Infrastructure/IoC/Symbols';
+import { ILogger } from '@interfaces/index';
 
 type DBConfigs = typeof Configs.database;
 
@@ -12,7 +13,7 @@ type DBConfigs = typeof Configs.database;
 class TypeORMDatabase implements IDatabaseClient<DataSource> {
   private orm: DataSource;
 
-  constructor(@inject(Symbols.Configs) readonly configs: typeof Configs) {
+  constructor(@inject(Symbols.Configs) readonly configs: typeof Configs, @inject(Symbols.Logger) private readonly logger: ILogger) {
     this.setup(configs.database);
   }
 
@@ -30,11 +31,11 @@ class TypeORMDatabase implements IDatabaseClient<DataSource> {
 
   async connect() {
     try {
-      Logger.info('Using TypeORM');
+      this.logger.info('Using TypeORM');
       await this.orm.initialize();
-      Logger.info('Database connected: Postgres');
+      this.logger.info('Database connected: Postgres');
     } catch (error) {
-      Logger.error(error);
+      this.logger.error(error);
     }
   }
 

@@ -1,4 +1,4 @@
-import { TodoUserInput } from '@interfaces/todo';
+import { TodoUserInput } from '@interfaces/Todo';
 import { Transform } from 'class-transformer';
 import { IsBoolean, IsDate, IsString } from 'class-validator';
 

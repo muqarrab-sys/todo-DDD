@@ -1,14 +1,15 @@
-import { Logger } from '@Infrastructure/IoC/Containers';
+import Symbols from '@Infrastructure/IoC/Symbols';
 import SharedUtils from '@Infrastructure/Utils/SharedUtils';
 import { IDatabaseClient } from '@interfaces/IDatabaseClient';
+import { ILogger } from '@interfaces/index';
 import { PrismaClient } from '@prisma/client';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 
 @injectable()
 class PrismaDatabase implements IDatabaseClient<PrismaClient> {
   private prisma: PrismaClient;
 
-  constructor() {
+  constructor(@inject(Symbols.Logger) private readonly logger: ILogger) {
     this.prisma = new PrismaClient();
 
     this.initiateMiddleware();
@@ -21,19 +22,19 @@ class PrismaDatabase implements IDatabaseClient<PrismaClient> {
   async connect() {
     try {
       await this.prisma.$connect();
-      Logger.info('Using Prisma');
-      Logger.info('Database Connected: Postgres');
+      this.logger.info('Using Prisma');
+      this.logger.info('Database Connected: Postgres');
     } catch (error) {
-      Logger.error(error);
+      this.logger.error(error);
     }
   }
 
   async disconnect() {
     try {
       await this.prisma.$disconnect();
-      Logger.info('Postgres Disconnected');
+      this.logger.info('Postgres Disconnected');
     } catch (error) {
-      Logger.error(error);
+      this.logger.error(error);
     }
   }
 

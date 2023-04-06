@@ -1,5 +1,4 @@
-import { ITodo } from '@interfaces/todo';
-import { IUser } from '@interfaces/user';
+import { ITodo } from '@interfaces/Todo';
 import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import User from './User';
 

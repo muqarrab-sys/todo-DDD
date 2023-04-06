@@ -1,7 +1,7 @@
 import IUserRepository from '@Domain/Entities/User/IUserRepository';
 import { User } from '@Infrastructure/Database/TypeOrm/Entities';
 import TypeORMDatabase from '@Infrastructure/Database/TypeOrm/TypeORMDatabase';
-import { IUser } from '@interfaces/user';
+import { IUser } from '@interfaces/User';
 import { injectable } from 'inversify';
 import { FindOptionsWhere, Repository } from 'typeorm';
 

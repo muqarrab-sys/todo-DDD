@@ -1,4 +1,4 @@
-import { IUser, UserUpdatePasswordObject } from '@interfaces/user';
+import { IUser, UserUpdatePasswordObject } from '@interfaces/User';
 import { Command } from 'simple-command-bus';
 
 class UpdatePasswordCommand extends Command {

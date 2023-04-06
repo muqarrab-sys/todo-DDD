@@ -1,4 +1,4 @@
-import { IUser, UserWhereUniqueQuery } from '@interfaces/user';
+import { IUser, UserWhereUniqueQuery } from '@interfaces/User';
 
 export default interface IUserRepository {
   create: (obj: Partial<IUser>) => Promise<IUser>;

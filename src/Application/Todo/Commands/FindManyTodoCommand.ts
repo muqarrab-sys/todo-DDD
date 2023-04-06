@@ -1,5 +1,5 @@
-import { ISearchQuery, SortOrder } from '@interfaces/index';
-import { ITodo, TodoFilter } from '@interfaces/todo';
+import { ISearchQuery } from '@interfaces/IQuery';
+import { ITodo, TodoFilter } from '@interfaces/Todo';
 import { Command } from 'simple-command-bus';
 
 class FindManyTodoCommand extends Command {

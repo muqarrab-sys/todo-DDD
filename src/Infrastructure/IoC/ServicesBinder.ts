@@ -5,7 +5,7 @@ import NodeMailer from '@Infrastructure/Mailer/NodeMailer';
 import RepositoryProvider from '@Infrastructure/Repositories/RepositoryProvider';
 import SlackNotifier from '@Infrastructure/Utils/SlackNotifier';
 import logger from '@Infrastructure/Utils/logger';
-import { ILogger } from '@interfaces/index';
+import { ILogger, IMailer } from '@interfaces/index';
 import { Container } from 'inversify';
 import Symbols from './Symbols';
 
@@ -13,7 +13,7 @@ export default function ServicesBinder() {
   let c = new Container({ autoBindInjectable: true });
 
   c.bind<typeof Configs>(Symbols.Configs).toConstantValue(Configs);
-  c.bind<NodeMailer>(Symbols.NodeMailer).to(NodeMailer);
+  c.bind<IMailer>(Symbols.NodeMailer).to(NodeMailer);
   c.bind<SlackNotifier>(Symbols.SlackNotifier).to(SlackNotifier);
   c.bind<ILogger>(Symbols.Logger).toConstantValue(logger);
 

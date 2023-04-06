@@ -3,7 +3,7 @@ import { NotFoundException } from '@Infrastructure/Exceptions';
 import Symbols from '@Infrastructure/IoC/Symbols';
 import { IDatabaseClient } from '@interfaces/IDatabaseClient';
 import { IPaginationQuery } from '@interfaces/IQuery';
-import { ITodo, TodoOrderByInput, TodoUserInput } from '@interfaces/todo';
+import { ITodo, TodoOrderByInput, TodoUserInput } from '@interfaces/Todo';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 

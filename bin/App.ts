@@ -1,16 +1,17 @@
 import { Logger } from '@Infrastructure/IoC/Containers';
 import BaseRouter from '@http/Routes/Base/BaseRouter';
-import BaseApp from '@interfaces/BaseApp';
 import { HttpStatusCode } from '@interfaces/HttpInterfaces';
-import { IDatabaseClient } from '@interfaces/index';
+import { IApplication, IDatabaseClient } from '@interfaces/index';
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
+import { Server } from 'http';
 
-class App extends BaseApp {
+class App implements IApplication {
   private app: express.Application;
+  private port: number | string;
+  private server: Server;
 
   constructor() {
-    super();
     this.app = express();
 
     this.applyMiddleware();
@@ -47,9 +48,9 @@ class App extends BaseApp {
     await database.connect();
   }
 
-  public initiateRoutes(routers: Array<BaseRouter>) {
-    routers.forEach(router => {
-      this.app.use('/api', router.getRoutes);
+  public initiateRoutes(routers: Array<{ new (): BaseRouter }>) {
+    routers.forEach(Router => {
+      this.app.use('/api', new Router().getRoutes);
     });
 
     this.handleErrorResponse();

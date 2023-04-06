@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { expect } from 'chai';
 import { validate } from 'class-validator';
-import { GenderEnum } from '../../../interfaces/user';
+import { GenderEnum } from '../../../interfaces/User';
 import { UserCreationDto, UserCredentialsDto, UserUpdateDto, UserUpdatePasswordDto } from '../../../src/Application/User/Dtos';
 
 describe('User Validation', () => {

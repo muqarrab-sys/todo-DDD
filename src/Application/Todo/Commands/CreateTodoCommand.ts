@@ -1,4 +1,4 @@
-import { IUser } from '@interfaces/user';
+import { IUser } from '@interfaces/User';
 import { Command } from 'simple-command-bus';
 
 class CreateTodoCommand extends Command {

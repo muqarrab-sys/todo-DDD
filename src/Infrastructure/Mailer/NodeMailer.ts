@@ -1,14 +1,14 @@
 import Configs from '@Infrastructure/Configs';
-import { Logger } from '@Infrastructure/IoC/Containers';
 import Symbols from '@Infrastructure/IoC/Symbols';
+import { ILogger, IMailer, ISendMail } from '@interfaces/index';
 import { inject, injectable } from 'inversify';
 import nodemailer, { Transporter } from 'nodemailer';
 
 @injectable()
-class NodeMailer {
+class NodeMailer implements IMailer {
   private transporter: Transporter;
 
-  constructor(@inject(Symbols.Configs) configs: typeof Configs) {
+  constructor(@inject(Symbols.Configs) configs: typeof Configs, @inject(Symbols.Logger) private readonly logger: ILogger) {
     this.transporter = nodemailer.createTransport({
       service: configs.mail.service,
       auth: {
@@ -18,7 +18,7 @@ class NodeMailer {
     });
   }
 
-  async send(opts: { to: string | Array<string>; subject: string; template?: string; body?: string; attachments?: any }) {
+  async send(opts: ISendMail) {
     try {
       const info = await this.transporter.sendMail({
         from: Configs.mail.from,
@@ -31,7 +31,7 @@ class NodeMailer {
 
       return info;
     } catch (error) {
-      Logger.error(error);
+      this.logger.error(error);
     }
   }
 }

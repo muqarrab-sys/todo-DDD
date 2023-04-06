@@ -1,4 +1,4 @@
-import { IUser } from '@interfaces/user';
+import { IUser } from '@interfaces/User';
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import Todo from './Todo';
 

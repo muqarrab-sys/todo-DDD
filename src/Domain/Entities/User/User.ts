@@ -1,4 +1,4 @@
-import { GenderEnum, IUser, ReturnableUser, UserInput } from '@interfaces/user';
+import { GenderEnum, IUser, ReturnableUser, UserInput } from '@interfaces/User';
 
 class User implements IUser {
   id: number;
@@ -50,17 +50,21 @@ class User implements IUser {
   }
 
   static create(obj: UserInput) {
+    if (obj.name.trim().length === 0) {
+      throw new Error('Name cannot be empty');
+    }
+
     return new User(
-      obj?.id,
-      obj?.uid,
-      obj?.name,
+      obj.id,
+      obj.uid,
+      obj.name,
       obj.email,
-      obj?.password,
-      obj?.gender as GenderEnum,
-      obj?.dob,
-      obj?.googleId,
-      obj?.createdAt,
-      obj?.updatedAt,
+      obj.password,
+      obj.gender as GenderEnum,
+      obj.dob,
+      obj.googleId,
+      obj.createdAt,
+      obj.updatedAt,
     );
   }
 

@@ -1,4 +1,4 @@
-import { UserUpdatePasswordObject } from '@interfaces/user';
+import { UserUpdatePasswordObject } from '@interfaces/User';
 import { IsString, Length } from 'class-validator';
 
 export default class UserUpdatePasswordDto implements UserUpdatePasswordObject {

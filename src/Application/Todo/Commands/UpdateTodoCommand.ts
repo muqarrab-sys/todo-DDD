@@ -1,4 +1,4 @@
-import { TodoUserInput } from '@interfaces/todo';
+import { TodoUserInput } from '@interfaces/Todo';
 import { Command } from 'simple-command-bus';
 
 class UpdateTodoCommand extends Command {

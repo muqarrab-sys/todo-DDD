@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { ReturnableUser } from '../../interfaces/user';
+import { ReturnableUser } from '../../interfaces/User';
 import User from '../../src/Domain/Entities/User';
 import { UserServices } from '../../src/Infrastructure/IoC/Containers';
 

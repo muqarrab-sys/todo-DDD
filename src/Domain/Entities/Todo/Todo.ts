@@ -1,4 +1,4 @@
-import { ITodo } from '@interfaces/todo';
+import { ITodo } from '@interfaces/Todo';
 
 class Todo implements ITodo {
   id: number;

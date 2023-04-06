@@ -1,4 +1,4 @@
-import { GenderEnum, IUser, UserUpdateObject } from '@interfaces/user';
+import { GenderEnum, IUser, UserUpdateObject } from '@interfaces/User';
 import { Command } from 'simple-command-bus';
 
 class UpdateUserProfileCommand extends Command {

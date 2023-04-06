@@ -1,4 +1,4 @@
-import { GenderEnum, UserUpdateObject } from '@interfaces/user';
+import { GenderEnum, UserUpdateObject } from '@interfaces/User';
 import { Type } from 'class-transformer';
 import { IsDate, IsEnum, IsOptional, IsString } from 'class-validator';
 
