@@ -13,9 +13,9 @@ export default function ServicesBinder() {
   let c = new Container({ autoBindInjectable: true });
 
   c.bind<typeof Configs>(Symbols.Configs).toConstantValue(Configs);
+  c.bind<ILogger>(Symbols.Logger).toConstantValue(logger);
   c.bind<IMailer>(Symbols.NodeMailer).to(NodeMailer);
   c.bind<SlackNotifier>(Symbols.SlackNotifier).to(SlackNotifier);
-  c.bind<ILogger>(Symbols.Logger).toConstantValue(logger);
 
   c = DatabaseProvider(c);
   c = RepositoryProvider(c);

@@ -1,5 +1,5 @@
 import { Logger } from '@Infrastructure/IoC/Containers';
-import PassportJwtAuth from '@http/Middleware/PassportJwtAuth';
+import JwtAuth from '@http/Middleware/JwtAuth';
 import ResponseHandler, { HandlerCallback } from '@http/Middleware/ResponseHandler';
 import { RequestHandler, Router } from 'express';
 
@@ -17,7 +17,7 @@ abstract class BaseRouter<T = any> {
 
     this.routes();
 
-    this.appliedMiddleware = [PassportJwtAuth()];
+    this.appliedMiddleware = [JwtAuth()];
     this.protectedRoutes();
   }
 
