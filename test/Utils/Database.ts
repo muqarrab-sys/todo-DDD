@@ -1,10 +1,11 @@
 import PrismaDatabase from '../../src/Infrastructure/Database/Prisma/PrismaDatabase';
+import { Database } from '../../src/Infrastructure/IoC/Containers';
 
-class Database {
+class MockDatabase {
   private dbClient: PrismaDatabase;
 
   constructor() {
-    this.dbClient = new PrismaDatabase();
+    this.dbClient = Database;
   }
 
   async connect() {
@@ -20,4 +21,4 @@ class Database {
   }
 }
 
-export default Database;
+export default MockDatabase;
