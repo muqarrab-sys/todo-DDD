@@ -76,8 +76,9 @@ class App implements IApplication {
       Logger.error(err);
 
       const code = err.httpCode || HttpStatusCode.INTERNAL_SERVER;
+      const message = `Oops, looks like something went wrong on our end, we are really sorry for the inconvenience, please try again a bit later or contact us the problem still persists!`;
 
-      res.status(code).json({ success: false, error: err.name, message: err.message });
+      res.status(code).json({ success: false, message });
     });
   }
 }

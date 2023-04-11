@@ -2,18 +2,18 @@ import IUserRepository from '@Domain/Entities/User/IUserRepository';
 import Symbols from '@Infrastructure/IoC/Symbols';
 import { IDatabaseClient } from '@interfaces/IDatabaseClient';
 import { IUser } from '@interfaces/User';
-import { Prisma } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 
 @injectable()
 class UserRepository implements IUserRepository {
   private user: Prisma.UserDelegate<{}>;
 
-  constructor(@inject(Symbols.PrismaDatabase) private db: IDatabaseClient) {
+  constructor(@inject(Symbols.PrismaDatabase) private db: IDatabaseClient<PrismaClient>) {
     this.user = db.client?.user;
   }
 
-  async create(data: IUser) {
+  async save(data: IUser) {
     return await this.user.create({ data });
   }
 
@@ -31,6 +31,10 @@ class UserRepository implements IUserRepository {
         password: user.password,
       },
     });
+  }
+
+  async count(where?: Prisma.UserWhereInput) {
+    return this.user.count({ where });
   }
 
   async delete(uid: string) {

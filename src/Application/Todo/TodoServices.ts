@@ -17,7 +17,7 @@ class TodoServices {
   async create(data: ITodo) {
     data.uid = SharedUtils.uuid();
 
-    const todo = await this.repository.create(data);
+    const todo = await this.repository.save(data);
 
     return Todo.createFromDetails(todo);
   }

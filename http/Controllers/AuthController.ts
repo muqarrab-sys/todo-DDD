@@ -1,14 +1,14 @@
-import commandBus from '@Application/CommandBus';
 import { GenerateAuthUrlCommand, GoogleAuthCommand } from '@Application/Auth/Commands';
-import HttpResponse from '@Infrastructure/Utils/HttpResponse';
-import { IHandler } from '@interfaces/express/types';
+import commandBus from '@Application/CommandBus';
 import { GoogleCodeObject } from '@interfaces/User';
+import { IHandler } from '@interfaces/express/types';
+import BaseController from './Base/BaseController';
 
-class AuthController {
+class AuthController extends BaseController {
   fetchGoogleAuthUrl: IHandler = async req => {
     const response = commandBus.handle(new GenerateAuthUrlCommand());
 
-    return HttpResponse.ok(response);
+    return this.ok(response);
   };
 
   googleAuth: IHandler = async req => {
@@ -17,7 +17,7 @@ class AuthController {
     const command = GoogleAuthCommand.create(data.code);
     const response = await commandBus.handle(command);
 
-    return HttpResponse.ok(response);
+    return this.ok(response);
   };
 }
 

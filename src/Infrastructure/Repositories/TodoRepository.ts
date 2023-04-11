@@ -12,12 +12,12 @@ class TodoRepository implements ITodoRepository {
   private todo: Prisma.TodoDelegate<{}>;
   private client: PrismaClient;
 
-  constructor(@inject(Symbols.PrismaDatabase) private db: IDatabaseClient) {
+  constructor(@inject(Symbols.PrismaDatabase) private db: IDatabaseClient<PrismaClient>) {
     this.client = db.client;
     this.todo = this.client?.todo;
   }
 
-  async create(data: ITodo) {
+  async save(data: ITodo) {
     return await this.todo.create({ data });
   }
 

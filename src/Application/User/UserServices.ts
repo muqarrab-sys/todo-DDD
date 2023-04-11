@@ -21,7 +21,7 @@ class UserServices {
 
     data.uid = SharedUtils.uuid();
 
-    dbUser = await this.repository.create(data);
+    dbUser = await this.repository.save(data);
 
     const user = User.createFromDetails(dbUser);
     const token = JsonWebToken.encode({ sub: user.uid });

@@ -4,9 +4,9 @@ declare module 'simple-command-bus' {
   export class CommandBus {
     constructor(commandHandlerMiddleware: CommandHandlerMiddleware);
 
-    getMiddlewareStack();
+    getMiddlewareStack(): CommandHandlerMiddleware[];
 
-    handle(command: Command): any;
+    handle<T = any>(command: Command): T;
   }
 
   export class CommandHandlerMiddleware {
